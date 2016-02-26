@@ -46,8 +46,9 @@ study more on biojava analysis tools
 	</div>
 	<div class="container-fluid white-background">
 		<!-- form -->
-		<form action="submitSequence.do" method="post" class="text-center">
-			<input type="text" name="sequence" value="<c:out value="${sequence}" default=""/>"/>
+		<form action="submitSequence.do" method="post" class="text-center" id="sequenceForm">
+			<textarea name="sequence" rows="4" cols="50"><c:out value="${oldSequence}" default=""/></textarea>
+			<!-- <input type="text" name="sequence" value="<c:out value="${sequence}" default=""/>"/> -->
 			<input type="submit" value="Submit!" />
 		</form>
 		<c:if test="${not empty sequence}">

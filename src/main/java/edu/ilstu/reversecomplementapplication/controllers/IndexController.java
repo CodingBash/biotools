@@ -35,6 +35,7 @@ public class IndexController
 
 		if (sequence != null)
 		{
+			model.addAttribute("oldSequence", sequence.toString());
 			try
 			{
 				sequence = new DNASequence(sequence.getReverseComplement().getSequenceAsString());
@@ -47,6 +48,7 @@ public class IndexController
 		} else
 		{
 			model.addAttribute("sequence", null);
+			model.addAttribute("oldSequence", null);
 		}
 		return "index";
 	}
