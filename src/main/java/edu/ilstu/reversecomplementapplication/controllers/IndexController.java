@@ -35,9 +35,14 @@ public class IndexController
 
 		if (sequence != null)
 		{
-			/* Is this in another biojava dependency? */
-			SymbolList syml = DNATools.createDNA("acatataatgaga");
-			sequence = DNATools.reverseComplement(sequence);
+			try
+			{
+				sequence = new DNASequence(sequence.getReverseComplement().getSequenceAsString());
+			} catch (CompoundNotFoundException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			model.addAttribute("sequence", sequence.toString());
 		} else
 		{

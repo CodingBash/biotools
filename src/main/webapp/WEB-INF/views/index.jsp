@@ -47,12 +47,12 @@ study more on biojava analysis tools
 	<div class="container-fluid white-background">
 		<!-- form -->
 		<form action="submitSequence.do" method="post" class="text-center">
-			<input type="text" name="sequence" />
+			<input type="text" name="sequence" value="<c:out value="${sequence}" default=""/>"/>
 			<input type="submit" value="Submit!" />
 		</form>
 		<c:if test="${not empty sequence}">
-			<div class="result">
-				<h3>Your sequence is</h3>
+			<div class="result text-center">
+				<h3>The reverse complement is</h3>
 				<p>
 					<c:out value="${sequence}" />
 				</p>
