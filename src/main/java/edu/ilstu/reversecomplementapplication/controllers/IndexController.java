@@ -1,5 +1,10 @@
 package edu.ilstu.reversecomplementapplication.controllers;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
+
 import org.biojava.nbio.core.exceptions.CompoundNotFoundException;
 import org.biojava.nbio.core.sequence.DNASequence;
 import org.slf4j.Logger;
@@ -50,6 +55,29 @@ public class IndexController
 			model.addAttribute("sequence", null);
 			model.addAttribute("oldSequence", null);
 		}
+		return "index";
+	}
+
+	@RequestMapping(value = "/saveSequence.do", method = RequestMethod.POST)
+	public String saveSequence(@RequestParam("sequence") String stringSequence, Model model, HttpSession session)
+	{
+		List<DNASequence> sequenceContainer = (LinkedList<DNASequence>) session.getAttribute("sequenceContainer");
+		if (sequenceContainer == null)
+		{
+			sequenceContainer = new LinkedList<DNASequence>();
+		}
+		DNASequence sequence = null;
+		try
+		{
+			sequence = new DNASequence(stringSequence);
+		} catch (CompoundNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+
+		sequenceContainer.add(sequence);
+		session.setAttribute("sequenceContainer", sequenceContainer);
+		model.addAttribute("sequenceContainer", sequenceContainer);
 		return "index";
 	}
 }

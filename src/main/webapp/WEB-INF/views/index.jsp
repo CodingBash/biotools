@@ -6,6 +6,10 @@ Spring mvc form tags
 spring form object and validation
 biojava DNA reverse complement
 study more on biojava analysis tools
+
+why does two textareas switch automatically?
+Dont show replace when there is no reverse component
+Dont have two columns when there is no 
  -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -15,7 +19,7 @@ study more on biojava analysis tools
 <link href="<c:url value="resources/custom/css/style.css" />" rel="stylesheet" />
 <title>Reverse Complement Application</title>
 </head>
-<body class="grey-background">
+<body class="white-background">
 	<div class="navbar navbar-default">
 		<div class="container">
 			<div class="navbar-header pull-left">
@@ -39,26 +43,50 @@ study more on biojava analysis tools
 		<h1 class="text-center">Reverse Complement Tool</h1>
 		<h2 class="text-center">Compute the reverse complement of a nucleotide sequence</h2>
 		<h3 class="text-center">See other tools here</h3>
-		<button class="btn center-block header-btn" href="#">Tools</button>
+		<button class="btn center-block header-btn">Tools</button>
 	</div>
 	<div class="container-fluid white-background">
-		<h2 class="text-center">Paste your sequence into the field and press submit</h2>
-	</div>
-	<div class="container-fluid white-background">
-		<!-- form -->
-		<form action="submitSequence.do" method="post" class="text-center" id="sequenceForm">
-			<textarea name="sequence" rows="4" cols="50"><c:out value="${oldSequence}" default=""/></textarea>
-			<!-- <input type="text" name="sequence" value="<c:out value="${sequence}" default=""/>"/> -->
-			<input type="submit" value="Submit!" />
-		</form>
-		<c:if test="${not empty sequence}">
-			<div class="result text-center">
-				<h3>The reverse complement is</h3>
-				<p>
-					<c:out value="${sequence}" />
-				</p>
+		<div class="row">
+			<div class="col-md-6">
+				<h2 class="text-center title">Paste your sequence into the field and press submit</h2>
+				<!-- form -->
+				<form action="submitSequence.do" method="post" class="text-center form-horizontal"
+					id="sequenceForm" role="form">
+					<div class="form-group">
+						<label for="sequence-input" class="sr-only control-label">Sequence</label>
+						<textarea name="sequence" rows="20" cols="75" id="sequence-input"><c:out
+								value="${oldSequence}" default="" /></textarea>
+						<!-- <input type="text" name="sequence" value="<c:out value="${sequence}" default=""/>"/> -->
+					</div>
+					<button type="submit" class="btn btn-default">Submit</button>
+				</form>
+				<button class="btn btn-default center-block" id="copy-analyzed">Replace</button>
+				<button class="btn btn-default center-block" id="save-sequence">Save</button>
 			</div>
-		</c:if>
+			<c:if test="${not empty sequence}">
+				<div class="col-md-6">
+					<div class="result text-center">
+						<h2 class="title">The reverse complement is</h2>
+						<p id="sequence">
+							<textarea name="sequence-holder" rows="20" cols="75" readonly>${sequence}</textarea>
+						</p>
+					</div>
+				</div>
+			</c:if>
+		</div>
 	</div>
+	<div class="container-fluid white-background">
+		<c:forEach items="${sequenceContainer}" var="sequence">
+			${sequence} <br />
+		</c:forEach>
+
+
+
+
+	</div>
+	<!-- scripts -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="<c:url value="/resources/custom/js/script.js"/>"></script>
+	<script src="<c:url value="/resources/bootstrap/js/bootstrap.js"/>"></script>
 </body>
 </html>
