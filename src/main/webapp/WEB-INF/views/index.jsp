@@ -76,9 +76,21 @@ Dont have two columns when there is no
 		</div>
 	</div>
 	<div class="container-fluid white-background">
-		<c:forEach items="${sequenceContainer}" var="sequence">
-			${sequence} <br />
-		</c:forEach>
+		<table class="table table-hover table-striped">
+			<tr>
+				<th>Sequence #</th>
+				<th>Sequence</th>
+			</tr>
+			<c:forEach items="${sequenceContainer}" var="sequence" varStatus="iterator">
+				<tr>
+					<td>#${iterator.index + 1}</td>
+					<td>${sequence}</td>
+				</tr>
+			</c:forEach>
+
+		</table>
+
+
 
 
 
