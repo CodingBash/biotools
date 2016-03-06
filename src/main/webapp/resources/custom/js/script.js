@@ -13,18 +13,29 @@ $(document).ready(function() {
 
 	/**
 	 * When clicked, submit an HTTP Post request to save sequence in textarea to
-	 * server under the url /submitSequence.do
+	 * server under the URL /submitSequence.do
 	 */
-	$("#save-sequence").click(function() {
+	$("#sequence-save").click(function() {
 		nonAjaxPostRequest("saveSequence.do", "post", {
 			"sequence" : $("#sequence-input").val().trim()
 		});
 	});
 
 	/**
+	 * When clicked, submit an HTTP Post request to delete sequence in
+	 * server under the URL /deleteSequence.do
+	 */
+	$(".sequence-delete").click(function(){
+		alert(($(this).attr("value")));
+		nonAjaxPostRequest("deleteSequence.do", "post", {
+			"index" : parseInt($(this).attr("value"))
+		});
+	});
+	
+	/**
 	 * Submit a non AJAX post request
 	 * 
-	 * @author Tidied Darin
+	 * @author Tidied Darin via Stack Overflow
 	 */
 	function nonAjaxPostRequest(action, method, input) {
 		'use strict';

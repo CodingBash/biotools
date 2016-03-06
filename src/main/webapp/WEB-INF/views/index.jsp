@@ -61,7 +61,7 @@ Dont have two columns when there is no
 					<button type="submit" class="btn btn-default">Submit</button>
 				</form>
 				<button class="btn btn-default center-block" id="copy-analyzed">Replace</button>
-				<button class="btn btn-default center-block" id="save-sequence">Save</button>
+				<button class="btn btn-default center-block" id="sequence-save">Save</button>
 			</div>
 			<c:if test="${not empty sequence}">
 				<div class="col-md-6">
@@ -80,14 +80,19 @@ Dont have two columns when there is no
 			<tr>
 				<th>Sequence #</th>
 				<th>Sequence</th>
+				<th></th>
+				<th></th>
 			</tr>
-			<c:forEach items="${sequenceContainer}" var="sequence" varStatus="iterator">
-				<tr>
-					<td>#${iterator.index + 1}</td>
-					<td>${sequence}</td>
-				</tr>
-			</c:forEach>
-
+			<c:if test="${not empty container}">
+				<c:forEach items="${container}" var="sequenceItem" varStatus="iterator">
+					<tr>
+						<td>#${iterator.index + 1}</td>
+						<td>${sequenceItem}</td>
+						<td><button class="btn btn-info sequence-edit" value="${iterator.index}">EDIT</button></td>
+						<td><button class="btn btn-danger sequence-delete" value="${iterator.index}">DELETE</button></td>
+					</tr>
+				</c:forEach>
+			</c:if>
 		</table>
 
 
@@ -98,7 +103,7 @@ Dont have two columns when there is no
 	</div>
 	<!-- scripts -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-	<script src="<c:url value="/resources/custom/js/script.js"/>"></script>
 	<script src="<c:url value="/resources/bootstrap/js/bootstrap.js"/>"></script>
+	<script src="<c:url value="/resources/custom/js/script.js"/>"></script>
 </body>
 </html>

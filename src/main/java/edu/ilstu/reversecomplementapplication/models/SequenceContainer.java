@@ -10,6 +10,11 @@ public class SequenceContainer
 {
 	private List<AbstractSequence<NucleotideCompound>> sequenceContainer;
 
+	public SequenceContainer(List<AbstractSequence<NucleotideCompound>> sequenceContainer)
+	{
+		this.setSequenceContainer(sequenceContainer);
+	}
+
 	public List<AbstractSequence<NucleotideCompound>> getSequenceContainer()
 	{
 		return sequenceContainer;
@@ -25,6 +30,11 @@ public class SequenceContainer
 		sequenceContainer.add(sequence);
 	}
 
+	public void insertSequenceToContainer(int index, AbstractSequence<NucleotideCompound> sequence)
+	{
+		sequenceContainer.add(index, sequence);
+	}
+
 	public void removeSequenceInContainer(int index)
 	{
 		sequenceContainer.remove(index);
@@ -38,6 +48,12 @@ public class SequenceContainer
 	public void removeFirstSequenceInContainer()
 	{
 		sequenceContainer.remove(0);
+	}
+
+	public void editSequenceInContainer(int index, AbstractSequence<NucleotideCompound> sequence)
+	{
+		this.removeSequenceInContainer(index);
+		this.insertSequenceToContainer(index, sequence);
 	}
 
 }
