@@ -85,11 +85,13 @@ Dont have two columns when there is no
 			</tr>
 			<c:if test="${not empty container}">
 				<c:forEach items="${container}" var="sequenceItem" varStatus="iterator">
-					<tr>
-						<td>#${iterator.index + 1}</td>
-						<td>${sequenceItem}</td>
-						<td><button class="btn btn-info sequence-edit" value="${iterator.index}">EDIT</button></td>
-						<td><button class="btn btn-danger sequence-delete" value="${iterator.index}">DELETE</button></td>
+					<tr class="sequence-element" value="${iterator.index}">
+						<td class="sequence-count">#${iterator.index + 1}</td>
+						<td class="sequence-string">${sequenceItem}</td>
+						<td class="edit-button"><button class="btn btn-info sequence-edit"
+								value="${iterator.index}">EDIT</button></td>
+						<td class="delete-button"><button class="btn btn-danger sequence-delete"
+								value="${iterator.index}">DELETE</button></td>
 					</tr>
 				</c:forEach>
 			</c:if>
