@@ -36,10 +36,12 @@ $(document)
 						});
 					});
 
+					/**
+					 * 
+					 */
 					$(".sequence-edit")
 							.click(
 									function() {
-										alert("CLICKED!");
 										var trElement = $(this).parents(
 												".sequence-element");
 
@@ -58,7 +60,33 @@ $(document)
 												+ value + "\"/>" + "</form>";
 										trElement.children(".sequence-string")
 												.html(innerHtml);
-									})
+
+										var innerHtml_2 = "<button class=\"btn btn-info edit-submit\">SUBMIT</button>";
+										trElement.children(".edit-button")
+												.html(innerHtml_2);
+
+										var innerHtml_3 = "<button class=\"btn btn-warning cancel\">CANCEL</button>";
+										trElement.children(".delete-button")
+												.html(innerHtml_3);
+									});
+
+					/**
+					 * 
+					 */
+					$(".edit-submit").click(
+							function() {
+								alert("CLICKED");
+								$(this).parents(".sequence-element").children(
+										".sequence-string").children("form")
+										.submit();
+							});
+
+					/**
+					 * 
+					 */
+					$(".cancel").click(function() {
+						
+					});
 					/**
 					 * Submit a non AJAX post request
 					 * 
