@@ -30,7 +30,7 @@ $(document)
 					 * SUBMIT THE FORM
 					 */
 					$("#sequenceForm-submit").click(function() {
-						$("#sequenceForm").submit();
+						$("form#sequenceForm").submit();
 					});
 
 					/**
