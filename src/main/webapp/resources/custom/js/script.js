@@ -15,6 +15,10 @@ $(document)
 										$("#sequence textarea").val().trim());
 							});
 
+					$("#sequenceForm-submit").click(function() {
+						$("#sequenceForm").submit();
+					});
+
 					/**
 					 * When clicked, submit an HTTP Post request to save
 					 * sequence in textarea to server under the URL

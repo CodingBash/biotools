@@ -58,21 +58,27 @@ Dont have two columns when there is no
 								value="${oldSequence}" default="" /></textarea>
 						<!-- <input type="text" name="sequence" value="<c:out value="${sequence}" default=""/>"/> -->
 					</div>
-					<button type="submit" class="btn btn-default">Submit</button>
 				</form>
+			</div>
+			<div class="col-md-6">
+				<div class="result text-center">
+					<h2 class="title">The reverse complement is</h2>
+					<p id="sequence">
+						<textarea name="sequence-holder" rows="20" cols="75" readonly>${sequence}</textarea>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<button class="btn btn-default center-block" id="sequenceForm-submit">Submit</button>
+			</div>
+			<div class="col-md-4">
 				<button class="btn btn-default center-block" id="copy-analyzed">Replace</button>
+			</div>
+			<div class="col-md-4">
 				<button class="btn btn-default center-block" id="sequence-save">Save</button>
 			</div>
-			<c:if test="${not empty sequence}">
-				<div class="col-md-6">
-					<div class="result text-center">
-						<h2 class="title">The reverse complement is</h2>
-						<p id="sequence">
-							<textarea name="sequence-holder" rows="20" cols="75" readonly>${sequence}</textarea>
-						</p>
-					</div>
-				</div>
-			</c:if>
 		</div>
 	</div>
 	<div class="container-fluid white-background">
