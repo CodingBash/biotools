@@ -6,8 +6,19 @@ $(document)
 				function() {
 
 					/**
-					 * When clicked, copy the sequence in the result textarea to
-					 * the main input textarea
+					 * Holds the index of the \<tr\> element to pass to the
+					 * modal delete button
+					 */
+					var deleteIndexHolder = null;
+
+					/**
+					 * Holds the \<tr\> element to insert back in if the user
+					 * presses cancel when editing
+					 */
+					var holder = null;
+
+					/**
+					 * COPY THE RESULT TO THE FORM TEXTAREA
 					 */
 					$("#copy-analyzed").click(
 							function() {
@@ -15,14 +26,15 @@ $(document)
 										$("#sequence textarea").val().trim());
 							});
 
+					/**
+					 * SUBMIT THE FORM
+					 */
 					$("#sequenceForm-submit").click(function() {
 						$("#sequenceForm").submit();
 					});
 
 					/**
-					 * When clicked, submit an HTTP Post request to save
-					 * sequence in textarea to server under the URL
-					 * /submitSequence.do
+					 * SAVE THE SEQUENCE
 					 */
 					$("#sequence-save").click(function() {
 						nonAjaxPostRequest("saveSequence.do", "post", {
@@ -30,18 +42,31 @@ $(document)
 						});
 					});
 
+					$(function() {
+						$(document).on(
+								"click",
+								".delete-modal-appearance",
+								function() {
+									deleteIndexHolder = $(this).parents(
+											".sequence-element").attr("value");
+								});
+					});
+
 					/**
-					 * When clicked, submit an HTTP Post request to delete
-					 * sequence in server under the URL /deleteSequence.do
+					 * DELETE THE SEQUENCE
 					 */
 					$(function() {
 						$(document).on("click", ".sequence-delete", function() {
 							nonAjaxPostRequest("deleteSequence.do", "post", {
-								"index" : parseInt($(this).attr("value"))
+								"index" : parseInt(deleteIndexHolder)
 							});
+							deleteIndexHolder = null;
 						});
 					});
-					var holder = null;
+
+					/**
+					 * INITIATE THE EDIT
+					 */
 					$(function() {
 						$(document)
 								.on(
@@ -87,7 +112,7 @@ $(document)
 										});
 					});
 					/**
-					 * 
+					 * SUBMIT THE EDIT CHANGES
 					 */
 					$(function() {
 						$(document).on(
@@ -100,8 +125,9 @@ $(document)
 									holder = null;
 								});
 					});
+
 					/**
-					 * 
+					 * CANCEL THE EDIT
 					 */
 					$(function() {
 						$(document).on(

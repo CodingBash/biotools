@@ -45,6 +45,21 @@ Dont have two columns when there is no
 		<h3 class="text-center">See other tools here</h3>
 		<button class="btn center-block header-btn">Tools</button>
 	</div>
+	<div id="modal-delete-confirmation" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content -->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="title modal-title">Are you sure you want to delete?</h4>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger sequence-delete" data-dismiss="modal">Delete</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
 	<div class="container-fluid white-background">
 		<div class="row">
 			<div class="col-md-6">
@@ -89,15 +104,16 @@ Dont have two columns when there is no
 				<th></th>
 				<th></th>
 			</tr>
+			<!-- TODO: Add type="button" to all buttons -->
 			<c:if test="${not empty container}">
 				<c:forEach items="${container}" var="sequenceItem" varStatus="iterator">
 					<tr class="sequence-element" value="${iterator.index}">
 						<td class="sequence-count">#${iterator.index + 1}</td>
 						<td class="sequence-string">${sequenceItem}</td>
-						<td class="edit-button"><button class="btn btn-info sequence-edit"
-								value="${iterator.index}">EDIT</button></td>
-						<td class="delete-button"><button class="btn btn-danger sequence-delete"
-								value="${iterator.index}">DELETE</button></td>
+						<td class="edit-button"><button type="button" class="btn btn-info sequence-edit">EDIT</button></td>
+						<td class="delete-button">
+							<button type="button" class="btn btn-danger delete-modal-appearance" data-toggle="modal"
+								data-target="#modal-delete-confirmation">DELETE</button>
 					</tr>
 				</c:forEach>
 			</c:if>
