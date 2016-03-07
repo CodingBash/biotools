@@ -59,9 +59,11 @@ body {
 	box-shadow: 2px 2px 5px rgba(0, 0, 0, .5);
 	transform: scale(1.05);
 }
+
 button {
 	display: inline;
 }
+
 .jumbotron {
 	/*
 	border-top: 1px solid #2980b9;
@@ -82,10 +84,15 @@ button {
 	padding: 0px;
 }
 
-h2.title{
+h2.title {
 	height: 70px;
 }
+
 textarea {
 	resize: both;
 	overflow: auto;
+}
+
+.padded {
+	margin: 25px auto !important;
 }

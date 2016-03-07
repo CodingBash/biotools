@@ -97,15 +97,13 @@ Dont have two columns when there is no
 				</div>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-md-4">
-				<button class="btn btn-default center-block" id="sequenceForm-submit">Submit</button>
-			</div>
-			<div class="col-md-4">
-				<button class="btn btn-default center-block" id="copy-analyzed">Replace</button>
-			</div>
-			<div class="col-md-4">
-				<button class="btn btn-default center-block" id="sequence-save">Save</button>
+		<div class="row padded">
+			<div class="col-md-12">
+				<div class="btn-group btn-group-justified">
+					<button class="btn btn-primary" id="sequenceForm-submit">Submit</button>
+					<button class="btn btn-primary" id="copy-analyzed">Replace</button>
+					<button class="btn btn-primary" id="sequence-save">Save</button>
+				</div>
 			</div>
 		</div>
 	</div>
