@@ -18,6 +18,17 @@ Dont have two columns when there is no
 <link href="<c:url value="resources/bootstrap/css/bootstrap.min.css"/>" rel="stylesheet" />
 <link href="<c:url value="resources/custom/css/style.css" />" rel="stylesheet" />
 <title>Reverse Complement Application</title>
+<script>
+	if (window.location.href.indexOf("deleteSequence.do") !== -1) {
+		location.hash = "#sequenceList";
+	} else if (window.location.href.indexOf("submitSequence.do") !== -1) {
+		location.hash = "#sequenceForm";
+	} else if (window.location.href.indexOf("editSequence.do") !== -1) {
+		location.hash = "#sequenceList";
+	} else if (window.location.href.indexOf("saveSequence.do") !== -1) {
+		location.hash = "#sequenceForm";
+	}
+</script>
 </head>
 <body class="white-background">
 	<div class="navbar navbar-default">
@@ -62,7 +73,7 @@ Dont have two columns when there is no
 
 		</div>
 	</div>
-	<div class="container-fluid white-background">
+	<div class="container-fluid white-background" id="sequenceForm">
 		<div class="row">
 			<div class="col-md-6">
 				<h2 class="text-center title">Paste your sequence into the field and press submit</h2>
@@ -98,7 +109,7 @@ Dont have two columns when there is no
 			</div>
 		</div>
 	</div>
-	<div class="container-fluid white-background">
+	<div class="container-fluid white-background" id="sequenceList">
 		<table class="table table-hover table-striped">
 			<tr>
 				<th>Sequence #</th>
