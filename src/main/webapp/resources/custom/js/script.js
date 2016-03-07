@@ -135,7 +135,6 @@ $(document)
 								".cancel",
 								function() {
 									if (holder !== null) {
-										alert(holder.html());
 										$(this).parents(".sequence-element")
 												.html(holder.html());
 										holder = null;

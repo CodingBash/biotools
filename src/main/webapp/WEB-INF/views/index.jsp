@@ -54,7 +54,9 @@ Dont have two columns when there is no
 					<h4 class="title modal-title">Are you sure you want to delete?</h4>
 				</div>
 				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 					<button type="button" class="btn btn-danger sequence-delete" data-dismiss="modal">Delete</button>
+
 				</div>
 			</div>
 
