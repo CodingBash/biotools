@@ -1,6 +1,5 @@
 package edu.ilstu.reversecomplementapplication.models;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import org.biojava.nbio.core.sequence.compound.NucleotideCompound;
@@ -35,9 +34,15 @@ public class SequenceContainer
 		sequenceContainer.add(index, sequence);
 	}
 
-	public void removeSequenceInContainer(int index)
+	public void removeSequenceInContainer(int index) throws IndexOutOfBoundsException
 	{
-		sequenceContainer.remove(index);
+		if (index >= 0 && index <= sequenceContainer.size())
+		{
+			sequenceContainer.remove(index);
+		} else
+		{
+			throw new IndexOutOfBoundsException();
+		}
 	}
 
 	public void removeLastSequenceInContainer()

@@ -229,7 +229,7 @@ public class IndexController
 	 * @param session
 	 *            Spring session object
 	 * @return redirect to index.jsp
-	 *///TODO: Don't delete, validate request
+	 */// TODO: Don't delete, validate request
 	@RequestMapping(value = "/deleteSequence.do", method = RequestMethod.POST)
 	public String deleteSequence(@RequestParam("index") int index, Model model, HttpSession session)
 	{
@@ -252,7 +252,13 @@ public class IndexController
 		}
 
 		// Delete the sequence
-		sequenceContainer.removeSequenceInContainer(index);
+		try
+		{
+			sequenceContainer.removeSequenceInContainer(index);
+		} catch (IndexOutOfBoundsException ioobe)
+		{
+			ioobe.printStackTrace();
+		}
 
 		// Add updated sequenceContainer back to session
 		session.setAttribute("sequenceContainer", sequenceContainer);
