@@ -174,7 +174,7 @@ public class IndexController
 	 * @param session
 	 *            Spring session object
 	 * @return redirect to index.jsp
-	 */
+	 */// TODO: Error handling.
 	@RequestMapping(value = "/editSequence.do", method = RequestMethod.POST)
 	public String editSequence(@RequestParam("sequence") String stringSequence, @RequestParam("index") int index,
 			Model model, HttpSession session)
@@ -203,14 +203,13 @@ public class IndexController
 		try
 		{
 			sequence = new DNASequence(stringSequence);
+			// Edit the sequence
+			sequenceContainer.editSequenceInContainer(index, sequence);
 		} catch (CompoundNotFoundException e)
 		{
 			e.printStackTrace();
-			// TODO: Error handling
-		}
 
-		// Edit the sequence
-		sequenceContainer.editSequenceInContainer(index, sequence);
+		}
 
 		// Add updated sequenceContainer back to session
 		session.setAttribute("sequenceContainer", sequenceContainer);

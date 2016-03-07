@@ -30,62 +30,88 @@ $(document)
 					 * When clicked, submit an HTTP Post request to delete
 					 * sequence in server under the URL /deleteSequence.do
 					 */
-					$(".sequence-delete").click(function() {
-						nonAjaxPostRequest("deleteSequence.do", "post", {
-							"index" : parseInt($(this).attr("value"))
+					$(function() {
+						$(document).on("click", ".sequence-delete", function() {
+							nonAjaxPostRequest("deleteSequence.do", "post", {
+								"index" : parseInt($(this).attr("value"))
+							});
 						});
 					});
+					var holder = null;
+					$(function() {
+						$(document)
+								.on(
+										"click",
+										".sequence-edit",
+										function() {
+											var trElement = $(this).parents(
+													".sequence-element");
+											holder = trElement.clone();
+											// TODO: Optimize, dont recall
+											// elements
+											// several times
+											var originalSequence = trElement
+													.children(
+															".sequence-string")
+													.text().trim();
+											var value = trElement.attr("value"); // TODO:
+											// Get
+											// value.
+											// change value from
+											// button attr to tr
+											// attr.
 
+											var innerHtml = "<form action=\"editSequence.do\" method=\"post\"><input type=\"text\" name=\"sequence\" value=\""
+													+ originalSequence
+													+ "\"/>"
+													+ "<input type=\"hidden\" name=\"index\" value=\""
+													+ value
+													+ "\"/>"
+													+ "</form>";
+											trElement.children(
+													".sequence-string").html(
+													innerHtml);
+
+											var innerHtml_2 = "<button class=\"btn btn-info edit-submit\">SUBMIT</button>";
+											trElement.children(".edit-button")
+													.html(innerHtml_2);
+
+											var innerHtml_3 = "<button class=\"btn btn-warning cancel\">CANCEL</button>";
+											trElement
+													.children(".delete-button")
+													.html(innerHtml_3);
+										});
+					});
 					/**
 					 * 
 					 */
-					$(".sequence-edit")
-							.click(
-									function() {
-										var trElement = $(this).parents(
-												".sequence-element");
-
-										var originalSequence = trElement
-												.children(".sequence-string")
-												.text().trim();
-										var value = "0"; // TODO: Get value.
-										// change value from
-										// button attr to tr
-										// attr.
-
-										var innerHtml = "<form action=\"editSequence.do\" method=\"post\"><input type=\"text\" name=\"sequence\" value=\""
-												+ originalSequence
-												+ "\"/>"
-												+ "<input type=\"hidden\" name=\"index\" value=\""
-												+ value + "\"/>" + "</form>";
-										trElement.children(".sequence-string")
-												.html(innerHtml);
-
-										var innerHtml_2 = "<button class=\"btn btn-info edit-submit\">SUBMIT</button>";
-										trElement.children(".edit-button")
-												.html(innerHtml_2);
-
-										var innerHtml_3 = "<button class=\"btn btn-warning cancel\">CANCEL</button>";
-										trElement.children(".delete-button")
-												.html(innerHtml_3);
-									});
-
+					$(function() {
+						$(document).on(
+								"click",
+								".edit-submit",
+								function() {
+									$(this).parents(".sequence-element")
+											.children(".sequence-string")
+											.children("form").submit();
+									holder = null;
+								});
+					});
 					/**
 					 * 
 					 */
-					$(".edit-submit").click(
-							function() {
-								alert("CLICKED");
-								$(this).parents(".sequence-element").children(
-										".sequence-string").children("form")
-										.submit();
-							});
+					$(function() {
+						$(document).on(
+								"click",
+								".cancel",
+								function() {
+									if (holder !== null) {
+										alert(holder.html());
+										$(this).parents(".sequence-element")
+												.html(holder.html());
+										holder = null;
+									}
 
-					/**
-					 * 
-					 */
-					$(".cancel").click(function() {
-						
+								});
 					});
 					/**
 					 * Submit a non AJAX post request
