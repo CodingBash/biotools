@@ -16,7 +16,11 @@ public class SequenceContainer
 
 	public List<AbstractSequence<NucleotideCompound>> getSequenceContainer()
 	{
-		return sequenceContainer;
+		if (sequenceContainer != null)
+		{
+			return sequenceContainer;
+		}
+		return null;
 	}
 
 	public void setSequenceContainer(List<AbstractSequence<NucleotideCompound>> sequenceContainer)
@@ -26,39 +30,65 @@ public class SequenceContainer
 
 	public void addSequenceToContainer(AbstractSequence<NucleotideCompound> sequence)
 	{
-		sequenceContainer.add(sequence);
+		if (sequenceContainer != null)
+		{
+			sequenceContainer.add(sequence);
+		}
 	}
 
 	public void insertSequenceToContainer(int index, AbstractSequence<NucleotideCompound> sequence)
 	{
-		sequenceContainer.add(index, sequence);
+		if (sequenceContainer != null)
+		{
+			sequenceContainer.add(index, sequence);
+		}
 	}
 
 	public void removeSequenceInContainer(int index) throws IndexOutOfBoundsException
 	{
-		if (index >= 0 && index <= sequenceContainer.size())
+		if (sequenceContainer != null)
 		{
-			sequenceContainer.remove(index);
-		} else
-		{
-			throw new IndexOutOfBoundsException();
+			if (index >= 0 && index <= sequenceContainer.size())
+			{
+				sequenceContainer.remove(index);
+			} else
+			{
+				throw new IndexOutOfBoundsException();
+			}
 		}
 	}
 
 	public void removeLastSequenceInContainer()
 	{
-		sequenceContainer.remove(sequenceContainer.size());
+		if (sequenceContainer != null)
+		{
+			sequenceContainer.remove(sequenceContainer.size());
+		}
 	}
 
 	public void removeFirstSequenceInContainer()
 	{
-		sequenceContainer.remove(0);
+		if (sequenceContainer != null)
+		{
+			sequenceContainer.remove(0);
+		}
+	}
+
+	public void removeAllSequencesInContainer()
+	{
+		if (sequenceContainer != null)
+		{
+			sequenceContainer.clear();
+		}
 	}
 
 	public void editSequenceInContainer(int index, AbstractSequence<NucleotideCompound> sequence)
 	{
-		this.removeSequenceInContainer(index);
-		this.insertSequenceToContainer(index, sequence);
+		if (sequenceContainer != null)
+		{
+			this.removeSequenceInContainer(index);
+			this.insertSequenceToContainer(index, sequence);
+		}
 	}
 
 }

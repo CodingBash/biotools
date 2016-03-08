@@ -78,13 +78,15 @@ $(document)
 													}
 												}
 											}
-											var size= deleteSelectionArray.length;
+											var size = deleteSelectionArray.length;
 											// Update Delete Button
 											if (deleteSelectionArray.length > 0) {
 												var deleteSelectedButtonHtml = "<button type=\"button\" class=\"btn btn-danger \">DELETE SELECTED <span class=\"badge\">"
 														+ (deleteSelectionArray.length)
 														+ "</span></button>";
-												$("#checkbox-top").html(deleteSelectedButtonHtml);
+												$("#checkbox-top")
+														.html(
+																deleteSelectedButtonHtml);
 											} else {
 												$("#checkbox-top").html("");
 											}
@@ -113,6 +115,19 @@ $(document)
 							});
 							deleteIndexHolder = null;
 						});
+					});
+
+					/**
+					 * DELETE ALL SEQUENCES
+					 */
+					$(function() {
+						$(document).on(
+								"click",
+								".sequence-delete-all",
+								function() {
+									nonAjaxPostRequest("deleteAllSequences.do",
+											"post", null);
+								});
 					});
 
 					/**

@@ -269,4 +269,44 @@ public class IndexController
 		// Refresh the index page
 		return "index";
 	}
+
+	@RequestMapping(value = "/deleteAllSequences.do", method = RequestMethod.POST)
+	public String deleteAllSequences(Model model, HttpSession session)
+	{
+		// Insert session attribute into generic object
+		Object objectedSequenceContainer = session.getAttribute("sequenceContainer");
+
+		// Create a SequenceContainer object
+		SequenceContainer sequenceContainer = null;
+
+		// Check if the object is an instance of a SequenceContainer
+		if (objectedSequenceContainer instanceof SequenceContainer)
+		{
+
+			sequenceContainer = (SequenceContainer) objectedSequenceContainer;
+		}
+		// If not, make a new SequenceContainer
+		else
+		{
+			sequenceContainer = new SequenceContainer(new LinkedList<AbstractSequence<NucleotideCompound>>());
+		}
+
+		// Delete the sequence
+		try
+		{
+			sequenceContainer.removeAllSequencesInContainer();
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+
+		// Add updated sequenceContainer back to session
+		session.setAttribute("sequenceContainer", sequenceContainer);
+
+		// Add sequence to the ModelAndView
+		model.addAttribute("container", sequenceContainer.getSequenceContainer());
+
+		// Refresh the index page
+		return "index";
+	}
 }

@@ -115,7 +115,7 @@ Dont have two columns when there is no
 				<!-- EDIT -->
 				<th id="edit-top"></th>
 				<!-- DELETE -->
-				<th id="delete-top"><button type="button" class="btn btn-danger center-block">DELETE
+				<th id="delete-top"><button type="button" class="btn btn-danger sequence-delete-all center-block">DELETE
 						ALL</button></th>
 				<!-- CHECKBOX -->
 				<th id="checkbox-top"></th>
