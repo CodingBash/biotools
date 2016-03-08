@@ -112,8 +112,13 @@ Dont have two columns when there is no
 			<tr>
 				<th>Sequence #</th>
 				<th>Sequence</th>
-				<th></th>
-				<th></th>
+				<!-- EDIT -->
+				<th id="edit-top"></th>
+				<!-- DELETE -->
+				<th id="delete-top"><button type="button" class="btn btn-danger center-block">DELETE
+						ALL</button></th>
+				<!-- CHECKBOX -->
+				<th id="checkbox-top"></th>
 			</tr>
 			<!-- TODO: Add type="button" to all buttons -->
 			<c:if test="${not empty container}">
@@ -121,10 +126,14 @@ Dont have two columns when there is no
 					<tr class="sequence-element" value="${iterator.index}">
 						<td class="sequence-count">#${iterator.index + 1}</td>
 						<td class="sequence-string">${sequenceItem}</td>
-						<td class="edit-button"><button type="button" class="btn btn-info sequence-edit">EDIT</button></td>
+						<td class="edit-button"><button type="button"
+								class="btn btn-info sequence-edit center-block">EDIT</button></td>
 						<td class="delete-button">
-							<button type="button" class="btn btn-danger delete-modal-appearance" data-toggle="modal"
-								data-target="#modal-delete-confirmation">DELETE</button>
+							<button type="button" class="btn btn-danger delete-modal-appearance center-block"
+								data-toggle="modal" data-target="#modal-delete-confirmation">DELETE</button>
+						</td>
+						<!-- Make checkbox larger, issue centering checkbox -->
+						<td><input type="checkbox" class="checkbox-delete-selection center-block"/></td>
 					</tr>
 				</c:forEach>
 			</c:if>

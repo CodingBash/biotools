@@ -96,3 +96,8 @@ textarea {
 .padded {
 	margin: 25px auto !important;
 }
+
+.input-center {
+	text-align: center;
+	margin: 0 auto;
+}

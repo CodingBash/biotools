@@ -42,6 +42,57 @@ $(document)
 						});
 					});
 
+					var deleteSelectionArray = new Array();
+					/**
+					 * DELETE CHECKBOX SELECTED
+					 */
+					$(function() {
+						$(document)
+								.on(
+										"change",
+										".checkbox-delete-selection",
+										function() {
+											// Add or remove from array
+											if ($(this).is(":checked")) {
+												var value = $(this).parents(
+														".sequence-element")
+														.attr("value");
+												if (deleteSelectionArray
+														.indexOf(value) === -1) {
+													deleteSelectionArray
+															.push(value);
+												}
+											} else {
+												var value = $(this).parents(
+														".sequence-element")
+														.attr("value");
+												if (deleteSelectionArray
+														.indexOf(value) !== -1) {
+													var valueIndex = deleteSelectionArray
+															.indexOf(value);
+													if (valueIndex != -1) {
+														deleteSelectionArray
+																.splice(
+																		valueIndex,
+																		1);
+													}
+												}
+											}
+											var size= deleteSelectionArray.length;
+											// Update Delete Button
+											if (deleteSelectionArray.length > 0) {
+												var deleteSelectedButtonHtml = "<button type=\"button\" class=\"btn btn-danger \">DELETE SELECTED <span class=\"badge\">"
+														+ (deleteSelectionArray.length)
+														+ "</span></button>";
+												$("#checkbox-top").html(deleteSelectedButtonHtml);
+											} else {
+												$("#checkbox-top").html("");
+											}
+										});
+					});
+					/**
+					 * DELETE MODAL APPEARANCE BUTTON
+					 */
 					$(function() {
 						$(document).on(
 								"click",
