@@ -4,7 +4,14 @@
 $(document)
 		.ready(
 				function() {
-
+					/**
+					 * Page Initial loading
+					 */
+					if ($(".sequence-element").length) {
+						$(".deleteall-modal-appearance").show();
+					} else {
+						$(".deleteall-modal-appearance").hide();
+					}
 					/**
 					 * Holds the index of the \<tr\> element to pass to the
 					 * modal delete button

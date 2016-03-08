@@ -27,7 +27,7 @@ Dont have two columns when there is no
 		location.hash = "#sequenceList";
 	} else if (window.location.href.indexOf("saveSequence.do") !== -1) {
 		location.hash = "#sequenceForm";
-	} else if (window.location.href.indexOf("deleteAllSequences.do") !== -1){
+	} else if (window.location.href.indexOf("deleteAllSequences.do") !== -1) {
 		location.hash = "#sequenceForm";
 	}
 </script>
@@ -58,6 +58,8 @@ Dont have two columns when there is no
 		<h3 class="text-center">See other tools here</h3>
 		<button class="btn center-block header-btn">Tools</button>
 	</div>
+
+	<!-- MODAL DELETE SINGLE -->
 	<div id="modal-delete-confirmation" class="modal fade" role="dialog">
 		<div class="modal-dialog">
 
@@ -68,13 +70,35 @@ Dont have two columns when there is no
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-danger sequence-delete" data-dismiss="modal">Delete</button>
+					<button type="button" class="btn btn-danger sequence-delete" data-dismiss="modal">DELETE</button>
 
 				</div>
 			</div>
 
 		</div>
 	</div>
+
+	<!-- MODAL DELETE ALL -->
+	<div id="modal-deleteall-confirmation" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+
+			<!-- Modal content -->
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="title modal-title">Are you sure you want to delete all?</h4>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					<button type="button" class="btn btn-danger sequence-delete-all" data-dismiss="modal">DELETE
+						ALL</button>
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
 	<div class="container-fluid white-background" id="sequenceForm">
 		<div class="row">
 			<div class="col-md-6">
@@ -117,8 +141,8 @@ Dont have two columns when there is no
 				<!-- EDIT -->
 				<th id="edit-top"></th>
 				<!-- DELETE -->
-				<th id="delete-top"><button type="button" class="btn btn-danger sequence-delete-all center-block">DELETE
-						ALL</button></th>
+				<th id="delete-top"><button type="button" class="btn btn-danger deleteall-modal-appearance center-block"
+						data-toggle="modal" data-target="#modal-deleteall-confirmation">DELETE ALL</button></th>
 				<!-- CHECKBOX -->
 				<th id="checkbox-top"></th>
 			</tr>
@@ -135,7 +159,7 @@ Dont have two columns when there is no
 								data-toggle="modal" data-target="#modal-delete-confirmation">DELETE</button>
 						</td>
 						<!-- Make checkbox larger, issue centering checkbox -->
-						<td><input type="checkbox" class="checkbox-delete-selection center-block"/></td>
+						<td><input type="checkbox" class="checkbox-delete-selection center-block" /></td>
 					</tr>
 				</c:forEach>
 			</c:if>
