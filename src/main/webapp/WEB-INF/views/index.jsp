@@ -27,6 +27,8 @@ Dont have two columns when there is no
 		location.hash = "#sequenceList";
 	} else if (window.location.href.indexOf("saveSequence.do") !== -1) {
 		location.hash = "#sequenceForm";
+	} else if (window.location.href.indexOf("deleteAllSequences.do") !== -1){
+		location.hash = "#sequenceForm";
 	}
 </script>
 </head>
