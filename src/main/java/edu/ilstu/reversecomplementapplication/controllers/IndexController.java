@@ -42,7 +42,7 @@ public class IndexController
 	 * @return redirect to index.jsp
 	 */
 	@RequestMapping(value = "/")
-	public String getHomePage(Model model, HttpSession session)
+	public String getIndex(Model model, HttpSession session)
 	{
 		// Insert session attribute into generic object
 		Object objectedSequenceContainer = session.getAttribute("sequenceContainer");

@@ -39,12 +39,15 @@ Dont have two columns when there is no
 </head>
 <body class="white-background">
 
-	<!-- included code in following page -->
+	<!-- include code for the header -->
 	<jsp:include page="header/allHeaders.jsp" />
 
-	<!-- included code in following page -->
+	<!-- included code for the body -->
 	<jsp:include page="body/allBody.jsp" />
-	
+
+	<!-- included code for the footer -->
+	<jsp:include page="footer/allFooters.jsp" />
+
 	<!-- scripts -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script src="<c:url value="/resources/bootstrap/js/bootstrap.js"/>"></script>
