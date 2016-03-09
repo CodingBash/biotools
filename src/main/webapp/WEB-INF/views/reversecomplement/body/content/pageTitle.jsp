@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<h2 class="title text-center">Reverse Complement Tool</h2>
-			<h4 class="title text-center">Compute the reverse-complement of a nucleotide sequence</h4>
+			<h4 class="text-center">Compute the reverse-complement of a nucleotide sequence</h4>
 			<p>Insert your nucleotide sequence into the text-area on the left-hand side. Press "Submit"
 				to analyze the reverse-complement which will appear on the text-area on the right-hand side.
 				Press "Replace" to move the sequence from the right-hand side to the left-hand side. Press
