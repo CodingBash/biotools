@@ -24,7 +24,7 @@ $(document)
 					 */
 					var holder = null;
 					var deleteSelectionArray = new Array();
-					
+
 					/**
 					 * Page Initial loading
 					 */
@@ -33,8 +33,8 @@ $(document)
 					} else {
 						$(".deleteall-modal-appearance").hide();
 					}
-					
-					if(deleteSelectionArray.length){
+
+					if (deleteSelectionArray.length) {
 						$(".delete-selected-button").show();
 					} else {
 						$(".delete-selected-button").hide();
@@ -102,15 +102,39 @@ $(document)
 											}
 											var size = deleteSelectionArray.length;
 											// Update Delete Button
-											if (deleteSelectionArray.length > 0) {
-												$(".delete-selected-button").children("span").text(deleteSelectionArray.length);
-												$(".delete-selected-button").show("slow");
-												
+											if (deleteSelectionArray.length) {
+												$(".delete-selected-button")
+														.children("span")
+														.text(
+																deleteSelectionArray.length);
+												$(".delete-selected-button")
+														.show("slow");
+
 											} else {
-												$(".delete-selected-button").hide("slow");
+												$(".delete-selected-button")
+														.hide("slow");
 											}
 										});
 					});
+
+					/**
+					 * DELETE SELECTED
+					 */
+					$(function() {
+						$(document)
+								.on(
+										"click",
+										".sequence-delete-selected",
+										function() {
+											nonAjaxPostRequest(
+													"deleteSelectedSequences.do",
+													"POST",
+													{
+														"indexList" : deleteSelectionArray
+													});
+										});
+					});
+
 					/**
 					 * DELETE MODAL APPEARANCE BUTTON
 					 */
@@ -165,8 +189,7 @@ $(document)
 											// elements
 											// several times
 											var originalSequence = trElement
-													.children(
-															".sequence-string")
+													.children(".sequence-data")
 													.text().trim();
 											var value = trElement.attr("value"); // TODO:
 											// Get
@@ -182,17 +205,17 @@ $(document)
 													+ value
 													+ "\"/>"
 													+ "</form>";
-											trElement.children(
-													".sequence-string").html(
-													innerHtml);
+											trElement
+													.children(".sequence-data")
+													.html(innerHtml);
 
 											var innerHtml_2 = "<button class=\"btn btn-info edit-submit\">SUBMIT</button>";
-											trElement.children(".edit-button")
+											trElement.children(".button-first")
 													.html(innerHtml_2);
 
 											var innerHtml_3 = "<button class=\"btn btn-warning cancel\">CANCEL</button>";
 											trElement
-													.children(".delete-button")
+													.children(".button-second")
 													.html(innerHtml_3);
 										});
 					});
@@ -205,7 +228,7 @@ $(document)
 								".edit-submit",
 								function() {
 									$(this).parents(".sequence-element")
-											.children(".sequence-string")
+											.children(".sequence-data")
 											.children("form").submit();
 									holder = null;
 								});

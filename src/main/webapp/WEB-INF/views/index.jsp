@@ -43,7 +43,7 @@ Dont have two columns when there is no
 
 	<!-- included code in following page -->
 	<jsp:include page="body/allBody.jsp" />
-
+	
 	<!-- scripts -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script src="<c:url value="/resources/bootstrap/js/bootstrap.js"/>"></script>
