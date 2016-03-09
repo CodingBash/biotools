@@ -23,7 +23,22 @@ $(document)
 					 * presses cancel when editing
 					 */
 					var holder = null;
-
+					var deleteSelectionArray = new Array();
+					
+					/**
+					 * Page Initial loading
+					 */
+					if ($(".sequence-element").length) {
+						$(".deleteall-modal-appearance").show();
+					} else {
+						$(".deleteall-modal-appearance").hide();
+					}
+					
+					if(deleteSelectionArray.length){
+						$(".delete-selected-button").show();
+					} else {
+						$(".delete-selected-button").hide();
+					}
 					/**
 					 * COPY THE RESULT TO THE FORM TEXTAREA
 					 */
@@ -88,14 +103,11 @@ $(document)
 											var size = deleteSelectionArray.length;
 											// Update Delete Button
 											if (deleteSelectionArray.length > 0) {
-												var deleteSelectedButtonHtml = "<button type=\"button\" class=\"btn btn-danger \">DELETE SELECTED <span class=\"badge\">"
-														+ (deleteSelectionArray.length)
-														+ "</span></button>";
-												$("#checkbox-top")
-														.html(
-																deleteSelectedButtonHtml);
+												$(".delete-selected-button").children("span").text(deleteSelectionArray.length);
+												$(".delete-selected-button").show("slow");
+												
 											} else {
-												$("#checkbox-top").html("");
+												$(".delete-selected-button").hide("slow");
 											}
 										});
 					});

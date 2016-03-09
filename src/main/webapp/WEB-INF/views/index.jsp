@@ -141,10 +141,15 @@ Dont have two columns when there is no
 				<!-- EDIT -->
 				<th id="edit-top"></th>
 				<!-- DELETE -->
-				<th id="delete-top"><button type="button" class="btn btn-danger deleteall-modal-appearance center-block"
-						data-toggle="modal" data-target="#modal-deleteall-confirmation">DELETE ALL</button></th>
+				<th id="delete-top"><button type="button"
+						class="btn btn-danger deleteall-modal-appearance center-block" data-toggle="modal"
+						data-target="#modal-deleteall-confirmation">DELETE ALL</button></th>
 				<!-- CHECKBOX -->
-				<th id="checkbox-top"></th>
+				<th id="checkbox-top">
+					<button type="button" class="btn btn-danger delete-selected-button">
+						DELETE SELECTED <span class="badge"></span>
+					</button>
+				</th>
 			</tr>
 			<!-- TODO: Add type="button" to all buttons -->
 			<c:if test="${not empty container}">

@@ -101,3 +101,7 @@ textarea {
 	text-align: center;
 	margin: 0 auto;
 }
+
+#checkbox-top {
+	width: 15%;
+}
