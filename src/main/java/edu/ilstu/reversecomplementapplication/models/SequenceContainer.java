@@ -5,15 +5,35 @@ import java.util.List;
 import org.biojava.nbio.core.sequence.compound.NucleotideCompound;
 import org.biojava.nbio.core.sequence.template.AbstractSequence;
 
+/**
+ * Container that wraps a {@link List} with application-specific functionality
+ * 
+ * @author Bash
+ *
+ */
 public class SequenceContainer
 {
+	/**
+	 * Interface {@link List} to contain an {@link AbstractSequence}<
+	 * {@link NucleotideCompound}>
+	 */
 	private List<AbstractSequence<NucleotideCompound>> sequenceContainer;
 
+	/**
+	 * Initiate the list with any implementation
+	 * 
+	 * @param sequenceContainer
+	 */
 	public SequenceContainer(List<AbstractSequence<NucleotideCompound>> sequenceContainer)
 	{
 		this.setSequenceContainer(sequenceContainer);
 	}
 
+	/**
+	 * Get the sequenceContainer
+	 * 
+	 * @return sequenceContainer if available
+	 */
 	public List<AbstractSequence<NucleotideCompound>> getSequenceContainer()
 	{
 		if (sequenceContainer != null)
@@ -23,11 +43,22 @@ public class SequenceContainer
 		return null;
 	}
 
+	/**
+	 * Set the sequence container
+	 * 
+	 * @param sequenceContainer
+	 */
 	public void setSequenceContainer(List<AbstractSequence<NucleotideCompound>> sequenceContainer)
 	{
 		this.sequenceContainer = sequenceContainer;
 	}
 
+	/**
+	 * Add a sequence to the sequenceContainer at the end
+	 * 
+	 * @param sequence
+	 *            to add
+	 */
 	public void addSequenceToContainer(AbstractSequence<NucleotideCompound> sequence)
 	{
 		if (sequenceContainer != null)
@@ -36,6 +67,14 @@ public class SequenceContainer
 		}
 	}
 
+	/**
+	 * Add a sequence to the sequenceContainer in any index
+	 * 
+	 * @param index
+	 *            in sequenceContainer to insert
+	 * @param sequence
+	 *            to add
+	 */
 	public void insertSequenceToContainer(int index, AbstractSequence<NucleotideCompound> sequence)
 	{
 		if (sequenceContainer != null)
@@ -44,6 +83,14 @@ public class SequenceContainer
 		}
 	}
 
+	/**
+	 * Remove sequence in container in any index
+	 * 
+	 * @param index
+	 *            to remove
+	 * @throws IndexOutOfBoundsException
+	 *             if out of bounds index
+	 */
 	public void removeSequenceInContainer(int index) throws IndexOutOfBoundsException
 	{
 		if (sequenceContainer != null)
@@ -58,6 +105,9 @@ public class SequenceContainer
 		}
 	}
 
+	/**
+	 * Remove last sequence in container
+	 */
 	public void removeLastSequenceInContainer()
 	{
 		if (sequenceContainer != null)
@@ -66,6 +116,9 @@ public class SequenceContainer
 		}
 	}
 
+	/**
+	 * Remove first sequence in container
+	 */
 	public void removeFirstSequenceInContainer()
 	{
 		if (sequenceContainer != null)
@@ -74,6 +127,9 @@ public class SequenceContainer
 		}
 	}
 
+	/**
+	 * Clear the container
+	 */
 	public void removeAllSequencesInContainer()
 	{
 		if (sequenceContainer != null)
@@ -82,6 +138,14 @@ public class SequenceContainer
 		}
 	}
 
+	/**
+	 * Edit a sequence in the container
+	 * 
+	 * @param index
+	 *            to edit
+	 * @param sequence
+	 *            to replace
+	 */
 	public void editSequenceInContainer(int index, AbstractSequence<NucleotideCompound> sequence)
 	{
 		if (sequenceContainer != null)

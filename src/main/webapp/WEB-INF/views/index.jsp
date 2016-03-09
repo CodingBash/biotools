@@ -15,9 +15,13 @@ Dont have two columns when there is no
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<!-- stylesheets -->
 <link href="<c:url value="resources/bootstrap/css/bootstrap.min.css"/>" rel="stylesheet" />
 <link href="<c:url value="resources/custom/css/style.css" />" rel="stylesheet" />
 <title>Reverse Complement Application</title>
+
+<!-- Code to run before page loads -->
 <script>
 	if (window.location.href.indexOf("deleteSequence.do") !== -1) {
 		location.hash = "#sequenceList";
@@ -34,8 +38,10 @@ Dont have two columns when there is no
 </head>
 <body class="white-background">
 
+	<!-- included code in following page -->
 	<jsp:include page="header/allHeaders.jsp" />
 
+	<!-- included code in following page -->
 	<jsp:include page="body/allBody.jsp" />
 
 	<!-- scripts -->

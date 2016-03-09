@@ -270,6 +270,15 @@ public class IndexController
 		return "index";
 	}
 
+	/**
+	 * Delete all sequences in server container
+	 * 
+	 * @param model
+	 *            object container sent to be used in the view
+	 * @param session
+	 *            Spring session object
+	 * @return redirect to index.jsp
+	 */
 	@RequestMapping(value = "/deleteAllSequences.do", method = RequestMethod.POST)
 	public String deleteAllSequences(Model model, HttpSession session)
 	{
