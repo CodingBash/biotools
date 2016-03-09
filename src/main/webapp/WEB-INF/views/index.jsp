@@ -136,16 +136,15 @@ Dont have two columns when there is no
 	<div class="container-fluid white-background" id="sequenceList">
 		<table class="table table-hover table-striped">
 			<tr>
-				<th>Sequence #</th>
-				<th>Sequence</th>
+				<th id="table-sequence-number">Sequence #</th>
+				<th id="table-sequence-data">Sequence</th>
 				<!-- EDIT -->
-				<th id="edit-top"></th>
+				<th id="table-button-first"></th>
 				<!-- DELETE -->
-				<th id="delete-top"><button type="button"
+				<th id="table-button-second"><button type="button"
 						class="btn btn-danger deleteall-modal-appearance center-block" data-toggle="modal"
 						data-target="#modal-deleteall-confirmation">DELETE ALL</button></th>
-				<!-- CHECKBOX -->
-				<th id="checkbox-top">
+				<th id="table-checkbox">
 					<button type="button" class="btn btn-danger delete-selected-button">
 						DELETE SELECTED <span class="badge"></span>
 					</button>

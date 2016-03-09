@@ -102,6 +102,22 @@ textarea {
 	margin: 0 auto;
 }
 
-#checkbox-top {
-	width: 15%;
+th#table-sequence-number {
+	width: 10%;
+}
+
+th#table-sequence-data {
+	width: 50%;
+}
+
+th#table-button-first {
+	width: 10%;
+}
+
+th#table-button-second {
+	width: 10%;
+}
+
+th#table-checkbox {
+	width: 20%;
 }
