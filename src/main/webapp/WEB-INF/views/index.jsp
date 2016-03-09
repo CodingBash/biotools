@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!-- 
 Spring mvc form tags
@@ -33,148 +33,11 @@ Dont have two columns when there is no
 </script>
 </head>
 <body class="white-background">
-	<div class="navbar navbar-default">
-		<div class="container">
-			<div class="navbar-header pull-left">
-				<button type="button" class="navbar-toggle pull-left" data-toggle="collapse"
-					data-target="#myNavbar">
-					<span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand pull-right" href="#">Bash</a>
-			</div>
-			<div class="navbar-collapse collapse" id="myNavbar">
-				<ul class="nav navbar-nav navbar-right">
-					<li><a href="#"><span class="glyphicon glyphicon-pencil"></span> Getting started</a></li>
-					<li><a href="#"><span class="glyphicon glyphicon-wrench"></span> Other tools</a></li>
-					<li><a href="#"><span class="glyphicon glyphicon-user"></span> About the author</a></li>
-					<li><a href="#"><span class="glyphicon glyphicon-usd"></span> Donations</a></li>
-				</ul>
-			</div>
-		</div>
-	</div>
-	<div class="jumbotron white-background">
-		<h1 class="text-center">Reverse Complement Tool</h1>
-		<h2 class="text-center">Compute the reverse complement of a nucleotide sequence</h2>
-		<h3 class="text-center">See other tools here</h3>
-		<button class="btn center-block header-btn">Tools</button>
-	</div>
 
-	<!-- MODAL DELETE SINGLE -->
-	<div id="modal-delete-confirmation" class="modal fade" role="dialog">
-		<div class="modal-dialog">
+	<jsp:include page="header/allHeaders.jsp" />
 
-			<!-- Modal content -->
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="title modal-title">Are you sure you want to delete?</h4>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-danger sequence-delete" data-dismiss="modal">DELETE</button>
+	<jsp:include page="body/allBody.jsp" />
 
-				</div>
-			</div>
-
-		</div>
-	</div>
-
-	<!-- MODAL DELETE ALL -->
-	<div id="modal-deleteall-confirmation" class="modal fade" role="dialog">
-		<div class="modal-dialog">
-
-			<!-- Modal content -->
-			<div class="modal-content">
-				<div class="modal-header">
-					<h4 class="title modal-title">Are you sure you want to delete all?</h4>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-					<button type="button" class="btn btn-danger sequence-delete-all" data-dismiss="modal">DELETE
-						ALL</button>
-
-				</div>
-			</div>
-
-		</div>
-	</div>
-
-
-	<div class="container-fluid white-background" id="sequenceForm">
-		<div class="row">
-			<div class="col-md-6">
-				<h2 class="text-center title">Paste your sequence into the field and press submit</h2>
-				<!-- form -->
-				<form action="submitSequence.do" method="post" class="text-center form-horizontal"
-					id="sequenceForm" role="form">
-					<div class="form-group">
-						<label for="sequence-input" class="sr-only control-label">Sequence</label>
-						<textarea name="sequence" rows="20" cols="75" id="sequence-input"><c:out
-								value="${oldSequence}" default="" /></textarea>
-						<!-- <input type="text" name="sequence" value="<c:out value="${sequence}" default=""/>"/> -->
-					</div>
-				</form>
-			</div>
-			<div class="col-md-6">
-				<div class="result text-center">
-					<h2 class="title">The reverse complement is</h2>
-					<p id="sequence">
-						<textarea name="sequence-holder" rows="20" cols="75" readonly>${sequence}</textarea>
-					</p>
-				</div>
-			</div>
-		</div>
-		<div class="row padded">
-			<div class="col-md-12">
-				<div class="btn-group btn-group-justified">
-					<button class="btn btn-primary" id="sequenceForm-submit">Submit</button>
-					<button class="btn btn-primary" id="copy-analyzed">Replace</button>
-					<button class="btn btn-primary" id="sequence-save">Save</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="container-fluid white-background" id="sequenceList">
-		<table class="table table-hover table-striped">
-			<tr>
-				<th id="table-sequence-number">Sequence #</th>
-				<th id="table-sequence-data">Sequence</th>
-				<!-- EDIT -->
-				<th id="table-button-first"></th>
-				<!-- DELETE -->
-				<th id="table-button-second"><button type="button"
-						class="btn btn-danger deleteall-modal-appearance center-block" data-toggle="modal"
-						data-target="#modal-deleteall-confirmation">DELETE ALL</button></th>
-				<th id="table-checkbox">
-					<button type="button" class="btn btn-danger delete-selected-button">
-						DELETE SELECTED <span class="badge"></span>
-					</button>
-				</th>
-			</tr>
-			<!-- TODO: Add type="button" to all buttons -->
-			<c:if test="${not empty container}">
-				<c:forEach items="${container}" var="sequenceItem" varStatus="iterator">
-					<tr class="sequence-element" value="${iterator.index}">
-						<td class="sequence-count">#${iterator.index + 1}</td>
-						<td class="sequence-string">${sequenceItem}</td>
-						<td class="edit-button"><button type="button"
-								class="btn btn-info sequence-edit center-block">EDIT</button></td>
-						<td class="delete-button">
-							<button type="button" class="btn btn-danger delete-modal-appearance center-block"
-								data-toggle="modal" data-target="#modal-delete-confirmation">DELETE</button>
-						</td>
-						<!-- Make checkbox larger, issue centering checkbox -->
-						<td><input type="checkbox" class="checkbox-delete-selection center-block" /></td>
-					</tr>
-				</c:forEach>
-			</c:if>
-		</table>
-
-
-
-
-
-
-	</div>
 	<!-- scripts -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script src="<c:url value="/resources/bootstrap/js/bootstrap.js"/>"></script>
