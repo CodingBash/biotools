@@ -1,5 +1,6 @@
 package edu.ilstu.reversecomplementapplication.models;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.biojava.nbio.core.sequence.compound.NucleotideCompound;
@@ -135,6 +136,26 @@ public class SequenceContainer
 		if (sequenceContainer != null)
 		{
 			sequenceContainer.clear();
+		}
+	}
+
+	/**
+	 * Remove selected indexes from the sequenceContainer
+	 * 
+	 * @param indexList
+	 *            list of indexes to remove
+	 * @throws IndexOutOfBoundsException
+	 *             if index is out of bounds
+	 */
+	public void removeSelectedSequencesInContainer(int[] indexList) throws IndexOutOfBoundsException
+	{
+		if (sequenceContainer != null)
+		{
+			Arrays.sort(indexList);
+			for (int index = indexList.length - 1; index >= 0; index--)
+			{
+				this.removeSequenceInContainer(indexList[index]);
+			}
 		}
 	}
 

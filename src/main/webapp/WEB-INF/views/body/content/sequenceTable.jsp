@@ -9,11 +9,13 @@
 			<!-- EDIT -->
 			<th id="table-button-first"></th>
 			<!-- DELETE -->
-			<th id="table-button-second"><button type="button"
-					class="btn btn-danger deleteall-modal-appearance center-block" data-toggle="modal"
-					data-target="#modal-deleteall-confirmation">DELETE ALL</button></th>
+			<th id="table-button-second">
+				<button type="button" class="btn btn-danger deleteall-modal-appearance center-block"
+					data-toggle="modal" data-target="#modal-deleteall-confirmation">DELETE ALL</button>
+			</th>
 			<th id="table-checkbox">
-				<button type="button" class="btn btn-danger delete-selected-button">
+				<button type="button" class="btn btn-danger delete-selected-button" data-toggle="modal"
+					data-target="#modal-deleteselected-confirmation">
 					DELETE SELECTED <span class="badge"></span>
 				</button>
 			</th>
@@ -22,11 +24,11 @@
 		<c:if test="${not empty container}">
 			<c:forEach items="${container}" var="sequenceItem" varStatus="iterator">
 				<tr class="sequence-element" value="${iterator.index}">
-					<td class="sequence-count">#${iterator.index + 1}</td>
-					<td class="sequence-string">${sequenceItem}</td>
-					<td class="edit-button"><button type="button"
+					<td class="sequence-number">#${iterator.index + 1}</td>
+					<td class="sequence-data">${sequenceItem}</td>
+					<td class="button-first"><button type="button"
 							class="btn btn-info sequence-edit center-block">EDIT</button></td>
-					<td class="delete-button">
+					<td class="button-second">
 						<button type="button" class="btn btn-danger delete-modal-appearance center-block"
 							data-toggle="modal" data-target="#modal-delete-confirmation">DELETE</button>
 					</td>

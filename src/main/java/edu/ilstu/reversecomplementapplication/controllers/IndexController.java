@@ -1,5 +1,6 @@
 package edu.ilstu.reversecomplementapplication.controllers;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 
 import javax.servlet.http.HttpSession;
@@ -10,12 +11,14 @@ import org.biojava.nbio.core.sequence.compound.NucleotideCompound;
 import org.biojava.nbio.core.sequence.template.AbstractSequence;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import edu.ilstu.reversecomplementapplication.components.ApplicationUtility;
 import edu.ilstu.reversecomplementapplication.models.SequenceContainer;
 
 /**
@@ -28,6 +31,9 @@ import edu.ilstu.reversecomplementapplication.models.SequenceContainer;
 public class IndexController
 {
 	private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
+
+	@Autowired
+	ApplicationUtility applicationUtility;
 
 	/**
 	 * Empty URL field goes to the index.jsp landing page
@@ -258,6 +264,9 @@ public class IndexController
 		} catch (IndexOutOfBoundsException ioobe)
 		{
 			ioobe.printStackTrace();
+		} catch (Exception e)
+		{
+			e.printStackTrace();
 		}
 
 		// Add updated sequenceContainer back to session
@@ -304,6 +313,64 @@ public class IndexController
 		try
 		{
 			sequenceContainer.removeAllSequencesInContainer();
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+
+		// Add updated sequenceContainer back to session
+		session.setAttribute("sequenceContainer", sequenceContainer);
+
+		// Add sequence to the ModelAndView
+		model.addAttribute("container", sequenceContainer.getSequenceContainer());
+
+		// Refresh the index page
+		return "index";
+	}
+
+	/**
+	 * Delete a list of selected indexes from the list of sequences
+	 * 
+	 * @param stringIndexList
+	 *            list of indexes to remove
+	 * @param model
+	 *            object container sent to be used in the view
+	 * @param session
+	 *            Spring session object
+	 * @return redirect to index.jsp
+	 */
+	@RequestMapping(value = "/deleteSelectedSequences.do", method = RequestMethod.POST)
+	public String deleteSelectedSequences(@RequestParam("indexList") String[] stringIndexList, Model model,
+			HttpSession session)
+	{
+		// Insert session attribute into generic object
+		Object objectedSequenceContainer = session.getAttribute("sequenceContainer");
+
+		// Create a SequenceContainer object
+		SequenceContainer sequenceContainer = null;
+
+		// Check if the object is an instance of a SequenceContainer
+		if (objectedSequenceContainer instanceof SequenceContainer)
+		{
+
+			sequenceContainer = (SequenceContainer) objectedSequenceContainer;
+		}
+		// If not, make a new SequenceContainer
+		else
+		{
+			sequenceContainer = new SequenceContainer(new LinkedList<AbstractSequence<NucleotideCompound>>());
+		}
+
+		// Convert String[] to int[]
+		int[] intIndexList = applicationUtility.convertStringArrayToIntArray(stringIndexList);
+
+		// Delete the sequences
+		try
+		{
+			sequenceContainer.removeSelectedSequencesInContainer(intIndexList);
+		} catch (IndexOutOfBoundsException ioobe)
+		{
+			ioobe.printStackTrace();
 		} catch (Exception e)
 		{
 			e.printStackTrace();
