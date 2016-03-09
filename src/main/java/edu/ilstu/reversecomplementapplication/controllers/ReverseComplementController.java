@@ -28,9 +28,9 @@ import edu.ilstu.reversecomplementapplication.models.SequenceContainer;
  *
  */
 @Controller
-public class IndexController
+public class ReverseComplementController
 {
-	private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
+	private static final Logger logger = LoggerFactory.getLogger(ReverseComplementController.class);
 	private static final String indexPage = "reversecomplement/index";
 	
 	@Autowired
