@@ -5,10 +5,11 @@
 				data-target="#myNavbar">
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand pull-right" href="#">Bash</a>
+			<!-- <a class="navbar-brand pull-right" href="#">Bash</a> -->
 		</div>
 		<div class="navbar-collapse collapse" id="myNavbar">
 			<ul class="nav navbar-nav navbar-right">
+				<li><a href="#"><span class="glyphicon glyphicon-home"></span> Home</a></li>
 				<li><a href="#"><span class="glyphicon glyphicon-pencil"></span> Getting started</a></li>
 				<li><a href="#"><span class="glyphicon glyphicon-wrench"></span> Other tools</a></li>
 				<li><a href="#"><span class="glyphicon glyphicon-user"></span> About the author</a></li>

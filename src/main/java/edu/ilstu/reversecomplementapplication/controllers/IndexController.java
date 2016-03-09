@@ -31,7 +31,8 @@ import edu.ilstu.reversecomplementapplication.models.SequenceContainer;
 public class IndexController
 {
 	private static final Logger logger = LoggerFactory.getLogger(IndexController.class);
-
+	private static final String indexPage = "reversecomplement/index";
+	
 	@Autowired
 	ApplicationUtility applicationUtility;
 
@@ -57,7 +58,7 @@ public class IndexController
 			model.addAttribute("container", sequenceContainer.getSequenceContainer());
 		}
 
-		return "index";
+		return indexPage;
 	}
 
 	/**
@@ -112,7 +113,7 @@ public class IndexController
 			// Add sequence to the ModelAndView
 			model.addAttribute("container", sequenceContainer.getSequenceContainer());
 		}
-		return "index";
+		return indexPage;
 	}
 
 	/**
@@ -167,7 +168,7 @@ public class IndexController
 		model.addAttribute("container", sequenceContainer.getSequenceContainer());
 
 		// Refresh the index page
-		return "index";
+		return indexPage;
 	}
 
 	/**
@@ -224,7 +225,7 @@ public class IndexController
 		model.addAttribute("container", sequenceContainer.getSequenceContainer());
 
 		// Refresh the index page
-		return "index";
+		return indexPage;
 	}
 
 	/**
@@ -276,7 +277,7 @@ public class IndexController
 		model.addAttribute("container", sequenceContainer.getSequenceContainer());
 
 		// Refresh the index page
-		return "index";
+		return indexPage;
 	}
 
 	/**
@@ -325,7 +326,7 @@ public class IndexController
 		model.addAttribute("container", sequenceContainer.getSequenceContainer());
 
 		// Refresh the index page
-		return "index";
+		return indexPage;
 	}
 
 	/**
@@ -383,6 +384,6 @@ public class IndexController
 		model.addAttribute("container", sequenceContainer.getSequenceContainer());
 
 		// Refresh the index page
-		return "index";
+		return indexPage;
 	}
 }

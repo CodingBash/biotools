@@ -7,7 +7,7 @@
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
 				<button type="button" class="btn btn-danger sequence-delete-selected" data-dismiss="modal">DELETE
-					SLECTED</button>
+					SELECTED</button>
 			</div>
 		</div>
 	</div>
