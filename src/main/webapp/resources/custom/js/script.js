@@ -22,3 +22,11 @@ function nonAjaxPostRequest(action, method, input) {
 	}
 	form.appendTo('body').submit();
 }
+
+$(document).ready(function() {
+	$(function() {
+		$(document).on("click", ".redirect-to-tools", function() {
+			window.location.href = "tools";
+		})
+	});
+});
