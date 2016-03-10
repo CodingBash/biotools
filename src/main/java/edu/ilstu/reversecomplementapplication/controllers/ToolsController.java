@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class ToolsController
 {
-	private static final Logger logger = LoggerFactory.getLogger(ReverseComplementController.class);
+	private static final Logger logger = LoggerFactory.getLogger(ToolsController.class);
 	private static final String toolsPage = "toolspage/tools";
 
 	/**

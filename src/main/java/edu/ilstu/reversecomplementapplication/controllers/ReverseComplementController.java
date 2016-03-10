@@ -76,7 +76,7 @@ public class ReverseComplementController
 		DNASequence sequence = null;
 		try
 		{
-			sequence = new DNASequence(stringSequence);
+			sequence = new DNASequence(stringSequence.trim());
 		} catch (CompoundNotFoundException e)
 		{
 			e.printStackTrace();
@@ -151,7 +151,7 @@ public class ReverseComplementController
 		AbstractSequence<NucleotideCompound> sequence = null;
 		try
 		{
-			sequence = new DNASequence(stringSequence);
+			sequence = new DNASequence(stringSequence.trim());
 		} catch (CompoundNotFoundException e)
 		{
 			e.printStackTrace();
@@ -209,7 +209,7 @@ public class ReverseComplementController
 		AbstractSequence<NucleotideCompound> sequence = null;
 		try
 		{
-			sequence = new DNASequence(stringSequence);
+			sequence = new DNASequence(stringSequence.trim());
 			// Edit the sequence
 			sequenceContainer.editSequenceInContainer(index, sequence);
 		} catch (CompoundNotFoundException e)

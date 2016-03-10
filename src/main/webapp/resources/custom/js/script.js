@@ -26,12 +26,12 @@ function nonAjaxPostRequest(action, method, input) {
 $(document).ready(function() {
 	$(function() {
 		$(document).on("click", ".redirect-to-home", function() {
-			window.location.href = "tools";
+			window.location.href = "home";
 		})
 	});
 	$(function() {
 		$(document).on("click", ".redirect-to-gettingstarted", function() {
-			window.location.href = "#";
+			window.location.href = "gettingstarted";
 		})
 	});
 	$(function() {
@@ -41,12 +41,12 @@ $(document).ready(function() {
 	});
 	$(function() {
 		$(document).on("click", ".redirect-to-aboutme", function() {
-			window.location.href = "#";
+			window.location.href = "aboutme";
 		})
 	});
 	$(function() {
 		$(document).on("click", ".redirect-to-donations", function() {
-			window.location.href = "#";
+			window.location.href = "donations";
 		})
 	});
 	

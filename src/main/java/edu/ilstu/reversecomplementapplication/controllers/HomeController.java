@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeController
 {
 
-	private static final Logger logger = LoggerFactory.getLogger(ReverseComplementController.class);
+	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	private static final String homePage = "homepage/home";
 
 	/**

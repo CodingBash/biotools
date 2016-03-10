@@ -20,7 +20,7 @@ Dont have two columns when there is no
 <link href="<c:url value="resources/bootstrap/css/bootstrap.min.css"/>" rel="stylesheet" />
 <link href="<c:url value="resources/custom/css/style.css" />" rel="stylesheet" />
 <link href="<c:url value="resources/custom/css/reversecomplement/style.css" />" rel="stylesheet" />
-<title>Reverse Complement Application</title>
+<title>BioTools: Reverse-Complement</title>
 
 <!-- Code to run before page loads -->
 <script>
