@@ -23,7 +23,7 @@
 			</div>
 		</div>
 		<div class="col-sm-4">
-			<div class="panel panel-default text-center">
+			<div class="panel panel-default text-center pointer redirect-to-reverse-complement ">
 				<div class="panel-heading">
 					<h2 class="title">Reverse-Complement Tool</h2>
 				</div>
@@ -31,7 +31,7 @@
 					<p>An interactive utility to analyze the reverse-complement of a nucleotide sequence.</p>
 				</div>
 				<div class="panel-footer">
-					<button type="button" class="btn btn-default green-background launch-reverse-complement">Launch</button>
+					<button type="button" class="btn btn-default green-background redirect-to-reverse-complement">Launch</button>
 				</div>
 			</div>
 		</div>

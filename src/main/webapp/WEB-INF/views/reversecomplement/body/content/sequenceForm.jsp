@@ -4,7 +4,8 @@
 <div class="container-fluid white-background" id="sequenceForm">
 	<div class="row">
 		<div class="col-md-6">
-			<h2 class="text-center title">Paste your sequence into the field and press submit</h2>
+			<h2 class="text-center same-height-1">Paste your sequence into the field and press "Submit". Press "Save"
+				to move to table.</h2>
 			<!-- form -->
 			<form action="submitSequence.do" method="post" class="text-center form-horizontal"
 				id="sequenceForm" role="form">
@@ -18,10 +19,11 @@
 		</div>
 		<div class="col-md-6">
 			<div class="result text-center">
-				<h2 class="title">The reverse complement is</h2>
-				<p id="sequence">
+				<h2 class="text-center same-height-1">The reverse-complement analyzed from the left is in the field
+					below. Press "Replace" to move to left.</h2>
+				<div id="sequence">
 					<textarea name="sequence-holder" rows="20" cols="75" readonly>${sequence}</textarea>
-				</p>
+				</div>
 			</div>
 		</div>
 	</div>

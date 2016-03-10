@@ -95,7 +95,15 @@ button {
 }
 
 title {
-	height: 70px;
+	font-weight: bolder;
+}
+
+h2 {
+	font-size: 1.9em;
+}
+
+h4 {
+	font-size: 1.6em;
 }
 
 textarea {

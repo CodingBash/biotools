@@ -19,3 +19,7 @@ th#table-button-second {
 th#table-checkbox {
 	width: 20%;
 }
+
+.same-height-1{
+	height: 100px;
+}
