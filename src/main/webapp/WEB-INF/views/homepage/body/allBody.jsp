@@ -6,14 +6,14 @@
 
 <!-- TODO: Put <a> around each section -->
 <!-- Getting started -->
-<div class="container-fluid white-background interactive">
+<div class="container-fluid white-background interactive pointer redirect-to-gettingstarted">
 	<h2 class="title text-center">Getting Started</h2>
 	<h4 class="text-center">
 		Want to learn how to use the site and its tools? Visit <a href="#">Getting Started</a>.
 	</h4>
 </div>
 <!-- Tools -->
-<div class="container-fluid white-background interactive">
+<div class="container-fluid white-background interactive pointer redirect-to-tools">
 	<h2 class="title text-center">Tools</h2>
 	<h4 class="text-center">
 		Want to see our list of tools? Visit <a href="tools">Tools</a>.
@@ -21,7 +21,7 @@
 </div>
 
 <!-- About Me -->
-<div class="container-fluid white-background interactive">
+<div class="container-fluid white-background interactive pointer redirect-to-aboutme">
 	<h2 class="title text-center">About Me</h2>
 	<h4 class="text-center">
 		Want to learn more about who the developer is? Visit <a href="#">About Me</a>.
@@ -29,7 +29,7 @@
 </div>
 
 <!-- Donations -->
-<div class="container-fluid white-background interactive">
+<div class="container-fluid white-background interactive pointer redirect-to-donations">
 	<h2 class="title text-center">Donations</h2>
 	<h4 class="text-center">
 		If you found this web-site helpful, please donate to help continue development. Visit <a href="#">Donations</a>

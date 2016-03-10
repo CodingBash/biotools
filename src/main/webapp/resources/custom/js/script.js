@@ -25,8 +25,29 @@ function nonAjaxPostRequest(action, method, input) {
 
 $(document).ready(function() {
 	$(function() {
+		$(document).on("click", ".redirect-to-home", function() {
+			window.location.href = "tools";
+		})
+	});
+	$(function() {
+		$(document).on("click", ".redirect-to-gettingstarted", function() {
+			window.location.href = "#";
+		})
+	});
+	$(function() {
 		$(document).on("click", ".redirect-to-tools", function() {
 			window.location.href = "tools";
 		})
 	});
+	$(function() {
+		$(document).on("click", ".redirect-to-aboutme", function() {
+			window.location.href = "#";
+		})
+	});
+	$(function() {
+		$(document).on("click", ".redirect-to-donations", function() {
+			window.location.href = "#";
+		})
+	});
+	
 });

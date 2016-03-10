@@ -132,3 +132,7 @@ a:hover {
 	color: #9f60b9 !important;
 	transform: scale(1.01);
 }
+
+.pointer {
+	cursor: pointer;
+}
