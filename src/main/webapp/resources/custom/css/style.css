@@ -15,12 +15,20 @@ body {
 	font-family: 'Roboto Condensed', sans-serif;
 }
 
+p {
+	font-size: 1.3em;
+}
+
 .grey-background {
 	background-color: #999;
 }
 
 .white-background {
 	background-color: #FFF;
+}
+
+.green-background {
+	background-color: #16a085;
 }
 
 .navbar {
@@ -106,4 +114,21 @@ textarea {
 
 table {
 	border: 1px solid #999;
+}
+
+a {
+	color: #16a085;
+	text-decoration: none;
+	transition: all 0.1s ease-in-out;
+}
+
+a:hover, a:active, a:visited, a:link {
+	color: #16a085;
+	text-decoration: none;
+	font-weight: 500;
+}
+
+a:hover {
+	color: #9f60b9 !important;
+	transform: scale(1.01);
 }

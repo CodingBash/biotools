@@ -16,7 +16,7 @@
 <div class="container-fluid white-background interactive">
 	<h2 class="title text-center">Tools</h2>
 	<h4 class="text-center">
-		Want to see our list of tools? Visit <a href="#">Tools</a>.
+		Want to see our list of tools? Visit <a href="tools">Tools</a>.
 	</h4>
 </div>
 
