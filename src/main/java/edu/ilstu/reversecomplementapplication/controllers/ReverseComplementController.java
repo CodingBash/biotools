@@ -32,7 +32,7 @@ public class ReverseComplementController
 {
 	private static final Logger logger = LoggerFactory.getLogger(ReverseComplementController.class);
 	private static final String indexPage = "reversecomplement/index";
-	
+
 	@Autowired
 	ApplicationUtility applicationUtility;
 
@@ -44,20 +44,11 @@ public class ReverseComplementController
 	@RequestMapping(value = "/")
 	public String getIndex(Model model, HttpSession session)
 	{
-		// Insert session attribute into generic object
-		Object objectedSequenceContainer = session.getAttribute("sequenceContainer");
+		// Retrieve sequence container from session
+		SequenceContainer sequenceContainer = this.retrieveSequenceContainer(session);
 
-		// Create a SequenceContainer object
-		SequenceContainer sequenceContainer = null;
-
-		// Check if the object is an instance of a SequenceContainer
-		if (objectedSequenceContainer instanceof SequenceContainer)
-		{
-			sequenceContainer = (SequenceContainer) objectedSequenceContainer;
-			// Add sequence to the ModelAndView
-			model.addAttribute("container", sequenceContainer.getSequenceContainer());
-		}
-
+		// Add sequence to the ModelAndView
+		model.addAttribute("container", sequenceContainer.getSequenceContainer());
 		return indexPage;
 	}
 
@@ -73,10 +64,18 @@ public class ReverseComplementController
 	@RequestMapping(value = "/submitSequence.do", method = RequestMethod.POST)
 	public String submitSequence(@RequestParam("sequence") String stringSequence, Model model, HttpSession session)
 	{
+		// TODO: Generalize into an abstract base
 		DNASequence sequence = null;
 		try
 		{
-			sequence = new DNASequence(stringSequence.trim());
+			try
+			{
+				sequence = new DNASequence(applicationUtility.editStringSequence(stringSequence));
+			} catch (Exception e)
+			{
+				e.printStackTrace();
+				sequence = new DNASequence(stringSequence);
+			}
 		} catch (CompoundNotFoundException e)
 		{
 			e.printStackTrace();
@@ -84,35 +83,28 @@ public class ReverseComplementController
 
 		if (sequence != null)
 		{
-			model.addAttribute("oldSequence", sequence.toString());
+			model.addAttribute("oldSequence", stringSequence);
 			try
 			{
 				sequence = new DNASequence(sequence.getReverseComplement().getSequenceAsString());
+				model.addAttribute("sequence", sequence.toString());
 			} catch (CompoundNotFoundException e)
 			{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			model.addAttribute("sequence", sequence.toString());
 		} else
 		{
 			model.addAttribute("sequence", null);
 			model.addAttribute("oldSequence", null);
 		}
 
-		// Insert session attribute into generic object
-		Object objectedSequenceContainer = session.getAttribute("sequenceContainer");
+		// Retrieve sequence container from session
+		SequenceContainer sequenceContainer = this.retrieveSequenceContainer(session);
 
-		// Create a SequenceContainer object
-		SequenceContainer sequenceContainer = null;
+		// Add sequence to the ModelAndView
+		model.addAttribute("container", sequenceContainer.getSequenceContainer());
 
-		// Check if the object is an instance of a SequenceContainer
-		if (objectedSequenceContainer instanceof SequenceContainer)
-		{
-			sequenceContainer = (SequenceContainer) objectedSequenceContainer;
-			// Add sequence to the ModelAndView
-			model.addAttribute("container", sequenceContainer.getSequenceContainer());
-		}
 		return indexPage;
 	}
 
@@ -130,28 +122,21 @@ public class ReverseComplementController
 	@RequestMapping(value = "/saveSequence.do", method = RequestMethod.POST)
 	public String saveSequence(@RequestParam("sequence") String stringSequence, Model model, HttpSession session)
 	{
-		// Insert session attribute into generic object
-		Object objectedSequenceContainer = session.getAttribute("sequenceContainer");
-
-		// Create a SequenceContainer object
-		SequenceContainer sequenceContainer = null;
-
-		// Check if the object is an instance of a SequenceContainer
-		if (objectedSequenceContainer instanceof SequenceContainer)
-		{
-			sequenceContainer = (SequenceContainer) objectedSequenceContainer;
-		}
-		// If not, make a new SequenceContainer
-		else
-		{
-			sequenceContainer = new SequenceContainer(new LinkedList<AbstractSequence<NucleotideCompound>>());
-		}
+		// Retrieve sequence container from session
+		SequenceContainer sequenceContainer = this.retrieveSequenceContainer(session);
 
 		// Create the sequence from the @RequestParam
 		AbstractSequence<NucleotideCompound> sequence = null;
 		try
 		{
-			sequence = new DNASequence(stringSequence.trim());
+			try
+			{
+				sequence = new DNASequence(applicationUtility.editStringSequence(stringSequence));
+			} catch (Exception e)
+			{
+				e.printStackTrace();
+				sequence = new DNASequence(stringSequence);
+			}
 		} catch (CompoundNotFoundException e)
 		{
 			e.printStackTrace();
@@ -187,30 +172,21 @@ public class ReverseComplementController
 			Model model, HttpSession session)
 	{
 
-		// Insert session attribute into generic object
-		Object objectedSequenceContainer = session.getAttribute("sequenceContainer");
-
-		// Create a SequenceContainer object
-		SequenceContainer sequenceContainer = null;
-
-		// Check if the object is an instance of a SequenceContainer
-		if (objectedSequenceContainer instanceof SequenceContainer)
-		{
-
-			sequenceContainer = (SequenceContainer) objectedSequenceContainer;
-		}
-		// If not, make a new SequenceContainer
-		else
-		{
-			sequenceContainer = new SequenceContainer(new LinkedList<AbstractSequence<NucleotideCompound>>());
-		}
+		// Retrieve sequence container from session
+		SequenceContainer sequenceContainer = this.retrieveSequenceContainer(session);
 
 		// Create the sequence from the @RequestParam
 		AbstractSequence<NucleotideCompound> sequence = null;
 		try
 		{
-			sequence = new DNASequence(stringSequence.trim());
-			// Edit the sequence
+			try
+			{
+				sequence = new DNASequence(applicationUtility.editStringSequence(stringSequence));
+			} catch (Exception e)
+			{
+				e.printStackTrace();
+				sequence = new DNASequence(stringSequence);
+			}
 			sequenceContainer.editSequenceInContainer(index, sequence);
 		} catch (CompoundNotFoundException e)
 		{
@@ -240,23 +216,8 @@ public class ReverseComplementController
 	@RequestMapping(value = "/deleteSequence.do", method = RequestMethod.POST)
 	public String deleteSequence(@RequestParam("index") int index, Model model, HttpSession session)
 	{
-		// Insert session attribute into generic object
-		Object objectedSequenceContainer = session.getAttribute("sequenceContainer");
-
-		// Create a SequenceContainer object
-		SequenceContainer sequenceContainer = null;
-
-		// Check if the object is an instance of a SequenceContainer
-		if (objectedSequenceContainer instanceof SequenceContainer)
-		{
-
-			sequenceContainer = (SequenceContainer) objectedSequenceContainer;
-		}
-		// If not, make a new SequenceContainer
-		else
-		{
-			sequenceContainer = new SequenceContainer(new LinkedList<AbstractSequence<NucleotideCompound>>());
-		}
+		/// Retrieve sequence container from session
+		SequenceContainer sequenceContainer = this.retrieveSequenceContainer(session);
 
 		// Delete the sequence
 		try
@@ -292,23 +253,8 @@ public class ReverseComplementController
 	@RequestMapping(value = "/deleteAllSequences.do", method = RequestMethod.POST)
 	public String deleteAllSequences(Model model, HttpSession session)
 	{
-		// Insert session attribute into generic object
-		Object objectedSequenceContainer = session.getAttribute("sequenceContainer");
-
-		// Create a SequenceContainer object
-		SequenceContainer sequenceContainer = null;
-
-		// Check if the object is an instance of a SequenceContainer
-		if (objectedSequenceContainer instanceof SequenceContainer)
-		{
-
-			sequenceContainer = (SequenceContainer) objectedSequenceContainer;
-		}
-		// If not, make a new SequenceContainer
-		else
-		{
-			sequenceContainer = new SequenceContainer(new LinkedList<AbstractSequence<NucleotideCompound>>());
-		}
+		// Retrieve sequence container from session
+		SequenceContainer sequenceContainer = this.retrieveSequenceContainer(session);
 
 		// Delete the sequence
 		try
@@ -344,23 +290,8 @@ public class ReverseComplementController
 	public String deleteSelectedSequences(@RequestParam("indexList") String[] stringIndexList, Model model,
 			HttpSession session)
 	{
-		// Insert session attribute into generic object
-		Object objectedSequenceContainer = session.getAttribute("sequenceContainer");
-
-		// Create a SequenceContainer object
-		SequenceContainer sequenceContainer = null;
-
-		// Check if the object is an instance of a SequenceContainer
-		if (objectedSequenceContainer instanceof SequenceContainer)
-		{
-
-			sequenceContainer = (SequenceContainer) objectedSequenceContainer;
-		}
-		// If not, make a new SequenceContainer
-		else
-		{
-			sequenceContainer = new SequenceContainer(new LinkedList<AbstractSequence<NucleotideCompound>>());
-		}
+		// Retrieve sequence container from session
+		SequenceContainer sequenceContainer = this.retrieveSequenceContainer(session);
 
 		// Convert String[] to int[]
 		int[] intIndexList = applicationUtility.convertStringArrayToIntArray(stringIndexList);
@@ -385,5 +316,34 @@ public class ReverseComplementController
 
 		// Refresh the index page
 		return indexPage;
+	}
+
+	/**
+	 * Retrieves {@link SequenceContainer} from the (@link HttpSession}
+	 * 
+	 * @param session
+	 *            Spring session object
+	 * @return sequenceContainer from the {@link HttpSession}
+	 */
+	public SequenceContainer retrieveSequenceContainer(HttpSession session)
+	{
+		// Insert session attribute into generic object
+		Object objectedSequenceContainer = session.getAttribute("sequenceContainer");
+
+		// Create a SequenceContainer object
+		SequenceContainer sequenceContainer = null;
+
+		// Check if the object is an instance of a SequenceContainer
+		if (objectedSequenceContainer instanceof SequenceContainer)
+		{
+			sequenceContainer = (SequenceContainer) objectedSequenceContainer;
+		}
+		// If not, make a new SequenceContainer
+		else
+		{
+			sequenceContainer = new SequenceContainer(new LinkedList<AbstractSequence<NucleotideCompound>>());
+		}
+
+		return sequenceContainer;
 	}
 }
