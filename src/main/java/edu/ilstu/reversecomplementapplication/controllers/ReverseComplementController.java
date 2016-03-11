@@ -87,7 +87,25 @@ public class ReverseComplementController
 			try
 			{
 				sequence = new DNASequence(sequence.getReverseComplement().getSequenceAsString());
-				model.addAttribute("sequence", sequence.toString());
+
+				/*
+				 * Convert regular sequence to FASTA sequence
+				 */
+				String fastaHeader = "";
+				try
+				{
+					fastaHeader = applicationUtility.extractFastaHeader(stringSequence);
+				} catch (Exception e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				String regularSequence = sequence.toString();
+				String fastaSequence = applicationUtility.convertToFastaSequence(fastaHeader, regularSequence);
+
+				// Add FASTA sequence to model
+				model.addAttribute("sequence", fastaSequence);
 			} catch (CompoundNotFoundException e)
 			{
 				// TODO Auto-generated catch block

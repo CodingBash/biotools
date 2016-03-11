@@ -60,12 +60,65 @@ public class ApplicationUtility
 		}
 		// Remove intermediate spaces
 		// TODO: Translate to regex
-		stringSequence = stringSequence.replace("/n", "");
+		stringSequence = stringSequence.replace(System.getProperty("line.separator"), "");
 		stringSequence = stringSequence.replace(" ", "");
 		// To Uppercase
 		stringSequence = stringSequence.toUpperCase();
 
 		return stringSequence;
+	}
 
+	/**
+	 * Extract the FASTA header from a FASTA sequence
+	 * 
+	 * @param stringSequence
+	 *            FASTA sequence
+	 * @return FASTA header
+	 * @throws Exception
+	 *             if FASTA unable to convert
+	 */
+	public String extractFastaHeader(String stringSequence) throws Exception
+	{
+		String fastaHeader = "";
+		stringSequence = stringSequence.trim();
+		if (stringSequence.charAt(0) == ('>'))
+		{
+			if (stringSequence.indexOf(System.getProperty("line.separator")) != -1)
+			{
+				fastaHeader = stringSequence.substring(0, stringSequence.indexOf(System.getProperty("line.separator")));
+			} else
+			{
+				// TODO: Create new exception
+				throw new Exception("Error converting from FASTA sequence: Could not find the newline");
+			}
+		}
+		return fastaHeader;
+	}
+
+	/**
+	 * Converts sequence to a FASTA Sequence
+	 * 
+	 * @param fastaHeader
+	 *            header for FASTA sequence
+	 * @param sequence
+	 *            sequence for FASTA sequence
+	 * @return final FASTA sequence
+	 */
+	public String convertToFastaSequence(String fastaHeader, String sequence)
+	{
+		String fastaSequence = "";
+		fastaHeader = fastaHeader.replace(System.getProperty("line.separator"), "");
+
+		sequence = sequence.trim();
+
+		// TODO: Test line separator extractor
+		if (sequence.substring(0, 1) == System.getProperty("line.separator"))
+		{
+			sequence = sequence.substring(1, sequence.length());
+		}
+
+		fastaSequence = fastaHeader + System.getProperty("line.separator") + sequence;
+
+		return fastaSequence;
 	}
 }
