@@ -31,6 +31,15 @@ public class ApplicationUtility
 		return intArray;
 	}
 
+	/**
+	 * String sequence editing: Trim, FASTA conversion, and to upper case
+	 * 
+	 * @param stringSequence
+	 *            string to be edited
+	 * @return edited string
+	 * @throws Exception
+	 *             if FASTA unable to convert
+	 */
 	public String editStringSequence(String stringSequence) throws Exception
 	{
 		// Trim
@@ -38,10 +47,8 @@ public class ApplicationUtility
 		// Check FASTA
 		if (stringSequence.charAt(0) == ('>'))
 		{
-			System.out.println("> found");
 			if (stringSequence.indexOf(System.getProperty("line.separator")) != -1)
 			{
-				System.out.println("n found");
 				stringSequence = stringSequence.substring(
 						stringSequence.indexOf(System.getProperty("line.separator"), 1), stringSequence.length());
 				stringSequence = stringSequence.trim();
