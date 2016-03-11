@@ -250,4 +250,14 @@ $(document)
 
 								});
 					});
+
+					/**
+					 * EDIT THE INPUT STRING
+					 */
+					$("#sequence-input").focusout(function() {
+						var stringSequence = $("#sequence-input").val();
+						stringSequence = stringSequence.trim();
+						stringSequence = stringSequence.toUpperCase();
+						$("#sequence-input").val(stringSequence);
+					})
 				});
