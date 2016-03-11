@@ -257,7 +257,18 @@ $(document)
 					$("#sequence-input").focusout(function() {
 						var stringSequence = $("#sequence-input").val();
 						stringSequence = stringSequence.trim();
-						stringSequence = stringSequence.toUpperCase();
+						if(stringSequence.indexOf(">") !== -1){
+							if(stringSequence.charAt(0) === '>'){
+								if(stringSequence.indexOf("\n") !== -1){
+									var fastaHeader = stringSequence.substring(0, stringSequence.indexOf("\n") + 1);
+									var sequence = stringSequence.substring(stringSequence.indexOf("\n", 1) + 1, stringSequence.length);
+									sequence = sequence.replace(/ /g, "");
+									sequence = sequence.replace(/\r?\n|\r/g, "");
+									sequence = sequence.toUpperCase();
+									stringSequence = fastaHeader + sequence;
+								}
+							}
+						}
 						$("#sequence-input").val(stringSequence);
 					})
 				});
