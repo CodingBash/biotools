@@ -19,7 +19,7 @@ public class SequenceContainer
 	 * {@link NucleotideCompound}>
 	 */
 	private List<AbstractSequence<NucleotideCompound>> sequenceContainer;
-
+	
 	/**
 	 * Initiate the list with any implementation
 	 * 

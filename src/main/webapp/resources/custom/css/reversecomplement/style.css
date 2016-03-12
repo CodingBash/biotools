@@ -20,6 +20,14 @@ th#table-checkbox {
 	width: 20%;
 }
 
-.same-height-1{
+table {
+	width: 100%;
+}
+
+td.sequence-data {
+	width:100px
+}
+
+.same-height-1 {
 	height: 100px;
 }

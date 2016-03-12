@@ -25,7 +25,11 @@
 			<c:forEach items="${container}" var="sequenceItem" varStatus="iterator">
 				<tr class="sequence-element" value="${iterator.index}">
 					<td class="sequence-number">#${iterator.index + 1}</td>
-					<td class="sequence-data">${sequenceItem}</td>
+					<td class="sequence-data"><form action="editSequence.do" method="POST">
+							<textarea cols="50" rows="10" name="sequence" class="sequence-data-textarea"><c:out
+									value="${sequenceItem}" /></textarea>
+							<input type="hidden" name="index" value="${iterator.index}" />
+						</form></td>
 					<td class="button-first"><button type="button"
 							class="btn btn-info sequence-edit center-block">EDIT</button></td>
 					<td class="button-second">
