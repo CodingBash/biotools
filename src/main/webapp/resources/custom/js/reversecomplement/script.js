@@ -6,11 +6,6 @@ $(document).ready(function() {
 	 * Processes on page load
 	 */
 	// START
-	if ($(".sequence-element").length) {
-		$(".deleteall-modal-appearance").show();
-	} else {
-		$(".deleteall-modal-appearance").hide();
-	}
 	/**
 	 * Holds the index of the \<tr\> element to pass to the modal delete button
 	 */
@@ -24,7 +19,7 @@ $(document).ready(function() {
 	var deleteSelectionArray = new Array();
 
 	/**
-	 * Page Initial loading
+	 * DECIDING TO DISPLAY DELETEALL BUTTON
 	 */
 	if ($(".sequence-element").length) {
 		$(".deleteall-modal-appearance").show();
@@ -32,11 +27,20 @@ $(document).ready(function() {
 		$(".deleteall-modal-appearance").hide();
 	}
 
+	/**
+	 * DECIDING TO DISPLAY DELETESELECTED BUTTON
+	 */
 	if (deleteSelectionArray.length) {
 		$(".delete-selected-button").show();
 	} else {
 		$(".delete-selected-button").hide();
 	}
+
+	/**
+	 * HIDING THE SEQUENCE EDIT BUTTONS
+	 */
+	$(".edit-submit").hide();
+	$(".edit-cancel").hide();
 	// END
 	/*
 	 * 
@@ -71,6 +75,7 @@ $(document).ready(function() {
 	});
 
 	var deleteSelectionArray = new Array();
+
 	/**
 	 * DELETE CHECKBOX SELECTED
 	 */
@@ -166,7 +171,7 @@ $(document).ready(function() {
 	 * CANCEL THE EDIT
 	 */
 	$(function() {
-		$(document).on("click", ".cancel", function() {
+		$(document).on("click", ".edit-cancel", function() {
 			cancelEdit($(this));
 		});
 	});
@@ -224,6 +229,7 @@ $(document).ready(function() {
 	 * Consistent functions
 	 */
 	// START
+	var holderArray = new Array();
 	/**
 	 * MAKE TABLE ELEMENT EDITABLE
 	 * 
@@ -231,18 +237,36 @@ $(document).ready(function() {
 	 *            an element contained inside the \<tr\> .sequence-element
 	 */
 	function makeTableElementEditable(thisElement) {
+		console.log("Make Editable");
 		var trElement = thisElement.parents(".sequence-element");
-		holder = trElement.clone();
 
-		var innerHtml_2 = "<button class=\"btn btn-info center-block edit-submit\">SUBMIT</button>";
-		trElement.children(".button-first").html(innerHtml_2);
+		var index = parseInt(trElement.attr("value"));
+		if (holderArray[index] !== "") {
+			holderArray[index] = trElement.children(".sequence-data-textarea").val();
+		}
 
-		var innerHtml_3 = "<button class=\"btn btn-warning center-block cancel\">CANCEL</button>";
-		trElement.children(".button-second").html(innerHtml_3);
+		console.log("Displaying edit buttons");
+		trElement.children(".sequence-edit").hide();
+		trElement.children(".edit-submit").show();
+		trElement.children(".delete-modal-appearance").hide();
+		trElement.children(".edit-cancel").show();
+		console.log("Buttons canged");
+		/*
+		 * var innerHtml_2 = "<button class=\"btn btn-info center-block
+		 * edit-submit\">SUBMIT</button>";
+		 * trElement.children(".button-first").html(innerHtml_2);
+		 * 
+		 * var innerHtml_3 = "<button class=\"btn btn-warning center-block
+		 * cancel\">CANCEL</button>";
+		 * trElement.children(".button-second").html(innerHtml_3);
+		 */
 	}
 
 	/**
 	 * CLEAN STRING SEQUENCE
+	 * 
+	 * @param stringSequence
+	 *            string to clean
 	 */
 	function cleanStringSequence(stringSequence) {
 		stringSequence = stringSequence.trim();
@@ -278,10 +302,26 @@ $(document).ready(function() {
 	 *            an element contained inside the \<tr\> .sequence-element
 	 */
 	function cancelEdit(thisElement) {
-		if (holder !== null) {
-			thisElement.parents(".sequence-element").html(holder.html());
-			holder = null;
-		}
+		var trElement = thisElement.parents(".sequence-element");
+		var index = parseInt(trElement.attr("value"));
+		thisElement.parents(".sequence-element").html(holderArray[index]);
+		holderArray[index] = "";
+
+		trElement.children(".edit-submit").hide();
+		trElement.children(".sequence-edit").show();
+		trElement.children(".edit-cancel").hide();
+		trElement.children(".delete-modal-appearance").show();
+
+		/*
+		 * var innerHtml_2 = "<button class=\"btn btn-info center-block
+		 * edit-submit\">SUBMIT</button>";
+		 * trElement.children(".button-first").html(innerHtml_2);
+		 * 
+		 * var innerHtml_3 = "<button class=\"btn btn-warning center-block
+		 * edit-cancel\">CANCEL</button>";
+		 * trElement.children(".button-second").html(innerHtml_3);
+		 */
+
 	}
 	// END
 	/*

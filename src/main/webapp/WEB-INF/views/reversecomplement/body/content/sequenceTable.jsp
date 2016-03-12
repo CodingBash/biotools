@@ -30,11 +30,16 @@
 									value="${sequenceItem}" /></textarea>
 							<input type="hidden" name="index" value="${iterator.index}" />
 						</form></td>
-					<td class="button-first"><button type="button"
-							class="btn btn-info sequence-edit center-block">EDIT</button></td>
+					<td class="button-first">
+						<button type="button" class="btn btn-info sequence-edit center-block">EDIT</button>
+
+						<button class="btn btn-info center-block edit-submit">SUBMIT</button>
+					</td>
 					<td class="button-second">
 						<button type="button" class="btn btn-danger delete-modal-appearance center-block"
 							data-toggle="modal" data-target="#modal-delete-confirmation">DELETE</button>
+
+						<button class="btn btn-warning center-block edit-cancel">CANCEL</button>
 					</td>
 					<!-- Make checkbox larger, issue centering checkbox -->
 					<td><input type="checkbox" class="checkbox-delete-selection center-block" /></td>
