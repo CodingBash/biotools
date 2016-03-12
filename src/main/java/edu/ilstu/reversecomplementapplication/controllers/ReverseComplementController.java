@@ -1,6 +1,5 @@
 package edu.ilstu.reversecomplementapplication.controllers;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 
 import javax.servlet.http.HttpSession;
@@ -17,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import edu.ilstu.reversecomplementapplication.components.ApplicationUtility;
 import edu.ilstu.reversecomplementapplication.models.SequenceContainer;
@@ -42,14 +42,15 @@ public class ReverseComplementController
 	 * @return redirect to index.jsp
 	 */
 	@RequestMapping(value = "/")
-	public String getIndex(Model model, HttpSession session)
+	public ModelAndView getIndex(HttpSession session)
 	{
+		ModelAndView mav = new ModelAndView(indexPage);
 		// Retrieve sequence container from session
 		SequenceContainer sequenceContainer = this.retrieveSequenceContainer(session);
 
 		// Add sequence to the ModelAndView
-		model.addAttribute("container", sequenceContainer.getSequenceContainer());
-		return indexPage;
+		mav.addObject("container", sequenceContainer.getSequenceContainer());
+		return mav;
 	}
 
 	/**
@@ -62,8 +63,9 @@ public class ReverseComplementController
 	 * @return redirect to index.jsp
 	 */
 	@RequestMapping(value = "/submitSequence.do", method = RequestMethod.POST)
-	public String submitSequence(@RequestParam("sequence") String stringSequence, Model model, HttpSession session)
+	public ModelAndView submitSequence(@RequestParam("sequence") String stringSequence, HttpSession session)
 	{
+		ModelAndView mav = new ModelAndView(indexPage);
 		// TODO: Generalize into an abstract base
 		DNASequence sequence = null;
 		try
@@ -83,7 +85,7 @@ public class ReverseComplementController
 
 		if (sequence != null)
 		{
-			model.addAttribute("oldSequence", stringSequence);
+			mav.addObject("oldSequence", stringSequence);
 			try
 			{
 				sequence = new DNASequence(sequence.getReverseComplement().getSequenceAsString());
@@ -105,7 +107,7 @@ public class ReverseComplementController
 				String fastaSequence = applicationUtility.convertToFastaSequence(fastaHeader, regularSequence);
 
 				// Add FASTA sequence to model
-				model.addAttribute("sequence", fastaSequence);
+				mav.addObject("sequence", fastaSequence);
 			} catch (CompoundNotFoundException e)
 			{
 				// TODO Auto-generated catch block
@@ -113,17 +115,17 @@ public class ReverseComplementController
 			}
 		} else
 		{
-			model.addAttribute("sequence", null);
-			model.addAttribute("oldSequence", null);
+			mav.addObject("sequence", null);
+			mav.addObject("oldSequence", null);
 		}
 
 		// Retrieve sequence container from session
 		SequenceContainer sequenceContainer = this.retrieveSequenceContainer(session);
 
 		// Add sequence to the ModelAndView
-		model.addAttribute("container", sequenceContainer.getSequenceContainer());
+		mav.addObject("container", sequenceContainer.getSequenceContainer());
 
-		return indexPage;
+		return mav;
 	}
 
 	/**
@@ -359,7 +361,7 @@ public class ReverseComplementController
 		// If not, make a new SequenceContainer
 		else
 		{
-			sequenceContainer = new SequenceContainer(new LinkedList<AbstractSequence<NucleotideCompound>>());
+			sequenceContainer = new SequenceContainer(new LinkedList<AbstractSequence<?>>());
 		}
 
 		return sequenceContainer;

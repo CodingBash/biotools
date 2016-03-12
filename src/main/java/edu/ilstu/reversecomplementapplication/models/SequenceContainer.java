@@ -3,7 +3,6 @@ package edu.ilstu.reversecomplementapplication.models;
 import java.util.Arrays;
 import java.util.List;
 
-import org.biojava.nbio.core.sequence.compound.NucleotideCompound;
 import org.biojava.nbio.core.sequence.template.AbstractSequence;
 
 /**
@@ -16,16 +15,16 @@ public class SequenceContainer
 {
 	/**
 	 * Interface {@link List} to contain an {@link AbstractSequence}<
-	 * {@link NucleotideCompound}>
+	 * {@link ?}>
 	 */
-	private List<AbstractSequence<NucleotideCompound>> sequenceContainer;
+	private List<AbstractSequence<?>> sequenceContainer;
 	
 	/**
 	 * Initiate the list with any implementation
 	 * 
 	 * @param sequenceContainer
 	 */
-	public SequenceContainer(List<AbstractSequence<NucleotideCompound>> sequenceContainer)
+	public SequenceContainer(List<AbstractSequence<?>> sequenceContainer)
 	{
 		this.setSequenceContainer(sequenceContainer);
 	}
@@ -35,7 +34,7 @@ public class SequenceContainer
 	 * 
 	 * @return sequenceContainer if available
 	 */
-	public List<AbstractSequence<NucleotideCompound>> getSequenceContainer()
+	public List<AbstractSequence<?>> getSequenceContainer()
 	{
 		if (sequenceContainer != null)
 		{
@@ -49,7 +48,7 @@ public class SequenceContainer
 	 * 
 	 * @param sequenceContainer
 	 */
-	public void setSequenceContainer(List<AbstractSequence<NucleotideCompound>> sequenceContainer)
+	public void setSequenceContainer(List<AbstractSequence<?>> sequenceContainer)
 	{
 		this.sequenceContainer = sequenceContainer;
 	}
@@ -60,7 +59,7 @@ public class SequenceContainer
 	 * @param sequence
 	 *            to add
 	 */
-	public void addSequenceToContainer(AbstractSequence<NucleotideCompound> sequence)
+	public void addSequenceToContainer(AbstractSequence<?> sequence)
 	{
 		if (sequenceContainer != null)
 		{
@@ -76,7 +75,7 @@ public class SequenceContainer
 	 * @param sequence
 	 *            to add
 	 */
-	public void insertSequenceToContainer(int index, AbstractSequence<NucleotideCompound> sequence)
+	public void insertSequenceToContainer(int index, AbstractSequence<?> sequence)
 	{
 		if (sequenceContainer != null)
 		{
@@ -167,7 +166,7 @@ public class SequenceContainer
 	 * @param sequence
 	 *            to replace
 	 */
-	public void editSequenceInContainer(int index, AbstractSequence<NucleotideCompound> sequence)
+	public void editSequenceInContainer(int index, AbstractSequence<?> sequence)
 	{
 		if (sequenceContainer != null)
 		{
