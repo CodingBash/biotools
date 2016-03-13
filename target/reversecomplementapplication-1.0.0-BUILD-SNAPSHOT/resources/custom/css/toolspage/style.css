@@ -1,0 +1,54 @@
+@CHARSET "ISO-8859-1";
+
+.logo-large {
+	font-size: 100px;
+}
+
+.green-color {
+	color: #16a085;
+}
+
+.panel-group {
+	margin: 0 auto;
+	padding: 0;
+}
+
+.panel {
+	border: 1px solid #16a085;
+	border-radius: 0;
+	transition: all 0.2s ease-in-out;
+}
+
+.panel:hover {
+	transform: scale(1.02);
+	box-shadow: 5px 0px 40px rgba(0, 0, 0, .2);
+}
+
+.panel-heading {
+	background-color: #16a085 !important;
+	color: #FFF !important;
+	border-bottom: 1px solid transparent;
+	border-radius: 0;
+}
+
+.panel-footer {
+	background-color: #fff !important;
+	border-top: 1px solid #DDD !important;
+}
+
+.panel-body {
+	background-color: #fff !important;
+}
+
+.panel-footer button {
+	background-color: #16a085;
+	color: #fff;
+	border: 1px solid #16a085;
+	border-radius: 5px;
+	transition: all 0.2s ease-in-out;
+}
+
+.panel-footer button:hover, .panel-footer button:active {
+	background-color: #fff;
+	color: #16a085;
+}

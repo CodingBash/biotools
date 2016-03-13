@@ -1,0 +1,33 @@
+@CHARSET "ISO-8859-1";
+
+th#table-sequence-number {
+	width: 10%;
+}
+
+th#table-sequence-data {
+	width: 50%;
+}
+
+th#table-button-first {
+	width: 10%;
+}
+
+th#table-button-second {
+	width: 10%;
+}
+
+th#table-checkbox {
+	width: 20%;
+}
+
+table {
+	width: 100%;
+}
+
+td.sequence-data {
+	width:100px
+}
+
+.same-height-1 {
+	height: 100px;
+}
