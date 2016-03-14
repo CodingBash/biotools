@@ -91,6 +91,23 @@ public class SequenceContainer
 	}
 
 	/**
+	 * Get a sequence to the sequenceContainer in any index
+	 * 
+	 * @param index
+	 *            in sequenceContainer to insert
+	 * 
+	 * @return the {@link AbstractSequence}<> in the index
+	 */
+	public AbstractSequence<?> getSequenceInContainer(int index)
+	{
+		if (sequenceContainer != null)
+		{
+			return sequenceContainer.get(index);
+		}
+		return null;
+	}
+
+	/**
 	 * Remove sequence in container in any index
 	 * 
 	 * @param index
@@ -102,13 +119,7 @@ public class SequenceContainer
 	{
 		if (sequenceContainer != null)
 		{
-			if (index >= 0 && index <= sequenceContainer.size())
-			{
-				sequenceContainer.remove(index);
-			} else
-			{
-				throw new IndexOutOfBoundsException();
-			}
+			sequenceContainer.remove(index);
 		}
 	}
 

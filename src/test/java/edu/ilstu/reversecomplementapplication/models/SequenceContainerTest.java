@@ -3,16 +3,20 @@
  */
 package edu.ilstu.reversecomplementapplication.models;
 
+import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.biojava.nbio.core.exceptions.CompoundNotFoundException;
 import org.biojava.nbio.core.sequence.DNASequence;
+import org.biojava.nbio.core.sequence.ProteinSequence;
 import org.biojava.nbio.core.sequence.RNASequence;
 import org.biojava.nbio.core.sequence.template.AbstractSequence;
 import org.junit.Before;
@@ -176,13 +180,39 @@ public class SequenceContainerTest
 	 * Determine if the method works properly
 	 * 
 	 * @method {@link SequenceContainer#insertSequenceToContainer(int, AbstractSequence)}
-	 * 
+	 * @method {@link SeuquenceContainer
 	 * @expectedResult
 	 */
 	@Test
 	public void testInsertSequenceToContainer()
 	{
+		listContainer = new LinkedList<AbstractSequence<?>>();
+		listContainer = getFilledSequenceList();
+		sequenceContainer = new SequenceContainer();
+		try
+		{
+			sequenceContainer.insertSequenceToContainer(123, new DNASequence("AGCT"));
+			sequenceContainer.getSequenceInContainer(0);
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+			fail();
+		}
 
+		int index = 1;
+		AbstractSequence<?> sequence = null;
+		try
+		{
+			sequence = new DNASequence("AGCT");
+		} catch (CompoundNotFoundException e)
+		{
+			e.printStackTrace();
+			fail();
+		}
+		System.out.println(listContainer.size());
+		sequenceContainer.setSequenceContainer(listContainer);
+		sequenceContainer.insertSequenceToContainer(index, sequence);
+		assertTrue(sequenceContainer.getSequenceInContainer(index) == sequence);// assert
 	}
 
 	/**
@@ -245,7 +275,7 @@ public class SequenceContainerTest
 	 * @expectedResult
 	 */
 	@Test
-	public void testRemoveSelectedSequencesInContainer()
+	public void testRemoveSelectedSequencesInContainer1()
 	{
 
 	}
@@ -261,6 +291,43 @@ public class SequenceContainerTest
 	public void testEditSequenceInContainer()
 	{
 
+	}
+
+	/**
+	 * Get filled {@link List}
+	 */
+	public List<AbstractSequence<?>> getFilledSequenceList()
+	{
+		List<AbstractSequence<?>> sequenceList = new LinkedList<AbstractSequence<?>>();
+		AbstractSequence<?> sequenceOne = null;
+		try
+		{
+			sequenceOne = new DNASequence("AGCT");
+		} catch (CompoundNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		AbstractSequence<?> sequenceTwo = null;
+		try
+		{
+			sequenceTwo = new ProteinSequence("ARNDCEQGHILKMFPSTWYVBZJX");
+		} catch (CompoundNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		AbstractSequence<?> sequenceThree = null;
+		try
+		{
+			sequenceThree = new RNASequence("AGCU");
+		} catch (CompoundNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		sequenceList.add(sequenceOne);
+		sequenceList.add(sequenceTwo);
+		sequenceList.add(sequenceThree);
+
+		return sequenceList;
 	}
 
 }
