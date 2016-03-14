@@ -14,11 +14,18 @@ import org.biojava.nbio.core.sequence.template.AbstractSequence;
 public class SequenceContainer
 {
 	/**
-	 * Interface {@link List} to contain an {@link AbstractSequence}<
-	 * {@link ?}>
+	 * Interface {@link List} to contain an {@link AbstractSequence}< {@link ?}>
 	 */
 	private List<AbstractSequence<?>> sequenceContainer;
-	
+
+	/**
+	 * No-args constructor
+	 */
+	public SequenceContainer()
+	{
+
+	}
+
 	/**
 	 * Initiate the list with any implementation
 	 * 
