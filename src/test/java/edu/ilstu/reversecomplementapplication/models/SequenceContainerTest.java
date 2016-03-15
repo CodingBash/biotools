@@ -3,11 +3,10 @@
  */
 package edu.ilstu.reversecomplementapplication.models;
 
-import static org.hamcrest.Matchers.containsInAnyOrder;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
@@ -68,14 +67,14 @@ public class SequenceContainerTest
 		 */
 		listContainer = new LinkedList<AbstractSequence<?>>();
 		sequenceContainer = new SequenceContainer(listContainer);
-		assertTrue(sequenceContainer.getSequenceContainer() == listContainer);
+		assertSame(sequenceContainer.getSequenceContainer(), listContainer);
 
 		/*
 		 * Test with ArrayList
 		 */
 		listContainer = new ArrayList<AbstractSequence<?>>();
 		sequenceContainer = new SequenceContainer(listContainer);
-		assertTrue(sequenceContainer.getSequenceContainer() == listContainer);
+		assertSame(sequenceContainer.getSequenceContainer(), listContainer);
 	}
 
 	/**
@@ -98,7 +97,7 @@ public class SequenceContainerTest
 		sequenceContainer = new SequenceContainer();
 		assertNull(sequenceContainer.getSequenceContainer());
 		sequenceContainer.setSequenceContainer(listContainer);
-		assertTrue(sequenceContainer.getSequenceContainer() == listContainer);
+		assertSame(sequenceContainer.getSequenceContainer(), listContainer);
 
 		/*
 		 * Test with ArrayList
@@ -107,7 +106,7 @@ public class SequenceContainerTest
 		sequenceContainer = new SequenceContainer();
 		assertNull(sequenceContainer.getSequenceContainer());
 		sequenceContainer.setSequenceContainer(listContainer);
-		assertTrue(sequenceContainer.getSequenceContainer() == listContainer);
+		assertSame(sequenceContainer.getSequenceContainer(), listContainer);
 	}
 
 	/**
@@ -180,18 +179,23 @@ public class SequenceContainerTest
 	 * Determine if the method works properly
 	 * 
 	 * @method {@link SequenceContainer#insertSequenceToContainer(int, AbstractSequence)}
-	 * @method {@link SeuquenceContainer
-	 * @expectedResult
+	 * @method {@link SequenceContainer#getSequenceInContainer(int)}
+	 * 
+	 * @expectedResult sequence retrieved is the same as the sequence inserted
+	 *                 in the same index
 	 */
 	@Test
 	public void testInsertSequenceToContainer()
 	{
+		/*
+		 * Test with null sequenceContainer
+		 */
 		listContainer = new LinkedList<AbstractSequence<?>>();
 		listContainer = getFilledSequenceList();
 		sequenceContainer = new SequenceContainer();
 		try
 		{
-			sequenceContainer.insertSequenceToContainer(123, new DNASequence("AGCT"));
+			sequenceContainer.addSequenceToContainer(123, new DNASequence("AGCT"));
 			sequenceContainer.getSequenceInContainer(0);
 		} catch (Exception e)
 		{
@@ -199,6 +203,9 @@ public class SequenceContainerTest
 			fail();
 		}
 
+		/*
+		 * Test with filled sequenceContainer
+		 */
 		int index = 1;
 		AbstractSequence<?> sequence = null;
 		try
@@ -209,10 +216,9 @@ public class SequenceContainerTest
 			e.printStackTrace();
 			fail();
 		}
-		System.out.println(listContainer.size());
 		sequenceContainer.setSequenceContainer(listContainer);
-		sequenceContainer.insertSequenceToContainer(index, sequence);
-		assertTrue(sequenceContainer.getSequenceInContainer(index) == sequence);// assert
+		sequenceContainer.addSequenceToContainer(index, sequence);
+		assertSame(sequenceContainer.getSequenceInContainer(index), sequence);
 	}
 
 	/**
@@ -220,12 +226,48 @@ public class SequenceContainerTest
 	 * 
 	 * @method {@link SequenceContainer#removeSequenceInContainer(int)}
 	 * 
-	 * @expectedResult
+	 * @expectedResult method returns proper sequence
+	 * @expectedResult method removes proper sequence
 	 */
 	@Test
 	public void testRemoveSequenceInContainer()
 	{
+		/*
+		 * Test with null sequenceContainer
+		 */
+		listContainer = new LinkedList<AbstractSequence<?>>();
+		listContainer = getFilledSequenceList();
+		sequenceContainer = new SequenceContainer();
+		try
+		{
+			sequenceContainer.removeSequenceInContainer(0);
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+			fail();
+		}
 
+		/*
+		 * Test with filled sequenceContainer
+		 */
+		int index = 1;
+		AbstractSequence<?> sequence = null;
+		try
+		{
+			sequence = new DNASequence("AGCT");
+		} catch (CompoundNotFoundException e)
+		{
+			e.printStackTrace();
+			fail();
+		}
+		sequenceContainer.setSequenceContainer(listContainer);
+		sequenceContainer.addSequenceToContainer(index, sequence);
+
+		// Ensuring that the method properly returned the correct sequence
+		assertSame(sequenceContainer.removeSequenceInContainer(index), sequence);
+
+		// Ensuring that the sequence was actually removed
+		assertNotSame(sequenceContainer.getSequenceInContainer(index), sequence);
 	}
 
 	/**
@@ -238,7 +280,41 @@ public class SequenceContainerTest
 	@Test
 	public void testRemoveLastSequenceInContainer()
 	{
+		/*
+		 * Test with null sequenceContainer
+		 */
+		listContainer = new LinkedList<AbstractSequence<?>>();
+		listContainer = getFilledSequenceList();
+		sequenceContainer = new SequenceContainer();
+		try
+		{
+			sequenceContainer.removeLastSequenceInContainer();
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+			fail();
+		}
 
+		/*
+		 * Test with filled sequenceContainer
+		 */
+		AbstractSequence<?> sequence = null;
+		try
+		{
+			sequence = new DNASequence("AGCT");
+		} catch (CompoundNotFoundException e)
+		{
+			e.printStackTrace();
+			fail();
+		}
+		sequenceContainer.setSequenceContainer(listContainer);
+		sequenceContainer.addSequenceToContainer(sequence);
+
+		// Ensuring that the method properly returned the correct sequence
+		assertSame(sequenceContainer.removeLastSequenceInContainer(), sequence);
+
+		// Ensuring that the sequence was actually removed
+		assertNotSame(sequenceContainer.getSequenceInContainer(listContainer.size() - 1), sequence);
 	}
 
 	/**
@@ -251,7 +327,41 @@ public class SequenceContainerTest
 	@Test
 	public void testRemoveFirstSequenceInContainer()
 	{
+		/*
+		 * Test with null sequenceContainer
+		 */
+		listContainer = new LinkedList<AbstractSequence<?>>();
+		listContainer = getFilledSequenceList();
+		sequenceContainer = new SequenceContainer();
+		try
+		{
+			sequenceContainer.removeFirstSequenceInContainer();
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+			fail();
+		}
 
+		/*
+		 * Test with filled sequenceContainer
+		 */
+		AbstractSequence<?> sequence = null;
+		try
+		{
+			sequence = new DNASequence("AGCT");
+		} catch (CompoundNotFoundException e)
+		{
+			e.printStackTrace();
+			fail();
+		}
+		sequenceContainer.setSequenceContainer(listContainer);
+		sequenceContainer.addSequenceToContainer(0, sequence);
+
+		// Ensuring that the method properly returned the correct sequence
+		assertSame(sequenceContainer.removeFirstSequenceInContainer(), sequence);
+
+		// Ensuring that the sequence was actually removed
+		assertNotSame(sequenceContainer.getSequenceInContainer(0), sequence);
 	}
 
 	/**
@@ -264,7 +374,36 @@ public class SequenceContainerTest
 	@Test
 	public void testRemoveAllSequencesInContainer()
 	{
+		/*
+		 * Test with null sequenceContainer
+		 */
+		listContainer = new LinkedList<AbstractSequence<?>>();
+		listContainer = getFilledSequenceList();
+		sequenceContainer = new SequenceContainer();
+		try
+		{
+			sequenceContainer.removeAllSequencesInContainer();
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+			fail();
+		}
 
+		/*
+		 * Test with filled sequenceContainer
+		 */
+		AbstractSequence<?> sequence = null;
+		try
+		{
+			sequence = new DNASequence("AGCT");
+		} catch (CompoundNotFoundException e)
+		{
+			e.printStackTrace();
+			fail();
+		}
+		sequenceContainer.setSequenceContainer(listContainer);
+		sequenceContainer.removeAllSequencesInContainer();
+		assertNull(sequenceContainer.getSequenceContainer());
 	}
 
 	/**
@@ -277,7 +416,42 @@ public class SequenceContainerTest
 	@Test
 	public void testRemoveSelectedSequencesInContainer1()
 	{
+		// TODO: Complete
+		/*
+		 * Test with null sequenceContainer
+		 */
+		listContainer = new LinkedList<AbstractSequence<?>>();
+		listContainer = getFilledSequenceList();
+		sequenceContainer = new SequenceContainer();
+		try
+		{
+			sequenceContainer.removeFirstSequenceInContainer();
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+			fail();
+		}
 
+		/*
+		 * Test with filled sequenceContainer
+		 */
+		AbstractSequence<?> sequence = null;
+		try
+		{
+			sequence = new DNASequence("AGCT");
+		} catch (CompoundNotFoundException e)
+		{
+			e.printStackTrace();
+			fail();
+		}
+		sequenceContainer.setSequenceContainer(listContainer);
+		sequenceContainer.addSequenceToContainer(0, sequence);
+
+		// Ensuring that the method properly returned the correct sequence
+		assertSame(sequenceContainer.removeFirstSequenceInContainer(), sequence);
+
+		// Ensuring that the sequence was actually removed
+		assertNotSame(sequenceContainer.getSequenceInContainer(0), sequence);
 	}
 
 	/**

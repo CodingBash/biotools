@@ -1,6 +1,7 @@
 package edu.ilstu.reversecomplementapplication.models;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.biojava.nbio.core.sequence.template.AbstractSequence;
@@ -82,7 +83,7 @@ public class SequenceContainer
 	 * @param sequence
 	 *            to add
 	 */
-	public void insertSequenceToContainer(int index, AbstractSequence<?> sequence)
+	public void addSequenceToContainer(int index, AbstractSequence<?> sequence)
 	{
 		if (sequenceContainer != null)
 		{
@@ -114,35 +115,44 @@ public class SequenceContainer
 	 *            to remove
 	 * @throws IndexOutOfBoundsException
 	 *             if out of bounds index
+	 * 
+	 * @return the removed {@link AbstractSequence}<?>
 	 */
-	public void removeSequenceInContainer(int index) throws IndexOutOfBoundsException
+	public AbstractSequence<?> removeSequenceInContainer(int index) throws IndexOutOfBoundsException
 	{
 		if (sequenceContainer != null)
 		{
-			sequenceContainer.remove(index);
+			return sequenceContainer.remove(index);
 		}
+		return null;
 	}
 
 	/**
 	 * Remove last sequence in container
+	 * 
+	 * @return the removed {@link AbstractSequence}<?>
 	 */
-	public void removeLastSequenceInContainer()
+	public AbstractSequence<?> removeLastSequenceInContainer()
 	{
 		if (sequenceContainer != null)
 		{
-			sequenceContainer.remove(sequenceContainer.size());
+			return sequenceContainer.remove(sequenceContainer.size()-1);
 		}
+		return null;
 	}
 
 	/**
 	 * Remove first sequence in container
+	 * 
+	 * @return the removed {@link AbstractSequence}<?>
 	 */
-	public void removeFirstSequenceInContainer()
+	public AbstractSequence<?> removeFirstSequenceInContainer()
 	{
 		if (sequenceContainer != null)
 		{
-			sequenceContainer.remove(0);
+			return sequenceContainer.remove(0);
 		}
+		return null;
 	}
 
 	/**
@@ -163,17 +173,23 @@ public class SequenceContainer
 	 *            list of indexes to remove
 	 * @throws IndexOutOfBoundsException
 	 *             if index is out of bounds
+	 * 
+	 * @return the removed {@link List} of {@link AbstractSequence}<?>
 	 */
-	public void removeSelectedSequencesInContainer(int[] indexList) throws IndexOutOfBoundsException
+	public List<AbstractSequence<?>> removeSelectedSequencesInContainer(int[] indexList)
+			throws IndexOutOfBoundsException
 	{
 		if (sequenceContainer != null)
 		{
+			List<AbstractSequence<?>> sequenceList = new LinkedList<AbstractSequence<?>>();
 			Arrays.sort(indexList);
 			for (int index = indexList.length - 1; index >= 0; index--)
 			{
-				this.removeSequenceInContainer(indexList[index]);
+				sequenceList.add(this.removeSequenceInContainer(indexList[index]));
 			}
+			return sequenceList;
 		}
+		return null;
 	}
 
 	/**
@@ -189,7 +205,7 @@ public class SequenceContainer
 		if (sequenceContainer != null)
 		{
 			this.removeSequenceInContainer(index);
-			this.insertSequenceToContainer(index, sequence);
+			this.addSequenceToContainer(index, sequence);
 		}
 	}
 
