@@ -5,3 +5,7 @@ This web application will take in a nucleotide sequence as an input then output 
 
 Reverse Complement:
 http://www.bioinformatics.org/sms2/rev_comp.html
+
+Project started mainly for testing the BioJava API
+
+Later, may possibly expand to become a web application that contains a numerous amount of bioinformatics tools.
