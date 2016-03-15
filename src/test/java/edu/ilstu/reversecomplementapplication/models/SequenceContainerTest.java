@@ -19,6 +19,7 @@ import org.biojava.nbio.core.sequence.ProteinSequence;
 import org.biojava.nbio.core.sequence.RNASequence;
 import org.biojava.nbio.core.sequence.template.AbstractSequence;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -371,6 +372,7 @@ public class SequenceContainerTest
 	 * 
 	 * @expectedResult
 	 */
+	@Ignore
 	@Test
 	public void testRemoveAllSequencesInContainer()
 	{

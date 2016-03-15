@@ -238,6 +238,19 @@
 					<mainClass>org.test.int1.Main</mainClass>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.pitest</groupId>
+				<artifactId>pitest-maven</artifactId>
+				<version>1.1.3</version>
+				<configuration>
+					<targetClasses>
+						<param>com.your.package.root.want.to.mutate*</param>
+					</targetClasses>
+					<targetTests>
+						<param>com.your.package.root*</param>
+					</targetTests>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 </project>

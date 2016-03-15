@@ -35,7 +35,6 @@ import edu.ilstu.reversecomplementapplication.models.SequenceContainer;
  * @author Bash
  *
  */
-@Ignore
 @RunWith(MockitoJUnitRunner.class)
 public class ReverseComplementControllerTest extends BaseControllerSetup
 {
@@ -101,6 +100,7 @@ public class ReverseComplementControllerTest extends BaseControllerSetup
 	 *                 {@link String}
 	 * 
 	 */
+	@Ignore
 	@SuppressWarnings(
 	{ "unchecked", "unused" })
 	@Test
