@@ -482,6 +482,7 @@ public class SequenceContainerTest
 		} catch (CompoundNotFoundException e)
 		{
 			e.printStackTrace();
+			fail();
 		}
 		AbstractSequence<?> sequenceTwo = null;
 		try
@@ -490,6 +491,7 @@ public class SequenceContainerTest
 		} catch (CompoundNotFoundException e)
 		{
 			e.printStackTrace();
+			fail();
 		}
 		AbstractSequence<?> sequenceThree = null;
 		try
@@ -498,6 +500,7 @@ public class SequenceContainerTest
 		} catch (CompoundNotFoundException e)
 		{
 			e.printStackTrace();
+			fail();
 		}
 		sequenceList.add(sequenceOne);
 		sequenceList.add(sequenceTwo);
