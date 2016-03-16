@@ -15,7 +15,7 @@ $(document).ready(function() {
 	 * Holds the \<tr\> element to insert back in if the user presses cancel
 	 * when editing
 	 */
-	var holder = null;
+	var $holder = null;
 	var deleteSelectionArray = new Array();
 
 	/**
@@ -164,7 +164,7 @@ $(document).ready(function() {
 	$(function() {
 		$(document).on("click", ".edit-submit", function() {
 			$(this).parents(".sequence-element").children(".sequence-data").children("form").submit();
-			holder = null;
+			$holder = null;
 		});
 	});
 
@@ -221,40 +221,63 @@ $(document).ready(function() {
 		});
 	});
 
-	function visibilityForStandardButtonState(trElement) {
+	function visibilityForStandardButtonState($trElement) {
 		// TODO: Move the class switch to a function and pass in element
+		console.log("Changing visibility to standard state");
 
+		console.log($trElement.children(".edit-submit"));
 		// Hide
-		trElement.children(".edit-submit").removeClass("display-true").addClass("display-false");
+		changeToHide($trElement.children(".edit-submit"));
 
 		// Show
-		trElement.children(".sequence-edit").removeClass("display-false").addClass("display-true");
+		changeToShow($trElement.children(".sequence-edit"));
 
 		// Hide
-		trElement.children(".edit-cancel").removeClass("display-true").addClass("display-false");
+		changeToHide($trElement.children(".edit-cancel"));
 
 		// Show
-		trElement.children(".delete-modal-appearance").removeClass("display-false").addClass("display-true");
+		changeToShow($trElement.children(".delete-modal-appearance"));
 	}
 
-	function visibilityForEditingButtonState(trElement) {
+	function visibilityForEditingButtonState($trElement) {
 		// TODO: Move the class switch to a function and pass in element
 
+		console.log($trElement.html());
+		console.log($trElement.children(".sequence-edit"));
 		// Hide
-		trElement.children(".sequence-edit").removeClass("display-true").addClass("display-false");
+		changeToHide($trElement.children(".sequence-edit"));
+		console.log($trElement.children(".sequence-edit"));
+		// Show
+		changeToShow($trElement.children(".edit-submit"));
+
+		// Hide
+		changeToHide($trElement.children(".delete-modal-appearance"));
 
 		// Show
-		trElement.children(".edit-submit").removeClass("display-false").addClass("display-true");
+		changeToShow($trElement.children(".edit-cancel"));
+	}
 
-		// Hide
-		trElement.children(".delete-modal-appearance").removeClass("display-true").addClass("display-false");
+	function changeToHide($element) {
+		console.log($element.html());
+		console.log($element.hasClass("display-true"));
+		$element.removeClass("display-true");
+		$element.addClass("display-false")
+		// element.toggleClass("display-true display-false");
+		console.log($element);
+	}
 
-		// Show
-		trElement.children(".edit-cancel").removeClass("display-false").addClass("display-true");
+	function changeToShow($element) {
+		console.log($element);
+		console.log($element.hasClass("display-false"));
+		element.removeClass("display-false");
+		element.addClass("display-true");
+		// element.toggleClass("display-false display-true");
+		console.log($element);
 	}
 	function changeVisibilityOfElements() {
-		$(".display-true").show();
+		console.log("visibility actions");
 		$(".display-false").hide();
+		$(".display-true").show();
 	}
 	// END
 	/*
@@ -273,27 +296,27 @@ $(document).ready(function() {
 	 * @param thisElement
 	 *            an element contained inside the \<tr\> .sequence-element
 	 */
-	function makeTableElementEditable(thisElement) {
+	function makeTableElementEditable($thisElement) {
 		console.log("Make Editable");
-		var trElement = thisElement.parents(".sequence-element");
+		var $trElement = $thisElement.parents(".sequence-element");
 
-		var index = parseInt(trElement.attr("value"));
+		var index = parseInt($trElement.attr("value"));
 		if (holderArray[index] !== "") {
-			holderArray[index] = trElement.children(".sequence-data-textarea").val();
+			holderArray[index] = $trElement.children(".sequence-data-textarea").val();
 		}
-
+		console.log($trElement.children(".sequence-edit").hasClass(".btn"));
 		console.log("Displaying edit buttons");
-		visibilityForEditingButtonState(trElement);
+		visibilityForEditingButtonState($trElement);
 		changeVisibilityOfElements();
 		console.log("Buttons canged");
 		/*
 		 * var innerHtml_2 = "<button class=\"btn btn-info center-block
 		 * edit-submit\">SUBMIT</button>";
-		 * trElement.children(".button-first").html(innerHtml_2);
+		 * $trElement.children(".button-first").html(innerHtml_2);
 		 * 
 		 * var innerHtml_3 = "<button class=\"btn btn-warning center-block
 		 * cancel\">CANCEL</button>";
-		 * trElement.children(".button-second").html(innerHtml_3);
+		 * $trElement.children(".button-second").html(innerHtml_3);
 		 */
 	}
 
@@ -336,24 +359,24 @@ $(document).ready(function() {
 	 * @param thisElement
 	 *            an element contained inside the \<tr\> .sequence-element
 	 */
-	function cancelEdit(thisElement) {
-		var trElement = thisElement.parents(".sequence-element");
-		var index = parseInt(trElement.attr("value"));
-		thisElement.parents(".sequence-element").html(holderArray[index]);
+	function cancelEdit($thisElement) {
+		var $trElement = $thisElement.parents(".sequence-element");
+		var index = parseInt($trElement.attr("value"));
+		$thisElement.parents(".sequence-element").html(holderArray[index]);
 		holderArray[index] = "";
 
-		visibilityForStandardButtonState(trElement);
+		visibilityForStandardButtonState($trElement);
 
 		changeVisibilityOfElements();
 
 		/*
 		 * var innerHtml_2 = "<button class=\"btn btn-info center-block
 		 * edit-submit\">SUBMIT</button>";
-		 * trElement.children(".button-first").html(innerHtml_2);
+		 * $trElement.children(".button-first").html(innerHtml_2);
 		 * 
 		 * var innerHtml_3 = "<button class=\"btn btn-warning center-block
 		 * edit-cancel\">CANCEL</button>";
-		 * trElement.children(".button-second").html(innerHtml_3);
+		 * $trElement.children(".button-second").html(innerHtml_3);
 		 */
 
 	}
