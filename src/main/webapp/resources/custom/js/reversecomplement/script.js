@@ -196,7 +196,7 @@ $(document).ready(function() {
 	 * 
 	 */
 	// START
-	var last_value = "";
+	var lastValue = "";
 	/**
 	 * WHEN TABLE INPUT STRING CLICKED, ASSUME EDIT
 	 */
@@ -222,57 +222,42 @@ $(document).ready(function() {
 	});
 
 	function visibilityForStandardButtonState($trElement) {
-		// TODO: Move the class switch to a function and pass in element
-		console.log("Changing visibility to standard state");
-
-		console.log($trElement.children(".edit-submit"));
 		// Hide
-		changeToHide($trElement.children(".edit-submit"));
+		changeToHide($trElement.find(".edit-submit"));
 
 		// Show
-		changeToShow($trElement.children(".sequence-edit"));
+		changeToShow($trElement.find(".sequence-edit"));
 
 		// Hide
-		changeToHide($trElement.children(".edit-cancel"));
+		changeToHide($trElement.find(".edit-cancel"));
 
 		// Show
-		changeToShow($trElement.children(".delete-modal-appearance"));
+		changeToShow($trElement.find(".delete-modal-appearance"));
 	}
 
 	function visibilityForEditingButtonState($trElement) {
-		// TODO: Move the class switch to a function and pass in element
-
-		console.log($trElement.html());
-		console.log($trElement.children(".sequence-edit"));
 		// Hide
-		changeToHide($trElement.children(".sequence-edit"));
-		console.log($trElement.children(".sequence-edit"));
+		changeToHide($trElement.find("button.sequence-edit"));
 		// Show
-		changeToShow($trElement.children(".edit-submit"));
+		changeToShow($trElement.find("button.edit-submit"));
 
 		// Hide
-		changeToHide($trElement.children(".delete-modal-appearance"));
+		changeToHide($trElement.find("button.delete-modal-appearance"));
 
 		// Show
-		changeToShow($trElement.children(".edit-cancel"));
+		changeToShow($trElement.find("button.edit-cancel"));
 	}
 
 	function changeToHide($element) {
-		console.log($element.html());
-		console.log($element.hasClass("display-true"));
 		$element.removeClass("display-true");
 		$element.addClass("display-false")
 		// element.toggleClass("display-true display-false");
-		console.log($element);
 	}
 
 	function changeToShow($element) {
-		console.log($element);
-		console.log($element.hasClass("display-false"));
-		element.removeClass("display-false");
-		element.addClass("display-true");
+		$element.removeClass("display-false");
+		$element.addClass("display-true");
 		// element.toggleClass("display-false display-true");
-		console.log($element);
 	}
 	function changeVisibilityOfElements() {
 		console.log("visibility actions");
@@ -301,10 +286,10 @@ $(document).ready(function() {
 		var $trElement = $thisElement.parents(".sequence-element");
 
 		var index = parseInt($trElement.attr("value"));
-		if (holderArray[index] !== "") {
+		if (holderArray[index] === "") {
 			holderArray[index] = $trElement.children(".sequence-data-textarea").val();
 		}
-		console.log($trElement.children(".sequence-edit").hasClass(".btn"));
+		console.log($trElement.find("button.sequence-edit").hasClass("btn"));
 		console.log("Displaying edit buttons");
 		visibilityForEditingButtonState($trElement);
 		changeVisibilityOfElements();
