@@ -31,15 +31,15 @@
 							<input type="hidden" name="index" value="${iterator.index}" />
 						</form></td>
 					<td class="button-first">
-						<button type="button" class="btn btn-info sequence-edit center-block">EDIT</button>
+						<button type="button" class="btn btn-info sequence-edit center-block display-true">EDIT</button>
 
-						<button class="btn btn-info center-block edit-submit">SUBMIT</button>
+						<button class="btn btn-info center-block edit-submit display-false">SUBMIT</button>
 					</td>
 					<td class="button-second">
-						<button type="button" class="btn btn-danger delete-modal-appearance center-block"
+						<button type="button" class="btn btn-danger delete-modal-appearance center-block display-true"
 							data-toggle="modal" data-target="#modal-delete-confirmation">DELETE</button>
 
-						<button class="btn btn-warning center-block edit-cancel">CANCEL</button>
+						<button class="btn btn-warning center-block edit-cancel display-false">CANCEL</button>
 					</td>
 					<!-- Make checkbox larger, issue centering checkbox -->
 					<td><input type="checkbox" class="checkbox-delete-selection center-block" /></td>

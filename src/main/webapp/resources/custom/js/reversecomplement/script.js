@@ -39,8 +39,9 @@ $(document).ready(function() {
 	/**
 	 * HIDING THE SEQUENCE EDIT BUTTONS
 	 */
-	$(".edit-submit").hide();
-	$(".edit-cancel").hide();
+	// TODO: Just call changeVisibilityOfElements();
+	$(".display-false").hide();
+	$(".display-true").show();
 	// END
 	/*
 	 * 
@@ -219,6 +220,42 @@ $(document).ready(function() {
 			}
 		});
 	});
+
+	function visibilityForStandardButtonState(trElement) {
+		// TODO: Move the class switch to a function and pass in element
+
+		// Hide
+		trElement.children(".edit-submit").removeClass("display-true").addClass("display-false");
+
+		// Show
+		trElement.children(".sequence-edit").removeClass("display-false").addClass("display-true");
+
+		// Hide
+		trElement.children(".edit-cancel").removeClass("display-true").addClass("display-false");
+
+		// Show
+		trElement.children(".delete-modal-appearance").removeClass("display-false").addClass("display-true");
+	}
+
+	function visibilityForEditingButtonState(trElement) {
+		// TODO: Move the class switch to a function and pass in element
+
+		// Hide
+		trElement.children(".sequence-edit").removeClass("display-true").addClass("display-false");
+
+		// Show
+		trElement.children(".edit-submit").removeClass("display-false").addClass("display-true");
+
+		// Hide
+		trElement.children(".delete-modal-appearance").removeClass("display-true").addClass("display-false");
+
+		// Show
+		trElement.children(".edit-cancel").removeClass("display-false").addClass("display-true");
+	}
+	function changeVisibilityOfElements() {
+		$(".display-true").show();
+		$(".display-false").hide();
+	}
 	// END
 	/*
 	 * 
@@ -246,10 +283,8 @@ $(document).ready(function() {
 		}
 
 		console.log("Displaying edit buttons");
-		trElement.children(".sequence-edit").hide();
-		trElement.children(".edit-submit").show();
-		trElement.children(".delete-modal-appearance").hide();
-		trElement.children(".edit-cancel").show();
+		visibilityForEditingButtonState(trElement);
+		changeVisibilityOfElements();
 		console.log("Buttons canged");
 		/*
 		 * var innerHtml_2 = "<button class=\"btn btn-info center-block
@@ -307,10 +342,9 @@ $(document).ready(function() {
 		thisElement.parents(".sequence-element").html(holderArray[index]);
 		holderArray[index] = "";
 
-		trElement.children(".edit-submit").hide();
-		trElement.children(".sequence-edit").show();
-		trElement.children(".edit-cancel").hide();
-		trElement.children(".delete-modal-appearance").show();
+		visibilityForStandardButtonState(trElement);
+
+		changeVisibilityOfElements();
 
 		/*
 		 * var innerHtml_2 = "<button class=\"btn btn-info center-block
