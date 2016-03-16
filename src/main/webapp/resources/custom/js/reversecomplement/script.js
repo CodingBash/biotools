@@ -223,16 +223,16 @@ $(document).ready(function() {
 
 	function visibilityForStandardButtonState($trElement) {
 		// Hide
-		changeToHide($trElement.find(".edit-submit"));
+		changeToHide($trElement.find("button.edit-submit"));
 
 		// Show
-		changeToShow($trElement.find(".sequence-edit"));
+		changeToShow($trElement.find("button.sequence-edit"));
 
 		// Hide
-		changeToHide($trElement.find(".edit-cancel"));
+		changeToHide($trElement.find("button.edit-cancel"));
 
 		// Show
-		changeToShow($trElement.find(".delete-modal-appearance"));
+		changeToShow($trElement.find("button.delete-modal-appearance"));
 	}
 
 	function visibilityForEditingButtonState($trElement) {
