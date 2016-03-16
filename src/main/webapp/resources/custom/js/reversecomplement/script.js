@@ -6,11 +6,6 @@ $(document).ready(function() {
 	 * Processes on page load
 	 */
 	// START
-	if ($(".sequence-element").length) {
-		$(".deleteall-modal-appearance").show();
-	} else {
-		$(".deleteall-modal-appearance").hide();
-	}
 	/**
 	 * Holds the index of the \<tr\> element to pass to the modal delete button
 	 */
@@ -20,11 +15,11 @@ $(document).ready(function() {
 	 * Holds the \<tr\> element to insert back in if the user presses cancel
 	 * when editing
 	 */
-	var holder = null;
+	var $holder = null;
 	var deleteSelectionArray = new Array();
 
 	/**
-	 * Page Initial loading
+	 * DECIDING TO DISPLAY DELETEALL BUTTON
 	 */
 	if ($(".sequence-element").length) {
 		$(".deleteall-modal-appearance").show();
@@ -32,11 +27,21 @@ $(document).ready(function() {
 		$(".deleteall-modal-appearance").hide();
 	}
 
+	/**
+	 * DECIDING TO DISPLAY DELETESELECTED BUTTON
+	 */
 	if (deleteSelectionArray.length) {
 		$(".delete-selected-button").show();
 	} else {
 		$(".delete-selected-button").hide();
 	}
+
+	/**
+	 * HIDING THE SEQUENCE EDIT BUTTONS
+	 */
+	// TODO: Just call changeVisibilityOfElements();
+	$(".display-false").hide();
+	$(".display-true").show();
 	// END
 	/*
 	 * 
@@ -71,6 +76,7 @@ $(document).ready(function() {
 	});
 
 	var deleteSelectionArray = new Array();
+
 	/**
 	 * DELETE CHECKBOX SELECTED
 	 */
@@ -158,7 +164,7 @@ $(document).ready(function() {
 	$(function() {
 		$(document).on("click", ".edit-submit", function() {
 			$(this).parents(".sequence-element").children(".sequence-data").children("form").submit();
-			holder = null;
+			$holder = null;
 		});
 	});
 
@@ -166,7 +172,7 @@ $(document).ready(function() {
 	 * CANCEL THE EDIT
 	 */
 	$(function() {
-		$(document).on("click", ".cancel", function() {
+		$(document).on("click", ".edit-cancel", function() {
 			cancelEdit($(this));
 		});
 	});
@@ -190,7 +196,7 @@ $(document).ready(function() {
 	 * 
 	 */
 	// START
-	var last_value = "";
+	var lastValue = "";
 	/**
 	 * WHEN TABLE INPUT STRING CLICKED, ASSUME EDIT
 	 */
@@ -214,6 +220,50 @@ $(document).ready(function() {
 			}
 		});
 	});
+
+	function visibilityForStandardButtonState($trElement) {
+		// Hide
+		changeToHide($trElement.find("button.edit-submit"));
+
+		// Show
+		changeToShow($trElement.find("button.sequence-edit"));
+
+		// Hide
+		changeToHide($trElement.find("button.edit-cancel"));
+
+		// Show
+		changeToShow($trElement.find("button.delete-modal-appearance"));
+	}
+
+	function visibilityForEditingButtonState($trElement) {
+		// Hide
+		changeToHide($trElement.find("button.sequence-edit"));
+		// Show
+		changeToShow($trElement.find("button.edit-submit"));
+
+		// Hide
+		changeToHide($trElement.find("button.delete-modal-appearance"));
+
+		// Show
+		changeToShow($trElement.find("button.edit-cancel"));
+	}
+
+	function changeToHide($element) {
+		$element.removeClass("display-true");
+		$element.addClass("display-false")
+		// element.toggleClass("display-true display-false");
+	}
+
+	function changeToShow($element) {
+		$element.removeClass("display-false");
+		$element.addClass("display-true");
+		// element.toggleClass("display-false display-true");
+	}
+	function changeVisibilityOfElements() {
+		console.log("visibility actions");
+		$(".display-false").hide();
+		$(".display-true").show();
+	}
 	// END
 	/*
 	 * 
@@ -224,25 +274,42 @@ $(document).ready(function() {
 	 * Consistent functions
 	 */
 	// START
+	var holderArray = new Array();
 	/**
 	 * MAKE TABLE ELEMENT EDITABLE
 	 * 
 	 * @param thisElement
 	 *            an element contained inside the \<tr\> .sequence-element
 	 */
-	function makeTableElementEditable(thisElement) {
-		var trElement = thisElement.parents(".sequence-element");
-		holder = trElement.clone();
+	function makeTableElementEditable($thisElement) {
+		console.log("Make Editable");
+		var $trElement = $thisElement.parents(".sequence-element");
 
-		var innerHtml_2 = "<button class=\"btn btn-info center-block edit-submit\">SUBMIT</button>";
-		trElement.children(".button-first").html(innerHtml_2);
-
-		var innerHtml_3 = "<button class=\"btn btn-warning center-block cancel\">CANCEL</button>";
-		trElement.children(".button-second").html(innerHtml_3);
+		var index = parseInt($trElement.attr("value"));
+		if (holderArray[index] === "") {
+			holderArray[index] = $trElement.children(".sequence-data-textarea").val();
+		}
+		console.log($trElement.find("button.sequence-edit").hasClass("btn"));
+		console.log("Displaying edit buttons");
+		visibilityForEditingButtonState($trElement);
+		changeVisibilityOfElements();
+		console.log("Buttons canged");
+		/*
+		 * var innerHtml_2 = "<button class=\"btn btn-info center-block
+		 * edit-submit\">SUBMIT</button>";
+		 * $trElement.children(".button-first").html(innerHtml_2);
+		 * 
+		 * var innerHtml_3 = "<button class=\"btn btn-warning center-block
+		 * cancel\">CANCEL</button>";
+		 * $trElement.children(".button-second").html(innerHtml_3);
+		 */
 	}
 
 	/**
 	 * CLEAN STRING SEQUENCE
+	 * 
+	 * @param stringSequence
+	 *            string to clean
 	 */
 	function cleanStringSequence(stringSequence) {
 		stringSequence = stringSequence.trim();
@@ -277,11 +344,26 @@ $(document).ready(function() {
 	 * @param thisElement
 	 *            an element contained inside the \<tr\> .sequence-element
 	 */
-	function cancelEdit(thisElement) {
-		if (holder !== null) {
-			thisElement.parents(".sequence-element").html(holder.html());
-			holder = null;
-		}
+	function cancelEdit($thisElement) {
+		var $trElement = $thisElement.parents(".sequence-element");
+		var index = parseInt($trElement.attr("value"));
+		$thisElement.parents(".sequence-element").html(holderArray[index]);
+		holderArray[index] = "";
+
+		visibilityForStandardButtonState($trElement);
+
+		changeVisibilityOfElements();
+
+		/*
+		 * var innerHtml_2 = "<button class=\"btn btn-info center-block
+		 * edit-submit\">SUBMIT</button>";
+		 * $trElement.children(".button-first").html(innerHtml_2);
+		 * 
+		 * var innerHtml_3 = "<button class=\"btn btn-warning center-block
+		 * edit-cancel\">CANCEL</button>";
+		 * $trElement.children(".button-second").html(innerHtml_3);
+		 */
+
 	}
 	// END
 	/*
