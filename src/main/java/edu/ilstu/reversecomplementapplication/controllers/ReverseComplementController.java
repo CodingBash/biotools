@@ -31,7 +31,7 @@ import edu.ilstu.reversecomplementapplication.models.SequenceContainer;
 public class ReverseComplementController
 {
 	private static final Logger logger = LoggerFactory.getLogger(ReverseComplementController.class);
-	private static final String indexPage = "reversecomplement/index";
+	private static final String reverseComplementPage = "reversecomplementtool/reversecomplement";
 
 	@Autowired
 	ApplicationUtility applicationUtility;
@@ -41,10 +41,10 @@ public class ReverseComplementController
 	 * 
 	 * @return redirect to index.jsp
 	 */
-	@RequestMapping(value = "/")
+	@RequestMapping(value = "/reversecomplement")
 	public ModelAndView getIndex(HttpSession session)
 	{
-		ModelAndView mav = new ModelAndView(indexPage);
+		ModelAndView mav = new ModelAndView(reverseComplementPage);
 		// Retrieve sequence container from session
 		SequenceContainer sequenceContainer = this.retrieveSequenceContainer(session);
 
@@ -65,7 +65,7 @@ public class ReverseComplementController
 	@RequestMapping(value = "/submitSequence.do", method = RequestMethod.POST)
 	public ModelAndView submitSequence(@RequestParam("sequence") String stringSequence, HttpSession session)
 	{
-		ModelAndView mav = new ModelAndView(indexPage);
+		ModelAndView mav = new ModelAndView(reverseComplementPage);
 		// TODO: Generalize into an abstract base
 		DNASequence sequence = null;
 		try
@@ -173,7 +173,7 @@ public class ReverseComplementController
 		model.addAttribute("container", sequenceContainer.getSequenceContainer());
 
 		// Refresh the index page
-		return indexPage;
+		return reverseComplementPage;
 	}
 
 	/**
@@ -221,7 +221,7 @@ public class ReverseComplementController
 		model.addAttribute("container", sequenceContainer.getSequenceContainer());
 
 		// Refresh the index page
-		return indexPage;
+		return reverseComplementPage;
 	}
 
 	/**
@@ -258,7 +258,7 @@ public class ReverseComplementController
 		model.addAttribute("container", sequenceContainer.getSequenceContainer());
 
 		// Refresh the index page
-		return indexPage;
+		return reverseComplementPage;
 	}
 
 	/**
@@ -292,7 +292,7 @@ public class ReverseComplementController
 		model.addAttribute("container", sequenceContainer.getSequenceContainer());
 
 		// Refresh the index page
-		return indexPage;
+		return reverseComplementPage;
 	}
 
 	/**
@@ -335,7 +335,7 @@ public class ReverseComplementController
 		model.addAttribute("container", sequenceContainer.getSequenceContainer());
 
 		// Refresh the index page
-		return indexPage;
+		return reverseComplementPage;
 	}
 
 	/**

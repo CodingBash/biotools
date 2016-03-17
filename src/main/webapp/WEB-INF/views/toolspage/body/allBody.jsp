@@ -23,8 +23,8 @@
 			</div>
 		</div>
 		<div class="col-sm-4">
-			<div class="panel panel-default text-center pointer redirect-to-reverse-complement ">
-				<div class="panel-heading">
+			<div class="panel panel-default text-center pointer redirect-to-reverse-complement">
+				<div class="panel-heading"> 
 					<h2 class="title">Reverse-Complement Tool</h2>
 				</div>
 				<div class="panel-body">
