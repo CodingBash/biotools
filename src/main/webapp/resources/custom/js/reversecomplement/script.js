@@ -221,6 +221,9 @@ $(document).ready(function() {
 		});
 	});
 
+	/**
+	 * SWITCH TO THE STANDARD TABLE BUTTON CLASSES
+	 */
 	function visibilityForStandardButtonState($trElement) {
 		// Hide
 		changeToHide($trElement.find("button.edit-submit"));
@@ -235,6 +238,9 @@ $(document).ready(function() {
 		changeToShow($trElement.find("button.delete-modal-appearance"));
 	}
 
+	/**
+	 * SWITCH TO THE EDIT-STATE TABLE BUTTON CLASSES
+	 */
 	function visibilityForEditingButtonState($trElement) {
 		// Hide
 		changeToHide($trElement.find("button.sequence-edit"));
@@ -248,19 +254,28 @@ $(document).ready(function() {
 		changeToShow($trElement.find("button.edit-cancel"));
 	}
 
+	/**
+	 * HELPER METHOD: SWITCH CLASSES TO HIDE BUTTON
+	 */
 	function changeToHide($element) {
 		$element.removeClass("display-true");
 		$element.addClass("display-false")
 		// element.toggleClass("display-true display-false");
 	}
 
+	/**
+	 * HELPER METHOD: SWITCH CLASSES TO SHOW BUTTON
+	 */
 	function changeToShow($element) {
 		$element.removeClass("display-false");
 		$element.addClass("display-true");
 		// element.toggleClass("display-false display-true");
 	}
+
+	/**
+	 * HIDE AND SHOW APPORPRIATE ELEMENTS FROM CLASSNAME
+	 */
 	function changeVisibilityOfElements() {
-		console.log("visibility actions");
 		$(".display-false").hide();
 		$(".display-true").show();
 	}
@@ -282,18 +297,14 @@ $(document).ready(function() {
 	 *            an element contained inside the \<tr\> .sequence-element
 	 */
 	function makeTableElementEditable($thisElement) {
-		console.log("Make Editable");
 		var $trElement = $thisElement.parents(".sequence-element");
 
 		var index = parseInt($trElement.attr("value"));
 		if (holderArray[index] === "") {
 			holderArray[index] = $trElement.children(".sequence-data-textarea").val();
 		}
-		console.log($trElement.find("button.sequence-edit").hasClass("btn"));
-		console.log("Displaying edit buttons");
 		visibilityForEditingButtonState($trElement);
 		changeVisibilityOfElements();
-		console.log("Buttons canged");
 		/*
 		 * var innerHtml_2 = "<button class=\"btn btn-info center-block
 		 * edit-submit\">SUBMIT</button>";
