@@ -1,8 +1,8 @@
 package edu.ilstu.reversecomplementapplication.components;
 
-import org.biojava.nbio.core.sequence.compound.NucleotideCompound;
-import org.biojava.nbio.core.sequence.io.FastaReader;
-import org.biojava.nbio.core.sequence.template.AbstractSequence;
+import org.biojava.nbio.core.exceptions.CompoundNotFoundException;
+import org.biojava.nbio.core.sequence.DNASequence;
+import org.biojava.nbio.core.sequence.RNASequence;
 import org.springframework.stereotype.Service;
 
 /**
@@ -98,6 +98,34 @@ public class ApplicationUtility
 	}
 
 	/**
+	 * Extract the sequence from a FASTA sequence
+	 * 
+	 * @param stringSequence
+	 *            FASTA sequence
+	 * @return sequence
+	 * @throws Exception
+	 *             if FASTA unable to convert
+	 */
+	public String extractSequence(String stringSequence) throws Exception
+	{
+		String sequence = "";
+		stringSequence = stringSequence.trim();
+		if (stringSequence.charAt(0) == ('>'))
+		{
+			if (stringSequence.indexOf(System.getProperty("line.separator")) != -1)
+			{
+				sequence = stringSequence.substring(stringSequence.indexOf(System.getProperty("line.separator")),
+						stringSequence.length());
+			} else
+			{
+				// TODO: Create new exception
+				throw new Exception("Error converting from FASTA sequence: Could not find the newline");
+			}
+		}
+		return sequence;
+	}
+
+	/**
 	 * Converts sequence to a FASTA Sequence
 	 * 
 	 * @param fastaHeader
@@ -122,5 +150,47 @@ public class ApplicationUtility
 			fastaSequence = fastaHeader + System.getProperty("line.separator") + sequence;
 		}
 		return fastaSequence;
+	}
+
+	// TODO: New implementation
+	/**
+	 * Determine if sequence is a DNA type
+	 * 
+	 * @param sequence
+	 *            to evaluate
+	 * @return determination
+	 */
+	public boolean isDNA(String sequence) 
+	{
+		try
+		{
+			@SuppressWarnings("unused")
+			DNASequence tester = new DNASequence(sequence);
+		} catch (CompoundNotFoundException e)
+		{
+			return false;
+		}
+		return true;
+	}
+
+	// TODO: New implementation
+	/**
+	 * Determine if sequence is a RNA type
+	 * 
+	 * @param sequence
+	 *            to evaluate
+	 * @return determination
+	 */
+	public boolean isRNA(String sequence)
+	{
+		try
+		{
+			@SuppressWarnings("unused")
+			RNASequence tester = new RNASequence(sequence);
+		} catch (CompoundNotFoundException e)
+		{
+			return false;
+		}
+		return true;
 	}
 }

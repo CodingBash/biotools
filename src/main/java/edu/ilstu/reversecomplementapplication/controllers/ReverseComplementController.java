@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.biojava.nbio.core.exceptions.CompoundNotFoundException;
 import org.biojava.nbio.core.sequence.DNASequence;
+import org.biojava.nbio.core.sequence.RNASequence;
 import org.biojava.nbio.core.sequence.compound.NucleotideCompound;
 import org.biojava.nbio.core.sequence.template.AbstractSequence;
 import org.slf4j.Logger;
@@ -67,8 +68,18 @@ public class ReverseComplementController
 	{
 		ModelAndView mav = new ModelAndView(reverseComplementPage);
 		// TODO: Generalize into an abstract base
-		DNASequence sequence = null;
+		AbstractSequence<NucleotideCompound> sequence = null;
+
+		String sequenceOnly = "";
 		try
+		{
+			sequenceOnly = applicationUtility.extractSequence(stringSequence);
+		} catch (Exception e2)
+		{
+			e2.printStackTrace();
+		}
+
+		if (applicationUtility.isDNA(sequenceOnly))
 		{
 			try
 			{
@@ -76,20 +87,44 @@ public class ReverseComplementController
 			} catch (Exception e)
 			{
 				e.printStackTrace();
-				sequence = new DNASequence(stringSequence);
+				try
+				{
+					sequence = new DNASequence(stringSequence);
+				} catch (CompoundNotFoundException e1)
+				{
+					e1.printStackTrace();
+				}
 			}
-		} catch (CompoundNotFoundException e)
+		} else if (applicationUtility.isRNA(sequenceOnly))
 		{
-			e.printStackTrace();
+			try
+			{
+				sequence = new RNASequence(applicationUtility.editStringSequence(stringSequence));
+			} catch (Exception e)
+			{
+				e.printStackTrace();
+				try
+				{
+					sequence = new DNASequence(stringSequence);
+				} catch (CompoundNotFoundException e1)
+				{
+					e1.printStackTrace();
+				}
+			}
 		}
 
-		if (sequence != null)
+		if (sequence != null && sequence.getLength() != 0)
 		{
 			mav.addObject("oldSequence", stringSequence);
 			try
 			{
-				sequence = new DNASequence(sequence.getReverseComplement().getSequenceAsString());
-
+				if (sequence instanceof DNASequence)
+				{
+					sequence = new DNASequence(((DNASequence) sequence).getReverseComplement().getSequenceAsString());
+				} else if (sequence instanceof RNASequence)
+				{
+					sequence = new RNASequence(((RNASequence) sequence).getReverseComplement().getSequenceAsString());
+				}
 				/*
 				 * Convert regular sequence to FASTA sequence
 				 */
@@ -193,7 +228,7 @@ public class ReverseComplementController
 			Model model, HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView(reverseComplementPage);
-		
+
 		// Retrieve sequence container from session
 		SequenceContainer sequenceContainer = this.retrieveSequenceContainer(session);
 
@@ -239,7 +274,7 @@ public class ReverseComplementController
 	public ModelAndView deleteSequence(@RequestParam("index") int index, Model model, HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView(reverseComplementPage);
-		
+
 		/// Retrieve sequence container from session
 		SequenceContainer sequenceContainer = this.retrieveSequenceContainer(session);
 
