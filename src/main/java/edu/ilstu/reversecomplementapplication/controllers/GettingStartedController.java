@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Getting started controller
@@ -24,8 +25,9 @@ public class GettingStartedController
 	 * @return gettingstarted.jsp
 	 */
 	@RequestMapping(value = "/gettingstarted")
-	public String getToolsPage()
+	public ModelAndView getToolsPage()
 	{
-		return gettingStartedPage;
+		ModelAndView mav = new ModelAndView(gettingStartedPage);
+		return mav;
 	}
 }

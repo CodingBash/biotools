@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @author Basheer
@@ -29,8 +30,9 @@ public class HomeController
 	 */
 	// TODO: Able to put variables/expressions in annotations?
 	@RequestMapping(value = "/")
-	public String getHomePage(Model model, HttpSession session)
+	public ModelAndView getHomePage(Model model, HttpSession session)
 	{
-		return homePage;
+		ModelAndView mav = new ModelAndView(homePage);
+		return mav;
 	}
 }

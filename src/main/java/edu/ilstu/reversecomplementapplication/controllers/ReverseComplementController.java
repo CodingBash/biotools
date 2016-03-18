@@ -140,8 +140,9 @@ public class ReverseComplementController
 	 * @return redirect to index.jsp
 	 */
 	@RequestMapping(value = "/saveSequence.do", method = RequestMethod.POST)
-	public String saveSequence(@RequestParam("sequence") String stringSequence, Model model, HttpSession session)
+	public ModelAndView saveSequence(@RequestParam("sequence") String stringSequence, Model model, HttpSession session)
 	{
+		ModelAndView mav = new ModelAndView(reverseComplementPage);
 		// Retrieve sequence container from session
 		SequenceContainer sequenceContainer = this.retrieveSequenceContainer(session);
 
@@ -173,7 +174,7 @@ public class ReverseComplementController
 		model.addAttribute("container", sequenceContainer.getSequenceContainer());
 
 		// Refresh the index page
-		return reverseComplementPage;
+		return mav;
 	}
 
 	/**
@@ -188,10 +189,11 @@ public class ReverseComplementController
 	 * @return redirect to index.jsp
 	 */// TODO: Error handling.
 	@RequestMapping(value = "/editSequence.do", method = RequestMethod.POST)
-	public String editSequence(@RequestParam("sequence") String stringSequence, @RequestParam("index") int index,
+	public ModelAndView editSequence(@RequestParam("sequence") String stringSequence, @RequestParam("index") int index,
 			Model model, HttpSession session)
 	{
-
+		ModelAndView mav = new ModelAndView(reverseComplementPage);
+		
 		// Retrieve sequence container from session
 		SequenceContainer sequenceContainer = this.retrieveSequenceContainer(session);
 
@@ -221,7 +223,7 @@ public class ReverseComplementController
 		model.addAttribute("container", sequenceContainer.getSequenceContainer());
 
 		// Refresh the index page
-		return reverseComplementPage;
+		return mav;
 	}
 
 	/**
@@ -234,8 +236,10 @@ public class ReverseComplementController
 	 * @return redirect to index.jsp
 	 */// TODO: Don't delete, validate request
 	@RequestMapping(value = "/deleteSequence.do", method = RequestMethod.POST)
-	public String deleteSequence(@RequestParam("index") int index, Model model, HttpSession session)
+	public ModelAndView deleteSequence(@RequestParam("index") int index, Model model, HttpSession session)
 	{
+		ModelAndView mav = new ModelAndView(reverseComplementPage);
+		
 		/// Retrieve sequence container from session
 		SequenceContainer sequenceContainer = this.retrieveSequenceContainer(session);
 
@@ -258,7 +262,7 @@ public class ReverseComplementController
 		model.addAttribute("container", sequenceContainer.getSequenceContainer());
 
 		// Refresh the index page
-		return reverseComplementPage;
+		return mav;
 	}
 
 	/**
@@ -271,8 +275,9 @@ public class ReverseComplementController
 	 * @return redirect to index.jsp
 	 */
 	@RequestMapping(value = "/deleteAllSequences.do", method = RequestMethod.POST)
-	public String deleteAllSequences(Model model, HttpSession session)
+	public ModelAndView deleteAllSequences(Model model, HttpSession session)
 	{
+		ModelAndView mav = new ModelAndView(reverseComplementPage);
 		// Retrieve sequence container from session
 		SequenceContainer sequenceContainer = this.retrieveSequenceContainer(session);
 
@@ -292,7 +297,7 @@ public class ReverseComplementController
 		model.addAttribute("container", sequenceContainer.getSequenceContainer());
 
 		// Refresh the index page
-		return reverseComplementPage;
+		return mav;
 	}
 
 	/**
@@ -307,9 +312,10 @@ public class ReverseComplementController
 	 * @return redirect to index.jsp
 	 */
 	@RequestMapping(value = "/deleteSelectedSequences.do", method = RequestMethod.POST)
-	public String deleteSelectedSequences(@RequestParam("indexList") String[] stringIndexList, Model model,
+	public ModelAndView deleteSelectedSequences(@RequestParam("indexList") String[] stringIndexList, Model model,
 			HttpSession session)
 	{
+		ModelAndView mav = new ModelAndView(reverseComplementPage);
 		// Retrieve sequence container from session
 		SequenceContainer sequenceContainer = this.retrieveSequenceContainer(session);
 
@@ -335,7 +341,7 @@ public class ReverseComplementController
 		model.addAttribute("container", sequenceContainer.getSequenceContainer());
 
 		// Refresh the index page
-		return reverseComplementPage;
+		return mav;
 	}
 
 	/**

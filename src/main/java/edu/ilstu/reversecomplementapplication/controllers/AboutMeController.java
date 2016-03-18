@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * About me controller
@@ -23,8 +24,9 @@ public class AboutMeController
 	 * @return aboutme.jsp
 	 */
 	@RequestMapping(value = "/aboutme")
-	public String getToolsPage()
+	public ModelAndView getToolsPage()
 	{
-		return aboutMePage;
+		ModelAndView mav = new ModelAndView(aboutMePage);
+		return mav;
 	}
 }

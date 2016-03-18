@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Donations controller
@@ -23,8 +24,9 @@ public class DonationsController
 	 * @return donations.jsp
 	 */
 	@RequestMapping(value = "/donations")
-	public String getToolsPage()
+	public ModelAndView getToolsPage()
 	{
-		return donationsPage;
+		ModelAndView mav = new ModelAndView(donationsPage);
+		return mav;
 	}
 }
