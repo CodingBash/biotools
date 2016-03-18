@@ -144,3 +144,15 @@ a:hover {
 .pointer {
 	cursor: pointer;
 }
+
+.fa-icon {
+	font-size: 150% !important;
+}
+
+.media-tools {
+	background-color: red !important;
+}
+
+.navbar-icon {
+	font-size: 90%;
+}

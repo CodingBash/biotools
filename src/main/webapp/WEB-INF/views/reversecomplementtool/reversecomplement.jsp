@@ -36,6 +36,7 @@ Dont have two columns when there is no
 		location.hash = "#sequenceForm";
 	}
 </script>
+<jsp:include page="head/allHead.jsp" />
 </head>
 <body class="white-background">
 
