@@ -14,6 +14,7 @@ $(document).ready(function() {
 		$.notify("Sequence edited", "success");
 	} else if (window.location.href.indexOf("saveSequence.do") !== -1) {
 		$.notify("Sequence saved", "success");
+		$.notify("FASTA headers aren't saved", "warning");
 	} else if (window.location.href.indexOf("deleteAllSequences.do") !== -1) {
 		$.notify("Sequences deleted", "warning");
 	} else if (window.location.href.indexOf("deleteSelectedSequences.do") !== -1) {
@@ -337,6 +338,7 @@ $(document).ready(function() {
 	 *            string to clean
 	 */
 	function cleanStringSequence(stringSequence) {
+		var originalSequence = stringSequence;
 		stringSequence = stringSequence.trim();
 		if (stringSequence.indexOf(">") !== -1) {
 			if (stringSequence.charAt(0) === '>') {
@@ -360,6 +362,12 @@ $(document).ready(function() {
 			stringSequence = stringSequence.replace(/\r?\n|\r/g, "");
 			stringSequence = stringSequence.toUpperCase();
 		}
+
+		// NOTIFICATION
+		if (originalSequence !== stringSequence) {
+			$.notify("Sequence formatted", "info");
+		}
+
 		return stringSequence
 	}
 
