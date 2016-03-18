@@ -34,6 +34,8 @@ Dont have two columns when there is no
 		location.hash = "#sequenceForm";
 	} else if (window.location.href.indexOf("deleteAllSequences.do") !== -1) {
 		location.hash = "#sequenceForm";
+	} else if (window.location.href.indexOf("deleteSelectedSequences.do") !== -1){
+		location.hash = "#sequenceList";
 	}
 </script>
 <jsp:include page="head/allHead.jsp" />
@@ -54,5 +56,7 @@ Dont have two columns when there is no
 	<script src="<c:url value="/resources/bootstrap/js/bootstrap.js"/>"></script>
 	<script src="<c:url value="/resources/custom/js/script.js"/>"></script>
 	<script src="<c:url value="/resources/custom/js/reversecomplement/script.js"/>"></script>
+	<script src="<c:url value="/resources/notify/js/notify.min.js"/>"></script>
+	
 </body>
 </html>

@@ -16,6 +16,12 @@
 					<!-- <input type="text" name="sequence" value="<c:out value="${sequence}" default=""/>"/> -->
 				</div>
 			</form>
+			<div class="text-center">
+				<div class="btn-group margin-top-small">
+					<button class="btn btn-primary" id="sequenceForm-submit">Submit</button>
+					<button class="btn btn-primary" id="sequence-save">Save</button>
+				</div>
+			</div>
 		</div>
 		<div class="col-md-6">
 			<div class="result text-center">
@@ -25,15 +31,9 @@
 					<textarea name="sequence-holder" rows="20" cols="75" readonly>${sequence}</textarea>
 				</div>
 			</div>
-		</div>
-	</div>
-	<div class="row padded">
-		<div class="col-md-12">
-			<div class="btn-group btn-group-justified">
-				<button class="btn btn-primary" id="sequenceForm-submit">Submit</button>
-				<button class="btn btn-primary" id="copy-analyzed">Replace</button>
-				<button class="btn btn-primary" id="sequence-save">Save</button>
-			</div>
+
+			<button class="btn btn-primary center-block margin-top-small" id="copy-analyzed">Copy
+				Left</button>
 		</div>
 	</div>
 </div>

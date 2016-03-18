@@ -44,27 +44,29 @@ public class ApplicationUtility
 	{
 		// Trim
 		stringSequence = stringSequence.trim();
-		// Check FASTA
-		if (stringSequence.charAt(0) == ('>'))
+		if (!stringSequence.isEmpty())
 		{
-			if (stringSequence.indexOf(System.getProperty("line.separator")) != -1)
+			// Check FASTA
+			if (stringSequence.charAt(0) == ('>'))
 			{
-				stringSequence = stringSequence.substring(
-						stringSequence.indexOf(System.getProperty("line.separator"), 1), stringSequence.length());
-				stringSequence = stringSequence.trim();
-			} else
-			{
-				// TODO: Create new exception
-				throw new Exception("Error converting from FASTA sequence: Could not find the newline");
+				if (stringSequence.indexOf(System.getProperty("line.separator")) != -1)
+				{
+					stringSequence = stringSequence.substring(
+							stringSequence.indexOf(System.getProperty("line.separator"), 1), stringSequence.length());
+					stringSequence = stringSequence.trim();
+				} else
+				{
+					// TODO: Create new exception
+					throw new Exception("Error converting from FASTA sequence: Could not find the newline");
+				}
 			}
+			// Remove intermediate spaces
+			// TODO: Translate to regex
+			stringSequence = stringSequence.replace(System.getProperty("line.separator"), "");
+			stringSequence = stringSequence.replace(" ", "");
+			// To Uppercase
+			stringSequence = stringSequence.toUpperCase();
 		}
-		// Remove intermediate spaces
-		// TODO: Translate to regex
-		stringSequence = stringSequence.replace(System.getProperty("line.separator"), "");
-		stringSequence = stringSequence.replace(" ", "");
-		// To Uppercase
-		stringSequence = stringSequence.toUpperCase();
-
 		return stringSequence;
 	}
 
@@ -107,18 +109,18 @@ public class ApplicationUtility
 	public String convertToFastaSequence(String fastaHeader, String sequence)
 	{
 		String fastaSequence = "";
-		fastaHeader = fastaHeader.replace(System.getProperty("line.separator"), "");
-
+		fastaHeader = fastaHeader.replace(System.getProperty("line.separator"), "").trim();
 		sequence = sequence.trim();
-
-		// TODO: Test line separator extractor
-		if (sequence.substring(0, 1) == System.getProperty("line.separator"))
+		if (!(fastaHeader.isEmpty() || sequence.isEmpty()))
 		{
-			sequence = sequence.substring(1, sequence.length());
+			// TODO: Test line separator extractor
+			if (sequence.substring(0, 1) == System.getProperty("line.separator"))
+			{
+				sequence = sequence.substring(1, sequence.length());
+			}
+
+			fastaSequence = fastaHeader + System.getProperty("line.separator") + sequence;
 		}
-
-		fastaSequence = fastaHeader + System.getProperty("line.separator") + sequence;
-
 		return fastaSequence;
 	}
 }

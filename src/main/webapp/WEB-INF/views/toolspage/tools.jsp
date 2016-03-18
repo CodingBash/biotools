@@ -10,6 +10,7 @@
 <link href="<c:url value="resources/custom/css/style.css" />" rel="stylesheet" />
 <link href="<c:url value="resources/custom/css/toolspage/style.css" />" rel="stylesheet" />
 <title>BioTools: Tools</title>
+<jsp:include page="head/allHead.jsp" />
 </head>
 <body class="white-background">
 

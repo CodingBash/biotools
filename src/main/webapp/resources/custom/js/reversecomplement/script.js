@@ -6,6 +6,19 @@ $(document).ready(function() {
 	 * Processes on page load
 	 */
 	// START
+	if (window.location.href.indexOf("deleteSequence.do") !== -1) {
+		$.notify("Sequence deleted", "warning");
+	} else if (window.location.href.indexOf("submitSequence.do") !== -1) {
+		$.notify("Sequence submitted", "success");
+	} else if (window.location.href.indexOf("editSequence.do") !== -1) {
+		$.notify("Sequence edited", "success");
+	} else if (window.location.href.indexOf("saveSequence.do") !== -1) {
+		$.notify("Sequence saved", "success");
+	} else if (window.location.href.indexOf("deleteAllSequences.do") !== -1) {
+		$.notify("Sequences deleted", "warning");
+	} else if (window.location.href.indexOf("deleteSelectedSequences.do") !== -1) {
+		$.notify("Sequence(s) deleted", "warning");
+	}
 	/**
 	 * Holds the index of the \<tr\> element to pass to the modal delete button
 	 */
@@ -57,6 +70,7 @@ $(document).ready(function() {
 	 */
 	$("#copy-analyzed").click(function() {
 		$("textarea#sequence-input").val($("#sequence textarea").val().trim());
+		$.notify("Sequence copied", "success");
 	});
 
 	/**

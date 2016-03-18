@@ -21,7 +21,7 @@
 			</ul>
 
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="https://github.com/CodingBash/biotools"><i
+				<li><a href="#"><i
 						class="fa fa-twitter"></i> Twitter</a></li>
 				<li><a href="https://github.com/CodingBash/biotools"><i class="fa fa-github"></i>
 						GitHub</a></li>
