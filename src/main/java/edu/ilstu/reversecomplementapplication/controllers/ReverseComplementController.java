@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import edu.ilstu.reversecomplementapplication.components.ApplicationUtility;
+import edu.ilstu.reversecomplementapplication.components.ApplicationUtilityImpl;
 import edu.ilstu.reversecomplementapplication.models.SequenceContainer;
 
 /**
@@ -35,7 +35,7 @@ public class ReverseComplementController
 	private static final String reverseComplementPage = "reversecomplementtool/reversecomplement";
 
 	@Autowired
-	ApplicationUtility applicationUtility;
+	ApplicationUtilityImpl applicationUtility;
 
 	/**
 	 * Empty URL field goes to the index.jsp landing page

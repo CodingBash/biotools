@@ -28,7 +28,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.web.servlet.ModelAndView;
 
-import edu.ilstu.reversecomplementapplication.components.ApplicationUtility;
+import edu.ilstu.reversecomplementapplication.components.ApplicationUtilityImpl;
 import edu.ilstu.reversecomplementapplication.models.SequenceContainer;
 
 /**
@@ -41,7 +41,7 @@ public class ReverseComplementControllerTest extends BaseControllerSetup
 
 	// TODO: Fix dependency injection mocking
 	@Mock
-	ApplicationUtility applicationUtility;
+	ApplicationUtilityImpl applicationUtility;
 
 	@InjectMocks
 	ReverseComplementController controller;

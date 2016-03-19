@@ -15,7 +15,7 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.springframework.mock.web.MockHttpSession;
 
-import edu.ilstu.reversecomplementapplication.components.ApplicationUtility;
+import edu.ilstu.reversecomplementapplication.components.ApplicationUtilityImpl;
 import edu.ilstu.reversecomplementapplication.models.SequenceContainer;
 
 public abstract class BaseControllerSetup
