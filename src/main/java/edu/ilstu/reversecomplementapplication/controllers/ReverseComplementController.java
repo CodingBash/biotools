@@ -68,22 +68,25 @@ public class ReverseComplementController
 	{
 		ModelAndView mav = new ModelAndView(reverseComplementPage);
 		// TODO: Generalize into an abstract base
-		AbstractSequence<NucleotideCompound> sequence = null;
 
-		String sequenceOnly = "";
+		/*
+		 * Create the AbstractSequence<NucleotideCompound>
+		 */
+		AbstractSequence<NucleotideCompound> sequence = null;
+		String formattedSequence = "";
 		try
 		{
-			sequenceOnly = applicationUtility.extractSequence(stringSequence);
-		} catch (Exception e2)
+			formattedSequence = applicationUtility.editStringSequence(stringSequence);
+		} catch (Exception e3)
 		{
-			e2.printStackTrace();
+			e3.printStackTrace();
 		}
-
-		if (applicationUtility.isDNA(sequenceOnly))
+		if (applicationUtility.isDNA(formattedSequence))
 		{
+			System.out.println("DNA");
 			try
 			{
-				sequence = new DNASequence(applicationUtility.editStringSequence(stringSequence));
+				sequence = new DNASequence(formattedSequence);
 			} catch (Exception e)
 			{
 				e.printStackTrace();
@@ -95,11 +98,11 @@ public class ReverseComplementController
 					e1.printStackTrace();
 				}
 			}
-		} else if (applicationUtility.isRNA(sequenceOnly))
+		} else if (applicationUtility.isRNA(formattedSequence))
 		{
 			try
 			{
-				sequence = new RNASequence(applicationUtility.editStringSequence(stringSequence));
+				sequence = new RNASequence(formattedSequence);
 			} catch (Exception e)
 			{
 				e.printStackTrace();
@@ -112,7 +115,9 @@ public class ReverseComplementController
 				}
 			}
 		}
-
+		/*
+		 * Get and set reverse complement
+		 */
 		if (sequence != null && sequence.getLength() != 0)
 		{
 			mav.addObject("oldSequence", stringSequence);
@@ -140,7 +145,6 @@ public class ReverseComplementController
 
 				String regularSequence = sequence.toString();
 				String fastaSequence = applicationUtility.convertToFastaSequence(fastaHeader, regularSequence);
-
 				// Add FASTA sequence to model
 				mav.addObject("sequence", fastaSequence);
 			} catch (CompoundNotFoundException e)

@@ -1,6 +1,5 @@
 package edu.ilstu.reversecomplementapplication.components;
 
-import org.biojava.nbio.core.exceptions.CompoundNotFoundException;
 import org.biojava.nbio.core.sequence.DNASequence;
 import org.biojava.nbio.core.sequence.RNASequence;
 import org.springframework.stereotype.Service;
@@ -125,6 +124,7 @@ public class ApplicationUtility
 		return sequence;
 	}
 
+	// TODO: Reimplement code
 	/**
 	 * Converts sequence to a FASTA Sequence
 	 * 
@@ -139,15 +139,25 @@ public class ApplicationUtility
 		String fastaSequence = "";
 		fastaHeader = fastaHeader.replace(System.getProperty("line.separator"), "").trim();
 		sequence = sequence.trim();
-		if (!(fastaHeader.isEmpty() || sequence.isEmpty()))
-		{
-			// TODO: Test line separator extractor
-			if (sequence.substring(0, 1) == System.getProperty("line.separator"))
-			{
-				sequence = sequence.substring(1, sequence.length());
-			}
 
-			fastaSequence = fastaHeader + System.getProperty("line.separator") + sequence;
+		if (!fastaHeader.isEmpty())
+		{
+			if (!sequence.isEmpty())
+			{
+				// TODO: Test line separator extractor
+				if (sequence.substring(0, 1) == System.getProperty("line.separator"))
+				{
+					sequence = sequence.substring(1, sequence.length());
+				}
+
+				fastaSequence = fastaHeader + System.getProperty("line.separator") + sequence;
+			} else
+			{
+				return fastaHeader;
+			}
+		} else
+		{
+			return sequence;
 		}
 		return fastaSequence;
 	}
@@ -160,13 +170,14 @@ public class ApplicationUtility
 	 *            to evaluate
 	 * @return determination
 	 */
-	public boolean isDNA(String sequence) 
+	public boolean isDNA(String sequence)
 	{
+		
 		try
 		{
 			@SuppressWarnings("unused")
 			DNASequence tester = new DNASequence(sequence);
-		} catch (CompoundNotFoundException e)
+		} catch (Exception e)
 		{
 			return false;
 		}
@@ -187,7 +198,7 @@ public class ApplicationUtility
 		{
 			@SuppressWarnings("unused")
 			RNASequence tester = new RNASequence(sequence);
-		} catch (CompoundNotFoundException e)
+		} catch (Exception e)
 		{
 			return false;
 		}
