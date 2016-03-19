@@ -13,13 +13,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.ilstu.reversecomplementapplication.components.ApplicationUtilityImpl;
+import edu.ilstu.reversecomplementapplication.models.Sequence;
 import edu.ilstu.reversecomplementapplication.models.SequenceContainer;
 
 /**
@@ -46,11 +47,13 @@ public class ReverseComplementController
 	public ModelAndView getIndex(HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView(reverseComplementPage);
+		addFormAttribute();
 		// Retrieve sequence container from session
 		SequenceContainer sequenceContainer = this.retrieveSequenceContainer(session);
 
 		// Add sequence to the ModelAndView
 		mav.addObject("container", sequenceContainer.getSequenceContainer());
+
 		return mav;
 	}
 
@@ -64,27 +67,31 @@ public class ReverseComplementController
 	 * @return redirect to index.jsp
 	 */
 	@RequestMapping(value = "/submitSequence.do", method = RequestMethod.POST)
-	public ModelAndView submitSequence(@RequestParam("sequence") String stringSequence, HttpSession session)
+	public ModelAndView submitSequence(@ModelAttribute("sequenceFormAttribute") Sequence sequenceModel,
+			HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView(reverseComplementPage);
-		// TODO: Generalize into an abstract base
+
+		// Get stringSequence
+		String stringSequence = sequenceModel.getSequence();
 
 		// Create the sequence from the @RequestParam
-		AbstractSequence<NucleotideCompound> sequence = createSequence(stringSequence);
+		AbstractSequence<NucleotideCompound> abstractSequence = createSequence(stringSequence);
 		/*
 		 * Get and set reverse complement
 		 */
-		if (sequence != null && sequence.getLength() != 0)
+		if (abstractSequence != null && abstractSequence.getLength() != 0)
 		{
-			mav.addObject("oldSequence", stringSequence);
 			try
 			{
-				if (sequence instanceof DNASequence)
+				if (abstractSequence instanceof DNASequence)
 				{
-					sequence = new DNASequence(((DNASequence) sequence).getReverseComplement().getSequenceAsString());
-				} else if (sequence instanceof RNASequence)
+					abstractSequence = new DNASequence(
+							((DNASequence) abstractSequence).getReverseComplement().getSequenceAsString());
+				} else if (abstractSequence instanceof RNASequence)
 				{
-					sequence = new RNASequence(((RNASequence) sequence).getReverseComplement().getSequenceAsString());
+					abstractSequence = new RNASequence(
+							((RNASequence) abstractSequence).getReverseComplement().getSequenceAsString());
 				}
 				/*
 				 * Convert regular sequence to FASTA sequence
@@ -99,27 +106,25 @@ public class ReverseComplementController
 					e.printStackTrace();
 				}
 
-				String regularSequence = sequence.toString();
+				String regularSequence = abstractSequence.toString();
 				String fastaSequence = applicationUtility.convertToFastaSequence(fastaHeader, regularSequence);
+				sequenceModel.setResultSequence(fastaSequence);
 				// Add FASTA sequence to model
-				mav.addObject("sequence", fastaSequence);
+
 			} catch (CompoundNotFoundException e)
 			{
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		} else
-		{
-			mav.addObject("sequence", null);
-			mav.addObject("oldSequence", null);
 		}
 
+		// addFormAttribute(sequenceModel);
 		// Retrieve sequence container from session
 		SequenceContainer sequenceContainer = this.retrieveSequenceContainer(session);
 
 		// Add sequence to the ModelAndView
 		mav.addObject("container", sequenceContainer.getSequenceContainer());
-
+		System.out.println("sequence2: " + sequenceModel.getSequence());
+		System.out.println("resultSequence2: " + sequenceModel.getResultSequence());
 		return mav;
 	}
 
@@ -135,23 +140,27 @@ public class ReverseComplementController
 	 * @return redirect to index.jsp
 	 */
 	@RequestMapping(value = "/saveSequence.do", method = RequestMethod.POST)
-	public ModelAndView saveSequence(@RequestParam("sequence") String stringSequence, Model model, HttpSession session)
+	public ModelAndView saveSequence(@RequestParam("sequence") String stringSequence,
+			@ModelAttribute("sequenceFormAttribute") Sequence sequenceModel, HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView(reverseComplementPage);
+		System.out.println("sequence: " + sequenceModel.getSequence());
+		System.out.println("resultSequence: " + sequenceModel.getResultSequence());
+
 		// Retrieve sequence container from session
 		SequenceContainer sequenceContainer = this.retrieveSequenceContainer(session);
 
 		// Create the sequence from the @RequestParam
-		AbstractSequence<NucleotideCompound> sequence = createSequence(stringSequence);
+		AbstractSequence<NucleotideCompound> abstractSequence = createSequence(stringSequence);
 
 		// Add the DNASequence
-		sequenceContainer.addSequenceToContainer(sequence);
+		sequenceContainer.addSequenceToContainer(abstractSequence);
 
 		// Add updated sequenceContainer back to session
 		session.setAttribute("sequenceContainer", sequenceContainer);
 
 		// Add sequence to the ModelAndView
-		model.addAttribute("container", sequenceContainer.getSequenceContainer());
+		mav.addObject("container", sequenceContainer.getSequenceContainer());
 
 		// Refresh the index page
 		return mav;
@@ -170,7 +179,7 @@ public class ReverseComplementController
 	 */// TODO: Error handling.
 	@RequestMapping(value = "/editSequence.do", method = RequestMethod.POST)
 	public ModelAndView editSequence(@RequestParam("sequence") String stringSequence, @RequestParam("index") int index,
-			Model model, HttpSession session)
+			@ModelAttribute("sequenceFormAttribute") Sequence sequenceModel, HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView(reverseComplementPage);
 
@@ -178,16 +187,16 @@ public class ReverseComplementController
 		SequenceContainer sequenceContainer = this.retrieveSequenceContainer(session);
 
 		// Create the sequence from the @RequestParam
-		AbstractSequence<NucleotideCompound> sequence = createSequence(stringSequence);
+		AbstractSequence<NucleotideCompound> abstractSequence = createSequence(stringSequence);
 
 		// Make the edit changes in the sequence container
-		sequenceContainer.editSequenceInContainer(index, sequence);
+		sequenceContainer.editSequenceInContainer(index, abstractSequence);
 
 		// Add updated sequenceContainer back to session
 		session.setAttribute("sequenceContainer", sequenceContainer);
 
 		// Add sequence to the ModelAndView
-		model.addAttribute("container", sequenceContainer.getSequenceContainer());
+		mav.addObject("container", sequenceContainer.getSequenceContainer());
 
 		// Refresh the index page
 		return mav;
@@ -203,11 +212,12 @@ public class ReverseComplementController
 	 * @return redirect to index.jsp
 	 */// TODO: Don't delete, validate request
 	@RequestMapping(value = "/deleteSequence.do", method = RequestMethod.POST)
-	public ModelAndView deleteSequence(@RequestParam("index") int index, Model model, HttpSession session)
+	public ModelAndView deleteSequence(@RequestParam("index") int index,
+			@ModelAttribute("sequenceFormAttribute") Sequence sequence, HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView(reverseComplementPage);
 
-		/// Retrieve sequence container from session
+		// Retrieve sequence container from session
 		SequenceContainer sequenceContainer = this.retrieveSequenceContainer(session);
 
 		// Delete the sequence
@@ -226,7 +236,7 @@ public class ReverseComplementController
 		session.setAttribute("sequenceContainer", sequenceContainer);
 
 		// Add sequence to the ModelAndView
-		model.addAttribute("container", sequenceContainer.getSequenceContainer());
+		mav.addObject("container", sequenceContainer.getSequenceContainer());
 
 		// Refresh the index page
 		return mav;
@@ -242,9 +252,11 @@ public class ReverseComplementController
 	 * @return redirect to index.jsp
 	 */
 	@RequestMapping(value = "/deleteAllSequences.do", method = RequestMethod.POST)
-	public ModelAndView deleteAllSequences(Model model, HttpSession session)
+	public ModelAndView deleteAllSequences(@ModelAttribute("sequenceFormAttribute") Sequence sequenceModel,
+			HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView(reverseComplementPage);
+
 		// Retrieve sequence container from session
 		SequenceContainer sequenceContainer = this.retrieveSequenceContainer(session);
 
@@ -261,7 +273,7 @@ public class ReverseComplementController
 		session.setAttribute("sequenceContainer", sequenceContainer);
 
 		// Add sequence to the ModelAndView
-		model.addAttribute("container", sequenceContainer.getSequenceContainer());
+		mav.addObject("container", sequenceContainer.getSequenceContainer());
 
 		// Refresh the index page
 		return mav;
@@ -279,10 +291,11 @@ public class ReverseComplementController
 	 * @return redirect to index.jsp
 	 */
 	@RequestMapping(value = "/deleteSelectedSequences.do", method = RequestMethod.POST)
-	public ModelAndView deleteSelectedSequences(@RequestParam("indexList") String[] stringIndexList, Model model,
-			HttpSession session)
+	public ModelAndView deleteSelectedSequences(@RequestParam("indexList") String[] stringIndexList,
+			@ModelAttribute("sequenceFormAttribute") Sequence sequenceModel, HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView(reverseComplementPage);
+
 		// Retrieve sequence container from session
 		SequenceContainer sequenceContainer = this.retrieveSequenceContainer(session);
 
@@ -305,7 +318,7 @@ public class ReverseComplementController
 		session.setAttribute("sequenceContainer", sequenceContainer);
 
 		// Add sequence to the ModelAndView
-		model.addAttribute("container", sequenceContainer.getSequenceContainer());
+		mav.addObject("container", sequenceContainer.getSequenceContainer());
 
 		// Refresh the index page
 		return mav;
@@ -362,7 +375,6 @@ public class ReverseComplementController
 		}
 		if (applicationUtility.isDNA(formattedSequence))
 		{
-			System.out.println("DNA");
 			try
 			{
 				sequence = new DNASequence(formattedSequence);
@@ -394,7 +406,19 @@ public class ReverseComplementController
 				}
 			}
 		}
+		return sequence;
+	}
 
+	@ModelAttribute("sequenceFormAttribute")
+	private Sequence addFormAttribute()
+	{
+		Sequence sequence = new Sequence();
+		return sequence;
+	}
+
+	@ModelAttribute("sequenceFormAttribute")
+	private Sequence addFormAttribute(Sequence sequence)
+	{
 		return sequence;
 	}
 }
