@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.biojava.nbio.core.sequence.compound.NucleotideCompound;
 import org.biojava.nbio.core.sequence.template.AbstractSequence;
 
 /**
@@ -15,9 +16,10 @@ import org.biojava.nbio.core.sequence.template.AbstractSequence;
 public class SequenceContainer
 {
 	/**
-	 * Interface {@link List} to contain an {@link AbstractSequence}< {@link ?}>
+	 * Interface {@link List} to contain an {@link AbstractSequence}<
+	 * {@link NucleotideCompound}>
 	 */
-	private List<AbstractSequence<?>> sequenceContainer;
+	private List<AbstractSequence<NucleotideCompound>> sequenceContainer;
 
 	/**
 	 * No-args constructor
@@ -32,7 +34,7 @@ public class SequenceContainer
 	 * 
 	 * @param sequenceContainer
 	 */
-	public SequenceContainer(List<AbstractSequence<?>> sequenceContainer)
+	public SequenceContainer(List<AbstractSequence<NucleotideCompound>> sequenceContainer)
 	{
 		this.setSequenceContainer(sequenceContainer);
 	}
@@ -42,7 +44,7 @@ public class SequenceContainer
 	 * 
 	 * @return sequenceContainer if available
 	 */
-	public List<AbstractSequence<?>> getSequenceContainer()
+	public List<AbstractSequence<NucleotideCompound>> getSequenceContainer()
 	{
 		if (sequenceContainer != null)
 		{
@@ -56,7 +58,7 @@ public class SequenceContainer
 	 * 
 	 * @param sequenceContainer
 	 */
-	public void setSequenceContainer(List<AbstractSequence<?>> sequenceContainer)
+	public void setSequenceContainer(List<AbstractSequence<NucleotideCompound>> sequenceContainer)
 	{
 		this.sequenceContainer = sequenceContainer;
 	}
@@ -67,7 +69,7 @@ public class SequenceContainer
 	 * @param sequence
 	 *            to add
 	 */
-	public void addSequenceToContainer(AbstractSequence<?> sequence)
+	public void addSequenceToContainer(AbstractSequence<NucleotideCompound> sequence)
 	{
 		if (sequenceContainer != null)
 		{
@@ -83,7 +85,7 @@ public class SequenceContainer
 	 * @param sequence
 	 *            to add
 	 */
-	public void addSequenceToContainer(int index, AbstractSequence<?> sequence)
+	public void addSequenceToContainer(int index, AbstractSequence<NucleotideCompound> sequence)
 	{
 		if (sequenceContainer != null)
 		{
@@ -99,7 +101,7 @@ public class SequenceContainer
 	 * 
 	 * @return the {@link AbstractSequence}<> in the index
 	 */
-	public AbstractSequence<?> getSequenceInContainer(int index)
+	public AbstractSequence<NucleotideCompound> getSequenceInContainer(int index)
 	{
 		if (sequenceContainer != null)
 		{
@@ -116,9 +118,9 @@ public class SequenceContainer
 	 * @throws IndexOutOfBoundsException
 	 *             if out of bounds index
 	 * 
-	 * @return the removed {@link AbstractSequence}<?>
+	 * @return the removed {@link AbstractSequence}<NucleotideCompound>
 	 */
-	public AbstractSequence<?> removeSequenceInContainer(int index) throws IndexOutOfBoundsException
+	public AbstractSequence<NucleotideCompound> removeSequenceInContainer(int index) throws IndexOutOfBoundsException
 	{
 		if (sequenceContainer != null)
 		{
@@ -130,13 +132,13 @@ public class SequenceContainer
 	/**
 	 * Remove last sequence in container
 	 * 
-	 * @return the removed {@link AbstractSequence}<?>
+	 * @return the removed {@link AbstractSequence}<NucleotideCompound>
 	 */
-	public AbstractSequence<?> removeLastSequenceInContainer()
+	public AbstractSequence<NucleotideCompound> removeLastSequenceInContainer()
 	{
 		if (sequenceContainer != null)
 		{
-			return sequenceContainer.remove(sequenceContainer.size()-1);
+			return sequenceContainer.remove(sequenceContainer.size() - 1);
 		}
 		return null;
 	}
@@ -144,9 +146,9 @@ public class SequenceContainer
 	/**
 	 * Remove first sequence in container
 	 * 
-	 * @return the removed {@link AbstractSequence}<?>
+	 * @return the removed {@link AbstractSequence}<NucleotideCompound>
 	 */
-	public AbstractSequence<?> removeFirstSequenceInContainer()
+	public AbstractSequence<NucleotideCompound> removeFirstSequenceInContainer()
 	{
 		if (sequenceContainer != null)
 		{
@@ -174,14 +176,15 @@ public class SequenceContainer
 	 * @throws IndexOutOfBoundsException
 	 *             if index is out of bounds
 	 * 
-	 * @return the removed {@link List} of {@link AbstractSequence}<?>
+	 * @return the removed {@link List} of {@link AbstractSequence}
+	 *         <NucleotideCompound>
 	 */
-	public List<AbstractSequence<?>> removeSelectedSequencesInContainer(int[] indexList)
+	public List<AbstractSequence<NucleotideCompound>> removeSelectedSequencesInContainer(int[] indexList)
 			throws IndexOutOfBoundsException
 	{
 		if (sequenceContainer != null)
 		{
-			List<AbstractSequence<?>> sequenceList = new LinkedList<AbstractSequence<?>>();
+			List<AbstractSequence<NucleotideCompound>> sequenceList = new LinkedList<AbstractSequence<NucleotideCompound>>();
 			Arrays.sort(indexList);
 			for (int index = indexList.length - 1; index >= 0; index--)
 			{
@@ -200,7 +203,7 @@ public class SequenceContainer
 	 * @param sequence
 	 *            to replace
 	 */
-	public void editSequenceInContainer(int index, AbstractSequence<?> sequence)
+	public void editSequenceInContainer(int index, AbstractSequence<NucleotideCompound> sequence)
 	{
 		if (sequenceContainer != null)
 		{

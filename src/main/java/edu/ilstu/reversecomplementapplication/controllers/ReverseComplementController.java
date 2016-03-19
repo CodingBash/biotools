@@ -69,52 +69,8 @@ public class ReverseComplementController
 		ModelAndView mav = new ModelAndView(reverseComplementPage);
 		// TODO: Generalize into an abstract base
 
-		/*
-		 * Create the AbstractSequence<NucleotideCompound>
-		 */
-		AbstractSequence<NucleotideCompound> sequence = null;
-		String formattedSequence = "";
-		try
-		{
-			formattedSequence = applicationUtility.editStringSequence(stringSequence);
-		} catch (Exception e3)
-		{
-			e3.printStackTrace();
-		}
-		if (applicationUtility.isDNA(formattedSequence))
-		{
-			System.out.println("DNA");
-			try
-			{
-				sequence = new DNASequence(formattedSequence);
-			} catch (Exception e)
-			{
-				e.printStackTrace();
-				try
-				{
-					sequence = new DNASequence(stringSequence);
-				} catch (CompoundNotFoundException e1)
-				{
-					e1.printStackTrace();
-				}
-			}
-		} else if (applicationUtility.isRNA(formattedSequence))
-		{
-			try
-			{
-				sequence = new RNASequence(formattedSequence);
-			} catch (Exception e)
-			{
-				e.printStackTrace();
-				try
-				{
-					sequence = new DNASequence(stringSequence);
-				} catch (CompoundNotFoundException e1)
-				{
-					e1.printStackTrace();
-				}
-			}
-		}
+		// Create the sequence from the @RequestParam
+		AbstractSequence<NucleotideCompound> sequence = createSequence(stringSequence);
 		/*
 		 * Get and set reverse complement
 		 */
@@ -186,22 +142,7 @@ public class ReverseComplementController
 		SequenceContainer sequenceContainer = this.retrieveSequenceContainer(session);
 
 		// Create the sequence from the @RequestParam
-		AbstractSequence<NucleotideCompound> sequence = null;
-		try
-		{
-			try
-			{
-				sequence = new DNASequence(applicationUtility.editStringSequence(stringSequence));
-			} catch (Exception e)
-			{
-				e.printStackTrace();
-				sequence = new DNASequence(stringSequence);
-			}
-		} catch (CompoundNotFoundException e)
-		{
-			e.printStackTrace();
-			// TODO: Error handling
-		}
+		AbstractSequence<NucleotideCompound> sequence = createSequence(stringSequence);
 
 		// Add the DNASequence
 		sequenceContainer.addSequenceToContainer(sequence);
@@ -237,23 +178,10 @@ public class ReverseComplementController
 		SequenceContainer sequenceContainer = this.retrieveSequenceContainer(session);
 
 		// Create the sequence from the @RequestParam
-		AbstractSequence<NucleotideCompound> sequence = null;
-		try
-		{
-			try
-			{
-				sequence = new DNASequence(applicationUtility.editStringSequence(stringSequence));
-			} catch (Exception e)
-			{
-				e.printStackTrace();
-				sequence = new DNASequence(stringSequence);
-			}
-			sequenceContainer.editSequenceInContainer(index, sequence);
-		} catch (CompoundNotFoundException e)
-		{
-			e.printStackTrace();
+		AbstractSequence<NucleotideCompound> sequence = createSequence(stringSequence);
 
-		}
+		// Make the edit changes in the sequence container
+		sequenceContainer.editSequenceInContainer(index, sequence);
 
 		// Add updated sequenceContainer back to session
 		session.setAttribute("sequenceContainer", sequenceContainer);
@@ -390,7 +318,7 @@ public class ReverseComplementController
 	 *            Spring session object
 	 * @return sequenceContainer from the {@link HttpSession}
 	 */
-	public SequenceContainer retrieveSequenceContainer(HttpSession session)
+	private SequenceContainer retrieveSequenceContainer(HttpSession session)
 	{
 		// Insert session attribute into generic object
 		Object objectedSequenceContainer = session.getAttribute("sequenceContainer");
@@ -406,9 +334,67 @@ public class ReverseComplementController
 		// If not, make a new SequenceContainer
 		else
 		{
-			sequenceContainer = new SequenceContainer(new LinkedList<AbstractSequence<?>>());
+			sequenceContainer = new SequenceContainer(new LinkedList<AbstractSequence<NucleotideCompound>>());
 		}
 
 		return sequenceContainer;
+	}
+
+	/**
+	 * Creates an {@link AbstractSequence}<{@link NucleotideCompound}> from a
+	 * {@link String} sequence
+	 * 
+	 * @param stringSequence
+	 *            sequence to become an {@link AbstractSequence}<
+	 *            {@link NucleotideCompound}>
+	 * @return the {@link AbstractSequence}<{@link NucleotideCompound}>
+	 */
+	private AbstractSequence<NucleotideCompound> createSequence(String stringSequence)
+	{
+		AbstractSequence<NucleotideCompound> sequence = null;
+		String formattedSequence = "";
+		try
+		{
+			formattedSequence = applicationUtility.editStringSequence(stringSequence);
+		} catch (Exception e3)
+		{
+			e3.printStackTrace();
+		}
+		if (applicationUtility.isDNA(formattedSequence))
+		{
+			System.out.println("DNA");
+			try
+			{
+				sequence = new DNASequence(formattedSequence);
+			} catch (Exception e)
+			{
+				e.printStackTrace();
+				try
+				{
+					sequence = new DNASequence(stringSequence);
+				} catch (CompoundNotFoundException e1)
+				{
+					e1.printStackTrace();
+				}
+			}
+		} else if (applicationUtility.isRNA(formattedSequence))
+		{
+			try
+			{
+				sequence = new RNASequence(formattedSequence);
+			} catch (Exception e)
+			{
+				e.printStackTrace();
+				try
+				{
+					sequence = new DNASequence(stringSequence);
+				} catch (CompoundNotFoundException e1)
+				{
+					e1.printStackTrace();
+				}
+			}
+		}
+
+		return sequence;
 	}
 }
