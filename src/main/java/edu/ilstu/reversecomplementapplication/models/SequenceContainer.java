@@ -212,4 +212,13 @@ public class SequenceContainer
 		}
 	}
 
+	public int size()
+	{
+		if (sequenceContainer != null)
+		{
+			return sequenceContainer.size();
+		}
+		return -1;
+	}
+
 }

@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,7 +24,7 @@ import edu.ilstu.reversecomplementapplication.components.ApplicationUtilityImpl;
 import edu.ilstu.reversecomplementapplication.models.SequenceContainer;
 
 /**
- * Controller handles server logic in the index.jsp page
+ * Controller handles server logic in the reversecomplement.jsp page
  * 
  * @author Bash
  *
@@ -33,9 +34,13 @@ public class ReverseComplementController
 {
 	private static final Logger logger = LoggerFactory.getLogger(ReverseComplementController.class);
 	private static final String reverseComplementPage = "reversecomplementtool/reversecomplement";
+	private static final String RC_ERROR = "rcError";
+	private static final String CREATION_ERROR_MESSAGE = "Could not create sequence from input.";
+	private static final String UNEXPECTED_ERROR_MESSAGE = "Unexpected error";
+	private static final String INDEX_ERROR_MESSAGE = "Index selected is out of range";
 
 	@Autowired
-	ApplicationUtilityImpl applicationUtility;
+	private ApplicationUtilityImpl applicationUtility;
 
 	/**
 	 * Empty URL field goes to the index.jsp landing page
@@ -46,11 +51,7 @@ public class ReverseComplementController
 	public ModelAndView getIndex(HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView(reverseComplementPage);
-		// Retrieve sequence container from session
-		SequenceContainer sequenceContainer = this.retrieveSequenceContainer(session);
-
-		// Add sequence to the ModelAndView
-		mav.addObject("container", sequenceContainer.getSequenceContainer());
+		addContainer(session);
 		return mav;
 	}
 
@@ -67,10 +68,20 @@ public class ReverseComplementController
 	public ModelAndView submitSequence(@RequestParam("sequence") String stringSequence, HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView(reverseComplementPage);
-		// TODO: Generalize into an abstract base
+		addContainer(session);
 
 		// Create the sequence from the @RequestParam
-		AbstractSequence<NucleotideCompound> sequence = createSequence(stringSequence);
+		AbstractSequence<NucleotideCompound> sequence = null;
+		try
+		{
+			sequence = createSequence(stringSequence);
+		} catch (Exception e1)
+		{
+			e1.printStackTrace();
+			logger.error(CREATION_ERROR_MESSAGE + " Sequence: " + stringSequence);
+			mav.addObject(RC_ERROR, CREATION_ERROR_MESSAGE);
+			return mav;
+		}
 		/*
 		 * Get and set reverse complement
 		 */
@@ -95,8 +106,8 @@ public class ReverseComplementController
 					fastaHeader = applicationUtility.extractFastaHeader(stringSequence);
 				} catch (Exception e)
 				{
-					// TODO Auto-generated catch block
 					e.printStackTrace();
+					logger.warn("Not a FASTA sequence: " + stringSequence);
 				}
 
 				String regularSequence = sequence.toString();
@@ -105,20 +116,12 @@ public class ReverseComplementController
 				mav.addObject("sequence", fastaSequence);
 			} catch (CompoundNotFoundException e)
 			{
-				// TODO Auto-generated catch block
 				e.printStackTrace();
+				logger.error(UNEXPECTED_ERROR_MESSAGE + " Sequence: " + stringSequence);
+				mav.addObject(RC_ERROR, UNEXPECTED_ERROR_MESSAGE);
+				return mav;
 			}
-		} else
-		{
-			mav.addObject("sequence", null);
-			mav.addObject("oldSequence", null);
 		}
-
-		// Retrieve sequence container from session
-		SequenceContainer sequenceContainer = this.retrieveSequenceContainer(session);
-
-		// Add sequence to the ModelAndView
-		mav.addObject("container", sequenceContainer.getSequenceContainer());
 
 		return mav;
 	}
@@ -142,7 +145,18 @@ public class ReverseComplementController
 		SequenceContainer sequenceContainer = this.retrieveSequenceContainer(session);
 
 		// Create the sequence from the @RequestParam
-		AbstractSequence<NucleotideCompound> sequence = createSequence(stringSequence);
+		AbstractSequence<NucleotideCompound> sequence = null;
+		try
+		{
+			sequence = createSequence(stringSequence);
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+			addContainer(session);
+			logger.error(CREATION_ERROR_MESSAGE + " Sequence: " + stringSequence);
+			mav.addObject(RC_ERROR, CREATION_ERROR_MESSAGE);
+			return mav;
+		}
 
 		// Add the DNASequence
 		sequenceContainer.addSequenceToContainer(sequence);
@@ -178,7 +192,18 @@ public class ReverseComplementController
 		SequenceContainer sequenceContainer = this.retrieveSequenceContainer(session);
 
 		// Create the sequence from the @RequestParam
-		AbstractSequence<NucleotideCompound> sequence = createSequence(stringSequence);
+		AbstractSequence<NucleotideCompound> sequence = null;
+		try
+		{
+			sequence = createSequence(stringSequence);
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+			addContainer(session);
+			logger.error(CREATION_ERROR_MESSAGE + " Sequence: " + stringSequence);
+			mav.addObject(RC_ERROR, CREATION_ERROR_MESSAGE);
+			return mav;
+		}
 
 		// Make the edit changes in the sequence container
 		sequenceContainer.editSequenceInContainer(index, sequence);
@@ -217,9 +242,17 @@ public class ReverseComplementController
 		} catch (IndexOutOfBoundsException ioobe)
 		{
 			ioobe.printStackTrace();
+			addContainer(session);
+			logger.error(INDEX_ERROR_MESSAGE + " Index: " + index + " Size: " + sequenceContainer.size());
+			mav.addObject(RC_ERROR, INDEX_ERROR_MESSAGE);
+			return mav;
 		} catch (Exception e)
 		{
 			e.printStackTrace();
+			addContainer(session);
+			logger.error(UNEXPECTED_ERROR_MESSAGE + " Index: " + index + " Size: " + sequenceContainer.size());
+			mav.addObject(RC_ERROR, UNEXPECTED_ERROR_MESSAGE);
+			return mav;
 		}
 
 		// Add updated sequenceContainer back to session
@@ -255,6 +288,10 @@ public class ReverseComplementController
 		} catch (Exception e)
 		{
 			e.printStackTrace();
+			addContainer(session);
+			logger.error(UNEXPECTED_ERROR_MESSAGE);
+			mav.addObject(RC_ERROR, UNEXPECTED_ERROR_MESSAGE);
+			return mav;
 		}
 
 		// Add updated sequenceContainer back to session
@@ -296,9 +333,17 @@ public class ReverseComplementController
 		} catch (IndexOutOfBoundsException ioobe)
 		{
 			ioobe.printStackTrace();
+			addContainer(session);
+			logger.error(INDEX_ERROR_MESSAGE);
+			mav.addObject(RC_ERROR, INDEX_ERROR_MESSAGE);
+			return mav;
 		} catch (Exception e)
 		{
 			e.printStackTrace();
+			addContainer(session);
+			logger.error(UNEXPECTED_ERROR_MESSAGE);
+			mav.addObject(RC_ERROR, UNEXPECTED_ERROR_MESSAGE);
+			return mav;
 		}
 
 		// Add updated sequenceContainer back to session
@@ -349,52 +394,44 @@ public class ReverseComplementController
 	 *            {@link NucleotideCompound}>
 	 * @return the {@link AbstractSequence}<{@link NucleotideCompound}>
 	 */
-	private AbstractSequence<NucleotideCompound> createSequence(String stringSequence)
+	private AbstractSequence<NucleotideCompound> createSequence(String stringSequence) throws Exception
 	{
+		// Create AbstractSequence holder
 		AbstractSequence<NucleotideCompound> sequence = null;
+
+		/*
+		 * Format string
+		 */
 		String formattedSequence = "";
-		try
-		{
-			formattedSequence = applicationUtility.editStringSequence(stringSequence);
-		} catch (Exception e3)
-		{
-			e3.printStackTrace();
-		}
+		formattedSequence = applicationUtility.editStringSequence(stringSequence);
+
+		// Check if DNA and possibly convert to DNA sequence
 		if (applicationUtility.isDNA(formattedSequence))
 		{
-			System.out.println("DNA");
-			try
-			{
-				sequence = new DNASequence(formattedSequence);
-			} catch (Exception e)
-			{
-				e.printStackTrace();
-				try
-				{
-					sequence = new DNASequence(stringSequence);
-				} catch (CompoundNotFoundException e1)
-				{
-					e1.printStackTrace();
-				}
-			}
-		} else if (applicationUtility.isRNA(formattedSequence))
-		{
-			try
-			{
-				sequence = new RNASequence(formattedSequence);
-			} catch (Exception e)
-			{
-				e.printStackTrace();
-				try
-				{
-					sequence = new DNASequence(stringSequence);
-				} catch (CompoundNotFoundException e1)
-				{
-					e1.printStackTrace();
-				}
-			}
+			sequence = new DNASequence(formattedSequence);
+			sequence = new DNASequence(stringSequence);
 		}
-
+		// Check if RNA and possibly convert to RNA sequence
+		else if (applicationUtility.isRNA(formattedSequence))
+		{
+			sequence = new RNASequence(formattedSequence);
+			sequence = new DNASequence(stringSequence);
+		}
 		return sequence;
 	}
+
+	/**
+	 * Add session container to model container
+	 * 
+	 * @param session
+	 *            object to extract container
+	 * @return session container
+	 */
+	@ModelAttribute("container")
+	private SequenceContainer addContainer(HttpSession session)
+	{
+		// Retrieve sequence container from session
+		return this.retrieveSequenceContainer(session);
+	}
+
 }

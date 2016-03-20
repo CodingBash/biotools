@@ -3,6 +3,9 @@
 
 <div class="container-fluid white-background" id="sequenceFormSection">
 	<div class="row">
+		<c:if test="${RC_ERROR}">
+			<p class="text-center error-message">Error: ${RC_ERROR}</p>
+		</c:if>
 		<div class="col-md-6">
 			<h2 class="text-center same-height-1">Paste your sequence into the field and press "Submit".
 				Press "Save" to move to table.</h2>

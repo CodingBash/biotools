@@ -157,13 +157,17 @@ a:hover {
 	font-size: 90%;
 }
 
-.margin-top-small{
+.margin-top-small {
 	margin-top: 15px;
 }
 
 .btn-group {
-    margin: 0 auto; 
-    text-align: center;
-    width: inherit;
-    display: inline-block;
+	margin: 0 auto;
+	text-align: center;
+	width: inherit;
+	display: inline-block;
+}
+
+.error-message {
+	color: #FF0000;
 }
