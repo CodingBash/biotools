@@ -62,6 +62,10 @@ $(document).ready(function() {
 	 * 
 	 */
 
+	/**
+	 * jQuery datable plugin
+	 */
+
 	/*
 	 * Event handling
 	 */
@@ -90,38 +94,22 @@ $(document).ready(function() {
 		});
 	});
 
+	/**
+	 * Check the checkbox at a wider range
+	 */
+	$(".checkbox-delete-selection").parent().click(function() {
+		var $checkbox = $(this).children(".checkbox-delete-selection");
+		$checkbox.prop("checked", !$checkbox.prop("checked"));
+		checkboxChange($checkbox);
+	});
+
 	var deleteSelectionArray = new Array();
 
 	/**
 	 * DELETE CHECKBOX SELECTED
 	 */
 	$(function() {
-		$(document).on("change", ".checkbox-delete-selection", function() {
-			// Add or remove from array
-			if ($(this).is(":checked")) {
-				var value = $(this).parents(".sequence-element").attr("value");
-				if (deleteSelectionArray.indexOf(value) === -1) {
-					deleteSelectionArray.push(value);
-				}
-			} else {
-				var value = $(this).parents(".sequence-element").attr("value");
-				if (deleteSelectionArray.indexOf(value) !== -1) {
-					var valueIndex = deleteSelectionArray.indexOf(value);
-					if (valueIndex != -1) {
-						deleteSelectionArray.splice(valueIndex, 1);
-					}
-				}
-			}
-			var size = deleteSelectionArray.length;
-			// Update Delete Button
-			if (deleteSelectionArray.length) {
-				$(".delete-selected-button").children("span").text(deleteSelectionArray.length);
-				$(".delete-selected-button").show("slow");
-
-			} else {
-				$(".delete-selected-button").hide("slow");
-			}
-		});
+		$(document).on("change", ".checkbox-delete-selection", checkboxChange($(this)));
 	});
 
 	/**
@@ -397,6 +385,37 @@ $(document).ready(function() {
 		 * $trElement.children(".button-second").html(innerHtml_3);
 		 */
 
+	}
+
+	/**
+	 * 
+	 * @returns
+	 */
+	function checkboxChange($this) {
+		// Add or remove from array
+		if ($this.is(":checked")) {
+			var value = $this.parents(".sequence-element").attr("value");
+			if (deleteSelectionArray.indexOf(value) === -1) {
+				deleteSelectionArray.push(value);
+			}
+		} else {
+			var value = $this.parents(".sequence-element").attr("value");
+			if (deleteSelectionArray.indexOf(value) !== -1) {
+				var valueIndex = deleteSelectionArray.indexOf(value);
+				if (valueIndex != -1) {
+					deleteSelectionArray.splice(valueIndex, 1);
+				}
+			}
+		}
+		var size = deleteSelectionArray.length;
+		// Update Delete Button
+		if (deleteSelectionArray.length) {
+			$(".delete-selected-button").children("span").text(deleteSelectionArray.length);
+			$(".delete-selected-button").show("slow");
+
+		} else {
+			$(".delete-selected-button").hide("slow");
+		}
 	}
 	// END
 	/*

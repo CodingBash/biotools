@@ -1,16 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<!-- 
-Spring mvc form tags
-spring form object and validation
-biojava DNA reverse complement
-study more on biojava analysis tools
-
-why does two textareas switch automatically?
-Dont show replace when there is no reverse component
-Dont have two columns when there is no 
- -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -34,7 +24,7 @@ Dont have two columns when there is no
 		location.hash = "#sequenceForm";
 	} else if (window.location.href.indexOf("deleteAllSequences.do") !== -1) {
 		location.hash = "#sequenceForm";
-	} else if (window.location.href.indexOf("deleteSelectedSequences.do") !== -1){
+	} else if (window.location.href.indexOf("deleteSelectedSequences.do") !== -1) {
 		location.hash = "#sequenceList";
 	}
 </script>
@@ -53,10 +43,13 @@ Dont have two columns when there is no
 
 	<!-- scripts -->
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<!-- Get Datatables working -->
+	<jsp:include page="../mutualcomponents/body/importedScripts.jsp" />
+	<script src="<c:url value="/resources/notify/js/notify.min.js"/>"></script>
 	<script src="<c:url value="/resources/bootstrap/js/bootstrap.js"/>"></script>
 	<script src="<c:url value="/resources/custom/js/script.js"/>"></script>
 	<script src="<c:url value="/resources/custom/js/reversecomplement/script.js"/>"></script>
-	<script src="<c:url value="/resources/notify/js/notify.min.js"/>"></script>
-	
+
+
 </body>
 </html>
