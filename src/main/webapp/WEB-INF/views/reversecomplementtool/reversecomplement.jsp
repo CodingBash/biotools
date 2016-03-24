@@ -50,7 +50,12 @@
 	<script src="<c:url value="/resources/custom/js/script.js"/>"></script>
 	<script src="<c:url value="/resources/custom/js/reversecomplement/script.js"/>"></script>
 	<script>
-		$("#rc-table").DataTable();
+		$("#rc-table").DataTable({
+			"columnDefs" : [ {
+				orderable : false,
+				targets : [2, 3, 4]
+			} ]
+		});
 	</script>
 
 </body>

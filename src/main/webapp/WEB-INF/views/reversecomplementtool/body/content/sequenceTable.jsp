@@ -24,10 +24,11 @@
 		</thead>
 		<!-- TODO: Add type="button" to all buttons -->
 		<c:if test="${not empty container}">
-			<c:forEach items="${container}" var="sequenceItem" varStatus="iterator">
-				<tbody>
+			<tbody>
+				<c:forEach items="${container}" var="sequenceItem" varStatus="iterator">
+
 					<tr class="sequence-element" value="${iterator.index}">
-						<td class="sequence-number">#${iterator.index + 1}</td>
+						<td class="sequence-number">${iterator.index + 1}</td>
 						<td class="sequence-data">
 							<form action="editSequence.do" method="POST">
 								<textarea cols="50" rows="10" name="sequence" class="sequence-data-textarea"><c:out
@@ -50,8 +51,9 @@
 						<!-- Make checkbox larger, issue centering checkbox -->
 						<td><input type="checkbox" class="checkbox-delete-selection center-block" /></td>
 					</tr>
-				</tbody>
-			</c:forEach>
+
+				</c:forEach>
+			</tbody>
 		</c:if>
 	</table>
 </div>
