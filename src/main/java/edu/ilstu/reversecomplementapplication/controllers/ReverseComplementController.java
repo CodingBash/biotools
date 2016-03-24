@@ -41,7 +41,7 @@ public class ReverseComplementController
 	/**
 	 * Empty URL field goes to the index.jsp landing page
 	 * 
-	 * @return redirect to index.jsp
+	 * @return redire8ct to index.jsp
 	 */
 	@RequestMapping(value = "/reversecomplement")
 	public ModelAndView getIndex(HttpSession session)

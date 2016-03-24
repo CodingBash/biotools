@@ -65,7 +65,7 @@ $(document).ready(function() {
 	/**
 	 * jQuery datable plugin
 	 */
-
+	$("rc-table").DataTable();
 	/*
 	 * Event handling
 	 */

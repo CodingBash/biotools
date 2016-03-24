@@ -49,7 +49,9 @@
 	<script src="<c:url value="/resources/bootstrap/js/bootstrap.js"/>"></script>
 	<script src="<c:url value="/resources/custom/js/script.js"/>"></script>
 	<script src="<c:url value="/resources/custom/js/reversecomplement/script.js"/>"></script>
-
+	<script>
+		$("#rc-table").DataTable();
+	</script>
 
 </body>
 </html>
