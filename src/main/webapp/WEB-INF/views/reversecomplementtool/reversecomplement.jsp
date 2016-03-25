@@ -50,11 +50,15 @@
 	<script src="<c:url value="/resources/custom/js/script.js"/>"></script>
 	<script src="<c:url value="/resources/custom/js/reversecomplement/script.js"/>"></script>
 	<script>
-		$("#rc-table").DataTable({
+		var $table = $("#rc-table").DataTable({
 			"columnDefs" : [ {
 				orderable : false,
-				targets : [2, 3, 4]
+				targets : [ 2, 3, 4 ]
 			} ]
+		});
+		$('#rc-table').on('draw.dt', function() {
+			$(".display-false").hide();
+			$(".display-true").show();
 		});
 	</script>
 
