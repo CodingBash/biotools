@@ -20,12 +20,14 @@
 				<li><a href="donations"><span class="glyphicon glyphicon-usd"></span> Donations</a></li>
 			</ul>
 
+			<%--
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="#"><i
 						class="fa fa-twitter"></i> Twitter</a></li>
 				<li><a href="https://github.com/CodingBash/biotools"><i class="fa fa-github"></i>
 						GitHub</a></li>
 			</ul>
+			--%>
 		</div>
 	</div>
 </div>
