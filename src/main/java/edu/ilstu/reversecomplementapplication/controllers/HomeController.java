@@ -29,7 +29,8 @@ public class HomeController
 	 * @return redirect to home.jsp
 	 */
 	// TODO: Able to put variables/expressions in annotations?
-	@RequestMapping(value = "/")
+	@RequestMapping(value =
+	{ "/home", "/" })
 	public ModelAndView getHomePage(Model model, HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView(homePage);

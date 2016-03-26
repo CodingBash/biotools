@@ -12,10 +12,17 @@
 				sequence. Press "Delete All" to clear the table. Click the checkboxes on the right to remove a
 				select amount of sequences.</p>
 			<h3>IMPORTANT</h3>
-			<p>This tool is unable to save any FASTA-typed sequences (The FASTA header will be cut off)
-				so any FASTA-typed sequence saved will only contain the actual sequence.</p>
-			<p>The reverse-complement analyzer CAN accept FASTA-typed sequences</p>
-			<p>Saving FASTA-typed sequences with its header is on the list of updates for this tool.</p>
+			<p>
+				This tool is unable to <i>save</i> any FASTA-format sequences (The FASTA header will be cut off)
+				so any FASTA-format sequence saved will only contain the sequence only.
+			</p>
+			<p>
+				The reverse-complement <i>analyzer</i> CAN accept FASTA-format sequences
+			</p>
+			<p>
+				<i>Saving FASTA-format sequences with its FASTA header is on the list of updates for this
+					tool.</i>
+			</p>
 		</div>
 	</div>
 </div>

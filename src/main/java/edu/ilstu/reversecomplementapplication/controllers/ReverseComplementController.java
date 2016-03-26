@@ -123,8 +123,6 @@ public class ReverseComplementController
 
 		// Add sequence to the ModelAndView
 		mav.addObject("container", sequenceContainer.getSequenceContainer());
-		System.out.println("sequence2: " + sequenceModel.getSequence());
-		System.out.println("resultSequence2: " + sequenceModel.getResultSequence());
 		return mav;
 	}
 
@@ -144,8 +142,6 @@ public class ReverseComplementController
 			@ModelAttribute("sequenceFormAttribute") Sequence sequenceModel, HttpSession session)
 	{
 		ModelAndView mav = new ModelAndView(reverseComplementPage);
-		System.out.println("sequence: " + sequenceModel.getSequence());
-		System.out.println("resultSequence: " + sequenceModel.getResultSequence());
 
 		// Retrieve sequence container from session
 		SequenceContainer sequenceContainer = this.retrieveSequenceContainer(session);

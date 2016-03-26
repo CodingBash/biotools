@@ -9,7 +9,8 @@
 				Press "Save" to move to table.</h2>
 
 			<!-- form test2 -->
-			<form:form modelAttribute="sequenceFormAttribute" action="submitSequence.do" method="post"
+			<form:form modelAttribute="sequenceFormAttribute"
+				action="${pageContext.request.contextPath}/submitSequence.do" method="post"
 				cssClass="text-center form-horizontal" id="sequenceForm" role="form">
 				<div class="form-group">
 					<label for="sequence-input" class="sr-only control-label">Sequence</label>
