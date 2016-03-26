@@ -3,34 +3,14 @@
 	<h4 class="text-center">A brief description about the developer of BioTools.com</h4>
 </div>
 <div class="container-fluid white-background">
-	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod dui in mi mollis
-		tempus. Vestibulum nec nibh volutpat, gravida dolor vitae, euismod arcu. In neque purus, vehicula
-		nec aliquam sed, tincidunt sit amet est. Nam sed accumsan justo, eget convallis dui. Pellentesque
-		auctor dapibus risus ac sodales. Nulla tempor elementum auctor. Nulla consectetur tortor id
-		rhoncus blandit. Donec dignissim euismod vestibulum. Maecenas sit amet mi tellus. Aliquam viverra
-		ultricies aliquam. Nulla sed sem erat.</p>
-	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod dui in mi mollis
-		tempus. Vestibulum nec nibh volutpat, gravida dolor vitae, euismod arcu. In neque purus, vehicula
-		nec aliquam sed, tincidunt sit amet est. Nam sed accumsan justo, eget convallis dui. Pellentesque
-		auctor dapibus risus ac sodales. Nulla tempor elementum auctor. Nulla consectetur tortor id
-		rhoncus blandit. Donec dignissim euismod vestibulum. Maecenas sit amet mi tellus. Aliquam viverra
-		ultricies aliquam. Nulla sed sem erat.</p>
-	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod dui in mi mollis
-		tempus. Vestibulum nec nibh volutpat, gravida dolor vitae, euismod arcu. In neque purus, vehicula
-		nec aliquam sed, tincidunt sit amet est. Nam sed accumsan justo, eget convallis dui. Pellentesque
-		auctor dapibus risus ac sodales. Nulla tempor elementum auctor. Nulla consectetur tortor id
-		rhoncus blandit. Donec dignissim euismod vestibulum. Maecenas sit amet mi tellus. Aliquam viverra
-		ultricies aliquam. Nulla sed sem erat.</p>
-	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod dui in mi mollis
-		tempus. Vestibulum nec nibh volutpat, gravida dolor vitae, euismod arcu. In neque purus, vehicula
-		nec aliquam sed, tincidunt sit amet est. Nam sed accumsan justo, eget convallis dui. Pellentesque
-		auctor dapibus risus ac sodales. Nulla tempor elementum auctor. Nulla consectetur tortor id
-		rhoncus blandit. Donec dignissim euismod vestibulum. Maecenas sit amet mi tellus. Aliquam viverra
-		ultricies aliquam. Nulla sed sem erat.</p>
-	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin euismod dui in mi mollis
-		tempus. Vestibulum nec nibh volutpat, gravida dolor vitae, euismod arcu. In neque purus, vehicula
-		nec aliquam sed, tincidunt sit amet est. Nam sed accumsan justo, eget convallis dui. Pellentesque
-		auctor dapibus risus ac sodales. Nulla tempor elementum auctor. Nulla consectetur tortor id
-		rhoncus blandit. Donec dignissim euismod vestibulum. Maecenas sit amet mi tellus. Aliquam viverra
-		ultricies aliquam. Nulla sed sem erat.</p>
+	<p>
+		Thank you for visiting my tool! My name is Basheer Becerra and I have spent the past couple weeks
+		developing the site in my free time for the purpose of experimenting with some of the biology
+		API's and perhaps create something that may be useful in the future! If you want to learn more
+		about me, please visit my LinkedIn at <a target="_blank"
+			href="http://www.linkedin.com/basheerbecerra">this link</a> or you can visit my personal site at
+		<a target="_blank" href="http://www.basheerbecerra.com">this link</a> (may currently be in
+		development). Interested in the code? Visit the GitHub repo at <a target="_blank"
+			href="http://www.github.com/codingbash/biotools">this link</a>. Thank you again!
+	</p>
 </div>
